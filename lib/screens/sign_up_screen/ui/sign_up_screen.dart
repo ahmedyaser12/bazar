@@ -7,6 +7,7 @@ import 'package:book_shop/screens/sign_up_screen/ui/widget/email_and_user_name_p
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/utils/styles.dart';
 import '../logic/sign_up_cubit.dart';
@@ -31,7 +32,7 @@ class SignUpScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
           child: SingleChildScrollView(
             child: BlocConsumer<SignUpCubit, SignUpState>(
               listener: (context, state) {

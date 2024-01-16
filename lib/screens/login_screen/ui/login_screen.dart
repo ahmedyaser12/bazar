@@ -8,10 +8,11 @@ import 'package:book_shop/screens/login_screen/ui/widget/email_and_password.dart
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/utils/styles.dart';
 import '../../../core/widget/divider_widget.dart';
-import 'widget/social_login.dart';
+import '../../../core/widget/social_login.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -28,7 +29,7 @@ class LoginScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 20.h),
           child: SingleChildScrollView(
             child: BlocConsumer<LoginCubit, LoginState>(
               listener: (context, state) {

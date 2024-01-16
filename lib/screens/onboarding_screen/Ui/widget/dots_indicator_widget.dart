@@ -1,5 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/colors.dart';
 
@@ -17,9 +18,9 @@ class DotsIndicatorWidget extends StatelessWidget {
       dotsCount: 3,
       position: currentIndex,
       decorator: DotsDecorator(
-        spacing: const EdgeInsets.all(2),
-        size: const Size(6, 6),
-        activeSize: const Size(25.0, 6.0),
+        spacing: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
+        size: Size(6.w, 6.h),
+        activeSize: Size(25.0.w, 6.0.h),
         activeShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
         ),

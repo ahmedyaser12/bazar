@@ -1,5 +1,6 @@
 import 'package:book_shop/core/utils/extintions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/common_functions.dart';
@@ -20,7 +21,7 @@ class ContentCard extends StatelessWidget {
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(top: 25.0, left: 25, bottom: 25),
+              padding: EdgeInsets.only(top: 25.0.h, left: 25.w, bottom: 25.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/utils/colors.dart';
@@ -13,7 +14,7 @@ class SocialLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 15),
+      padding: EdgeInsets.symmetric(vertical: 15.h),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
           border: Border.all(width: 1, color: AppColors.gery50)),

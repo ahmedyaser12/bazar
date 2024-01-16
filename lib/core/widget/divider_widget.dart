@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils/colors.dart';
 import '../utils/styles.dart';
@@ -19,7 +20,7 @@ class DividerWidget extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          padding: EdgeInsets.symmetric(horizontal: 15.0.w),
           child: Text(
             'Or with',
             style: TextStyles.font16grey,

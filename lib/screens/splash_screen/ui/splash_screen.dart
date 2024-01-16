@@ -2,10 +2,8 @@ import 'package:book_shop/core/utils/colors.dart';
 import 'package:book_shop/core/utils/extintions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../config/routs/routs_names.dart';
-import '../../login_screen/logic/login_cubit.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

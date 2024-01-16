@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget widthSpace(double widthSpace) {
   return SizedBox(
-    width: widthSpace,
+    width: widthSpace.w,
   );
 }
 
 Widget heightSpace(double heightSpace) {
   return SizedBox(
-    height: heightSpace,
+    height: heightSpace.h,
   );
 }
 

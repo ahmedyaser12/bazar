@@ -1,4 +1,5 @@
-import 'package:book_shop/screens/home/data/model.dart';
+import 'package:book_shop/screens/home/data/top_author_model.dart';
+import 'package:book_shop/screens/home/data/top_book_of_weak_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,7 +13,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeCubit(this.apiService) : super(HomeInitial());
   int currentSwiperIndex = 0;
-  List<TopWeakModel> getTopWeak = [];
+  List<TopWeakModel> topBookWeak = [];
+  List<TopAuthorsModel> topAuthors = [];
 
   void currentSwiperNum(int index) {
     currentSwiperIndex = index;
@@ -22,10 +24,21 @@ class HomeCubit extends Cubit<HomeState> {
   void getTopWeakBook() async {
     emit(LoadingList());
     final response = await apiService.getTopWeaklyBook();
+    getTopAuthors();
     if (response.status == Status.SUCCESS) {
-      getTopWeak = response.data!;
-      emit(ListTopWeakLoaded(getTopWeak));
+      topBookWeak = response.data!;
+      emit(ListTopWeakLoaded(topBookWeak, topAuthors));
       print('success');
+    } else if (response.status == Status.ERROR) {
+      emit(FailureRequest(response.errorMessage!));
+    }
+  }
+
+  void getTopAuthors() async {
+    final response = await apiService.getTopAuthors();
+    if (response.status == Status.SUCCESS) {
+      topAuthors = response.data!;
+      emit(ListTopWeakLoaded(topBookWeak, topAuthors));
     }
   }
 }

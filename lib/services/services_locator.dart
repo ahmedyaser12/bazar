@@ -1,5 +1,6 @@
 import 'package:book_shop/screens/home/logic/home_cubit.dart';
 import 'package:book_shop/screens/login_screen/logic/login_cubit.dart';
+import 'package:book_shop/screens/onboarding_screen/logic/onboarding_cubit.dart';
 import 'package:book_shop/screens/sign_up_screen/logic/sign_up_cubit.dart';
 import 'package:book_shop/services/firebase_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,4 +23,5 @@ Future setupLocator() async {
       () => SignUpCubit(locator<FirebaseService>(), _firebaseAuth));
   locator
       .registerLazySingleton<HomeCubit>(() => HomeCubit(locator<ApiService>()));
+  locator.registerLazySingleton<OnboardingCubit>(() => OnboardingCubit());
 }

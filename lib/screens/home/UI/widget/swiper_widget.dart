@@ -21,13 +21,13 @@ class ContentCard extends StatelessWidget {
         children: [
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(top: 25.0.h, left: 25.w, bottom: 25.h),
+              padding: EdgeInsets.only(top: 30.0.h, left: 20.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Special Offer',
-                    style: TextStyles.font24BlackBold,
+                    style: TextStyles.font24BlackBold.copyWith(fontSize: 23),
                   ),
                   Text(
                     'Discount 25%',
@@ -35,10 +35,10 @@ class ContentCard extends StatelessWidget {
                   ),
                   heightSpace(16),
                   primaryButton(
-                          title: 'Order Now',
-                          borderRadius: 40,
-                          verticalHeight: 5)
-                      .onTap(() {}),
+                    title: 'Order Now',
+                    borderRadius: 40,
+                    verticalHeight: 5,
+                  ).onTap(() {}),
                 ],
               ),
             ),

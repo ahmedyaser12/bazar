@@ -14,7 +14,7 @@ class SocialLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 15.h),
+      padding: const EdgeInsets.symmetric(vertical: 15),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
           border: Border.all(width: 1, color: AppColors.gery50)),
@@ -23,7 +23,10 @@ class SocialLogin extends StatelessWidget {
         children: [
           SvgPicture.asset(socialIcon),
           widthSpace(8),
-          Text(title),
+          Text(
+            title,
+            style: const TextStyle(fontSize: 15),
+          ),
         ],
       ),
     );

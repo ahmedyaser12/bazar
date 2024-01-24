@@ -25,16 +25,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: const Size(375, 812),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (_, child) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(),
-            initialRoute: RouteName.SPLASH,
-            onGenerateRoute: AppRouter.generateRoute,
-          );
-        });
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(),
+        initialRoute: RouteName.SPLASH,
+        onGenerateRoute: AppRouter.generateRoute,
+      ),
+    );
   }
 }

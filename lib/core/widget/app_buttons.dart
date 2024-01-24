@@ -10,7 +10,7 @@ Widget primaryButton(
     double verticalHeight = 20}) {
   return Container(
     alignment: Alignment.center,
-    padding: EdgeInsets.symmetric(vertical: verticalHeight.h),
+    padding: EdgeInsets.symmetric(vertical: verticalHeight),
     decoration: BoxDecoration(
       color: AppColors.primary,
       borderRadius: BorderRadius.circular(borderRadius),
@@ -20,7 +20,7 @@ Widget primaryButton(
         title,
         style: TextStyle(
             color: AppColors.whiteColor,
-            fontSize: 16.sp,
+            fontSize: 16,
             fontWeight: FontWeight.bold),
       ),
     ),

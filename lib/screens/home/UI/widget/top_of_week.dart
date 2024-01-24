@@ -23,26 +23,31 @@ class TopOfWeekWidget extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemBuilder: (_, index) {
                 return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0.w,vertical: 8.0.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 8.0.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8)),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(15),
+                        ),
                         child: Image.network(
                           topWeakList[index].cover.toString(),
                           width: 150.w,
+                          height: 240,
+                          fit: BoxFit.fill,
                         ),
                       ),
-                      heightSpace(4),
-                      SizedBox(
-                        width: 130.w,
+                      heightSpace(3),
+                      Container(
+                        constraints: BoxConstraints(maxWidth: 150.w),
                         child: Text(
                           topWeakList[index].name.toString(),
-                          style: TextStyles.font14BlackSemi,
+                          style: TextStyles.font14BlackSemi.copyWith(height: 1),
                           softWrap: true,
-                          maxLines: 2,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],

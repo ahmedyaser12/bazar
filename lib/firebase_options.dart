@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -49,6 +43,16 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBwKrwoJzsBa_zmvexeZH2DW6MXQR0QNIw',
+    appId: '1:404003738267:web:31ef466b7e6d68ac35ac3e',
+    messagingSenderId: '404003738267',
+    projectId: 'e-commerce-book-shop',
+    authDomain: 'e-commerce-book-shop.firebaseapp.com',
+    storageBucket: 'e-commerce-book-shop.appspot.com',
+    measurementId: 'G-RZNNL55PPB',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDUVIUMcOy1nHl7qiKxDen_YcW6pmdeyMg',
     appId: '1:404003738267:android:e9d58f6d5994683735ac3e',
@@ -64,5 +68,14 @@ class DefaultFirebaseOptions {
     projectId: 'e-commerce-book-shop',
     storageBucket: 'e-commerce-book-shop.appspot.com',
     iosBundleId: 'com.example.bookShop',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyC82qmSP9vXOT3Z9uA6wX1OODme0smiSDQ',
+    appId: '1:404003738267:ios:0866fb5f2176d0c135ac3e',
+    messagingSenderId: '404003738267',
+    projectId: 'e-commerce-book-shop',
+    storageBucket: 'e-commerce-book-shop.appspot.com',
+    iosBundleId: 'com.example.bookShop.RunnerTests',
   );
 }

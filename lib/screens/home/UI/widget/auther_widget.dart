@@ -22,31 +22,32 @@ class AuthorWidget extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemBuilder: (_, index) {
                 return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0.w,vertical: 8.0.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 8.0.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CircleAvatar(
                         backgroundImage:
-                            NetworkImage(authorsList[index].image.toString()),
-                        radius: 50,
+                            NetworkImage(authorsList[5].image.toString()),
+                        radius: 50.w,
                       ),
                       heightSpace(15),
-                      SizedBox(
-                        width:90.w,
-                        child: FittedBox(
-                          child: Text(
-                            '${authorsList[index].name}',
-                            style: TextStyles.font18BlackBold,
-                            softWrap: true,
-                            maxLines: 2,
-                          ),
+                      Container(
+                        constraints: const BoxConstraints(maxWidth: 120),
+                        child: Text(
+                          '${authorsList[index].name}',
+                          style: TextStyles.font18BlackBold
+                              .copyWith(fontSize: 13.sp),
+                          softWrap: true,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       heightSpace(5),
                       Text(
                         authorsList[index].numberPublishedBooks.toString(),
-                        style: TextStyles.font16grey,
+                        style: TextStyles.font16grey.copyWith(fontSize: 13.sp),
                       )
                     ],
                   ),

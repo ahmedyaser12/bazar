@@ -10,7 +10,7 @@ Widget primaryButton(
     double verticalHeight = 20}) {
   return Container(
     alignment: Alignment.center,
-    padding: EdgeInsets.symmetric(vertical: verticalHeight.h),
+    padding: EdgeInsets.symmetric(vertical: verticalHeight),
     decoration: BoxDecoration(
       color: AppColors.primary,
       borderRadius: BorderRadius.circular(borderRadius),
@@ -20,7 +20,7 @@ Widget primaryButton(
         title,
         style: TextStyle(
             color: AppColors.whiteColor,
-            fontSize: 16.sp,
+            fontSize: 16,
             fontWeight: FontWeight.bold),
       ),
     ),
@@ -30,8 +30,9 @@ Widget primaryButton(
 Widget secondaryButton(String title, {String? image}) {
   return Container(
     alignment: Alignment.center,
-    padding: EdgeInsets.symmetric(vertical: 16.h),
+    padding: const EdgeInsets.symmetric(vertical: 16),
     decoration: BoxDecoration(
+      color: AppColors.secondary,
       borderRadius: BorderRadius.circular(30),
     ),
     child: Row(
@@ -48,8 +49,9 @@ Widget secondaryButton(String title, {String? image}) {
         Text(
           title,
           style: TextStyle(
-            color: AppColors.whiteColor,
-            fontSize: 22.sp,
+            color: AppColors.primary,
+            fontSize: 16,
+            fontWeight: FontWeight.bold
           ),
         ),
       ],

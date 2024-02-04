@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/utils/status.dart';
-import '../../../services/api_service.dart';
+import '../../../services/api_services/api_service.dart';
 
 part 'home_state.dart';
 
@@ -24,7 +24,7 @@ class HomeCubit extends Cubit<HomeState> {
   void getTopWeakBook() async {
     emit(LoadingList());
     final response = await apiService.getTopWeaklyBook();
-    getTopAuthors();
+    await getTopAuthors();
     if (response.status == Status.SUCCESS) {
       topBookWeak = response.data!;
       emit(ListTopWeakLoaded(topBookWeak, topAuthors));
@@ -34,11 +34,10 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  void getTopAuthors() async {
+  Future getTopAuthors() async {
     final response = await apiService.getTopAuthors();
     if (response.status == Status.SUCCESS) {
       topAuthors = response.data!;
-      emit(ListTopWeakLoaded(topBookWeak, topAuthors));
     }
   }
 }

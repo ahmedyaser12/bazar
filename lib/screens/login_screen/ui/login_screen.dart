@@ -122,7 +122,7 @@ class LoginScreen extends StatelessWidget {
   void showAlertDialog(BuildContext context, String error) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (context) => AlertDialog(alignment: Alignment.centerLeft,
         icon: const Icon(
           Icons.error,
           color: Colors.red,
@@ -130,7 +130,9 @@ class LoginScreen extends StatelessWidget {
         ),
         content: Text(
           error,
-          style: TextStyles.font16PrimarySemi,
+          style: TextStyles.font16PrimarySemi.copyWith(
+            fontSize: 13.sp
+          ),
         ),
         actions: [
           TextButton(

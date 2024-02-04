@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/utils/status.dart';
-import '../../../services/api_service.dart';
+import '../../../services/api_services/api_service.dart';
 
 part 'home_state.dart';
 

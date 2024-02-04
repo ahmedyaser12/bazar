@@ -1,4 +1,5 @@
 import 'package:book_shop/config/routs/routs_names.dart';
+import 'package:book_shop/screens/book_detailes_screen/logic/book_details_cubit.dart';
 import 'package:book_shop/screens/home/logic/home_cubit.dart';
 import 'package:book_shop/screens/login_screen/logic/login_cubit.dart';
 import 'package:book_shop/screens/login_screen/ui/login_screen.dart';
@@ -61,8 +62,10 @@ class AppRouter {
                     if (snapshot.hasData) {
                       return BlocProvider(
                           create: (_) => locator<HomeCubit>(),
-                          child:
-                              const HomeScreen()); // User is logged in, navigate to the Home Page.
+                          child: BlocProvider.value(
+                              value: locator<BookDetailsCubit>(),
+                              child:
+                                  const HomeScreen())); // User is logged in, navigate to the Home Page.
                     } else {
                       return BlocProvider(
                           create: (_) => locator<LoginCubit>(),

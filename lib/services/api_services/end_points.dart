@@ -5,9 +5,10 @@ class EndPoints{
   static const topWeakly = "/week/horror/10";
   static const topAuthors = "/top_authors";
   static const bookDetails = "/book";
+  static const authorDetails = "/author";
 
   //headers
   static const String apiKey =
-      'b1a0b79da6msh5b65b922642b390p19a472jsna20a0f3ddef0';
+      '1054eb5b5cmshf028862fcc97c78p1bcfcbjsn6fbc8d72beca';
   static const String apiHost = 'hapi-books.p.rapidapi.com';
 }

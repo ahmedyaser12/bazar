@@ -400,6 +400,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "6.1.1"
+  read_more_text:
+    dependency: "direct main"
+    description:
+      name: read_more_text
+      sha256: "769750959f26a71408eb912e1b1e714713f72bf3efcc3f89e53c31b11101376c"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.5"
   sky_engine:
     dependency: transitive
     description: flutter

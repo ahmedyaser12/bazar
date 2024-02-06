@@ -8,7 +8,7 @@ class BookDetailsInitial extends BookDetailsState {}
 class DetailsLoading extends BookDetailsState {}
 
 class DetailsLoaded extends BookDetailsState {
- final BookDetailsModel bookDetails;
+  final BookDetailsModel bookDetails;
 
   DetailsLoaded(this.bookDetails);
 }

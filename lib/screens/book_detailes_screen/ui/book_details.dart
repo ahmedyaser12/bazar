@@ -9,6 +9,7 @@ import 'package:book_shop/screens/book_detailes_screen/ui/widget/title_and_favou
 import 'package:book_shop/services/services_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:read_more_text/read_more_text.dart';
 
 class BookDetailsScreen extends StatelessWidget {
   final ScrollController? scrollController;
@@ -61,8 +62,11 @@ class BookDetails extends StatelessWidget {
                 heightSpace(10),
                 TitleAndFavourite(bookDetails: bookDetails),
                 heightSpace(24),
-                Text(
+                ReadMoreText(
                   bookDetails.synopsis.toString(),
+                  numLines: 4,
+                  readMoreText: 'Read more',
+                  readLessText: 'Read less',
                   style: TextStyles.font16grey,
                 ),
                 heightSpace(20),

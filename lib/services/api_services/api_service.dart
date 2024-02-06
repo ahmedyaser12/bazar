@@ -1,4 +1,5 @@
 import 'package:book_shop/core/errors/exceptions.dart';
+import 'package:book_shop/screens/author_details_screen/data/author_model.dart';
 import 'package:book_shop/screens/book_detailes_screen/data/model.dart';
 import 'package:book_shop/screens/home/data/top_author_model.dart';
 import 'package:book_shop/screens/home/data/top_book_of_weak_model.dart';
@@ -44,9 +45,17 @@ class ApiService {
 
   Future<Resource<BookDetailsModel>> getBookDetails(int id) async {
     try {
-      var response = await api.get("${EndPoints.bookDetails}/0");
+      var response = await api.get("${EndPoints.bookDetails}/$id");
       return Resource(Status.SUCCESS,
           data: BookDetailsModel.fromJson(response));
+    } on ServerExceptions catch (exception) {
+      return Resource(Status.ERROR, errorMessage: exception.errModel.message);
+    }
+  }Future<Resource<AuthorDetailsModel>> getAuthorDetails(int id) async {
+    try {
+      var response = await api.get("${EndPoints.authorDetails}/$id");
+      return Resource(Status.SUCCESS,
+          data: AuthorDetailsModel.fromJson(response));
     } on ServerExceptions catch (exception) {
       return Resource(Status.ERROR, errorMessage: exception.errModel.message);
     }

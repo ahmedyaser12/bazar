@@ -9,6 +9,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 
+import '../screens/author_details_screen/logic/author_details_cubit.dart';
 import 'api_services/api_service.dart';
 
 GetIt locator = GetIt.instance;
@@ -16,9 +17,10 @@ FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
 Future setupLocator() async {
   locator.registerLazySingleton<ApiService>(
-    () => ApiService(DioConsumer(Dio())),
+    () => ApiService(locator()),
   );
-
+  locator.registerLazySingleton(() => Dio());
+  locator.registerLazySingleton(() => DioConsumer(locator()));
   locator.registerFactory<FirebaseService>(() => FirebaseService());
   locator.registerFactory<LoginCubit>(
       () => LoginCubit(locator<FirebaseService>(), _firebaseAuth));
@@ -29,4 +31,6 @@ Future setupLocator() async {
   locator.registerLazySingleton<BookDetailsCubit>(
       () => BookDetailsCubit(locator<ApiService>()));
   locator.registerLazySingleton<OnboardingCubit>(() => OnboardingCubit());
+  locator.registerLazySingleton<AuthorDetailsCubit>(
+      () => AuthorDetailsCubit(locator()));
 }

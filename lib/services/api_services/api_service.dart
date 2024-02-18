@@ -3,6 +3,7 @@ import 'package:book_shop/screens/author_details_screen/data/author_model.dart';
 import 'package:book_shop/screens/book_detailes_screen/data/model.dart';
 import 'package:book_shop/screens/home/data/top_author_model.dart';
 import 'package:book_shop/screens/home/data/top_book_of_weak_model.dart';
+import 'package:book_shop/screens/search_screen/data/model.dart';
 import 'package:book_shop/services/api_services/dioconsumer.dart';
 import 'package:book_shop/services/api_services/end_points.dart';
 
@@ -51,11 +52,40 @@ class ApiService {
     } on ServerExceptions catch (exception) {
       return Resource(Status.ERROR, errorMessage: exception.errModel.message);
     }
-  }Future<Resource<AuthorDetailsModel>> getAuthorDetails(int id) async {
+  }
+
+  Future<Resource<AuthorDetailsModel>> getAuthorDetails(int id) async {
     try {
       var response = await api.get("${EndPoints.authorDetails}/$id");
       return Resource(Status.SUCCESS,
           data: AuthorDetailsModel.fromJson(response));
+    } on ServerExceptions catch (exception) {
+      return Resource(Status.ERROR, errorMessage: exception.errModel.message);
+    }
+  }
+
+  Future<Resource<List<TopWeakModel>>> getCategories(
+      String typeOfCategory) async {
+    try {
+      var response = await api.get('${EndPoints.category}/$typeOfCategory/10');
+      List<TopWeakModel> topWeak = [];
+      for (var item in response) {
+        topWeak.add(TopWeakModel.fromJson(item));
+      }
+      return Resource(Status.SUCCESS, data: topWeak);
+    } on ServerExceptions catch (exception) {
+      return Resource(Status.ERROR, errorMessage: exception.errModel.message);
+    }
+  }
+
+  Future<Resource<List<SearchModel>>> searchBook(String bookName) async {
+    try {
+      var response = await api.get('${EndPoints.searchBook}/$bookName');
+      List<SearchModel> searchBook = [];
+      for (var item in response) {
+        searchBook.add(SearchModel.fromJson(item));
+      }
+      return Resource(Status.SUCCESS, data: searchBook);
     } on ServerExceptions catch (exception) {
       return Resource(Status.ERROR, errorMessage: exception.errModel.message);
     }

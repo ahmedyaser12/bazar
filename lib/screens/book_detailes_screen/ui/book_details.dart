@@ -13,10 +13,12 @@ import 'package:read_more_text/read_more_text.dart';
 
 class BookDetailsScreen extends StatelessWidget {
   final ScrollController? scrollController;
+  final int bookId;
 
   const BookDetailsScreen(
     this.scrollController, {
     super.key,
+    required this.bookId,
   });
 
   @override
@@ -25,29 +27,39 @@ class BookDetailsScreen extends StatelessWidget {
       value: locator<BookDetailsCubit>(),
       child: BookDetails(
         scrollController,
+        bookId: bookId,
       ),
     );
   }
 }
 
-class BookDetails extends StatelessWidget {
+class BookDetails extends StatefulWidget {
   final ScrollController? scrollController;
+  final int bookId;
 
   const BookDetails(
     this.scrollController, {
     super.key,
+    required this.bookId,
   });
+
+  @override
+  State<BookDetails> createState() => _BookDetailsState();
+}
+
+class _BookDetailsState extends State<BookDetails> {
+  @override
+  void initState() {
+    context.read<BookDetailsCubit>().getBookDetailed(widget.bookId);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      controller: scrollController,
+      controller: widget.scrollController,
       child: BlocBuilder<BookDetailsCubit, BookDetailsState>(
         builder: (context, state) {
-          if (state is GetId) {
-            print('idbookscreen${state.id}');
-            context.read<BookDetailsCubit>().getBookDetailed(state.id);
-          }
           if (state is DetailsLoaded) {
             var bookDetails = state.bookDetails;
             return Column(

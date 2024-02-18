@@ -5,8 +5,6 @@ abstract class HomeState {}
 
 class HomeInitial extends HomeState {}
 
-class SwiperNumber extends HomeState {}
-
 class LoadingList extends HomeState {}
 
 class ListTopWeakLoaded extends HomeState {

@@ -22,15 +22,13 @@ class SignUpCubit extends Cubit<SignUpState> {
       emit(SignUpLoading());
       UserCredential userCredential = await _firebaseServices.signUp(
           emailController.text, passwordController.text);
+      _firebaseServices
+          .getCurrentUser()!
+          .updateDisplayName(nameController.text);
       emit(SignUpSuccess(userCredential.user!));
       print('success');
     } on FirebaseAuthException catch (e) {
       emit(SignUpFailure(e.message ?? "An unknown error occurred"));
     }
-  }
-
-  String getEmail() {
-    print('inCubit${emailController.text}');
-    return emailController.text;
   }
 }

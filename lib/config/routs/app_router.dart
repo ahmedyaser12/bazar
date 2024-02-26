@@ -108,8 +108,8 @@ class AppRouter {
                   if (snapshot.connectionState == ConnectionState.active) {
                     // If the snapshot has data, it means a user is logged in.
                     if (snapshot.hasData) {
-                      return BlocProvider(
-                          create: (_) => locator<HomeCubit>(),
+                      return BlocProvider.value(
+                          value: locator<HomeCubit>(),
                           child: const BottomNavBar());
                     } else {
                       return BlocProvider(

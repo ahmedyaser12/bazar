@@ -20,7 +20,7 @@ class SearchResultWidget extends StatelessWidget {
               Radius.circular(12),
             ),
             child: Image.network(
-              searchModel.cover!,
+              searchModel.image!,
               fit: BoxFit.fill,
               height: 90,
               width: 90,

@@ -11,20 +11,15 @@ class BookDetailsCubit extends Cubit<BookDetailsState> {
   final ApiService apiService;
 
   BookDetailsCubit(this.apiService) : super(BookDetailsInitial());
+  BookDetailsModel? bookDetails;
 
   int? bookId;
-
-  void getId(int id) {
-    bookId = id;
-    emit(GetId(id));
-  }
 
   void getBookDetailed(int id) async {
     emit(DetailsLoading());
     final response = await apiService.getBookDetails(id);
     if (response.status == Status.SUCCESS) {
       print('idbookcubit$bookId');
-      BookDetailsModel? bookDetails;
       bookDetails = response.data;
       emit(DetailsLoaded(bookDetails!));
       print('success');

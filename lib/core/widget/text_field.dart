@@ -1,6 +1,7 @@
 import 'package:book_shop/core/utils/colors.dart';
 import 'package:book_shop/core/utils/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../utils/common_functions.dart';
 
@@ -97,11 +98,12 @@ class FormTextFieldItem extends StatelessWidget {
                 //border: InputBorder.none,
                 hintText: hint ?? title ?? "hint",
                 suffixIcon: suffixIcon,
-
+                counterText: '',
                 //contentPadding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15),
                 isDense: true,
               ),
-              minLines: lines ?? 1,
+              maxLength: lines,
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,
               enabled: enabled,
               obscureText: isPassword == true ? isSecure! : false,
             ),

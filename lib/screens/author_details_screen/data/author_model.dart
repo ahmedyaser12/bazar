@@ -1,23 +1,21 @@
-class AuthorDetailsModel {
-  int? authorId;
-  String? name;
-  String? image;
-  double? rating;
+import 'package:book_shop/screens/model/base_model.dart';
+
+class AuthorDetailsModel extends BaseModel {
   String? info;
   List<String>? genres;
   List<AuthorBooks>? authorBooks;
 
   AuthorDetailsModel(
-      {this.authorId,
-        this.name,
-        this.image,
-        this.rating,
-        this.info,
-        this.genres,
-        this.authorBooks});
+      {super.id,
+      super.name,
+      super.image,
+      super.rating,
+      this.info,
+      this.genres,
+      this.authorBooks});
 
   AuthorDetailsModel.fromJson(Map<String, dynamic> json) {
-    authorId = json['author_id'];
+    id = json['author_id'];
     name = json['name'];
     image = json['image'];
     rating = json['rating'];
@@ -33,7 +31,7 @@ class AuthorDetailsModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['author_id'] = this.authorId;
+    data['author_id'] = this.id;
     data['name'] = this.name;
     data['image'] = this.image;
     data['rating'] = this.rating;

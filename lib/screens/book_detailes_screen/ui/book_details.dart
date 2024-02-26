@@ -51,6 +51,7 @@ class _BookDetailsState extends State<BookDetails> {
   @override
   void initState() {
     context.read<BookDetailsCubit>().getBookDetailed(widget.bookId);
+
     super.initState();
   }
 
@@ -68,7 +69,7 @@ class _BookDetailsState extends State<BookDetails> {
               children: [
                 Center(
                     child: Image.network(
-                  bookDetails.cover.toString(),
+                  bookDetails.image.toString(),
                   scale: .3,
                 )),
                 heightSpace(10),

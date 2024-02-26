@@ -1,6 +1,9 @@
+import 'package:book_shop/core/utils/colors.dart';
+import 'package:book_shop/core/widget/favoutite_button.dart';
 import 'package:book_shop/screens/book_detailes_screen/data/model.dart';
+import 'package:book_shop/screens/favorite_screen/logic/favorite_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/styles.dart';
 
@@ -14,15 +17,31 @@ class TitleAndFavourite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          '${bookDetails.name}',
-          style: TextStyles.font18BlackBold,
-        ),
-        SvgPicture.asset('assets/svgs/Heart.svg'),
-      ],
+    return BlocBuilder<FavoriteCubit, FavoriteState>(
+      builder: (context, state) {
+        var checkFavorite = context.read<FavoriteCubit>();
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '${bookDetails.name}',
+              style: TextStyles.font18BlackBold,
+            ),
+            FavouriteButton(
+              backgroundColor: AppColors.whiteColor,
+              addFavorite: () {
+                checkFavorite.addFavorite(bookDetails);
+                print('add');
+              },
+              checkFavorite: checkFavorite.isFavorite(bookDetails),
+              deleteFavorite: () {
+                checkFavorite.deleteFavorite(bookDetails);
+                print('delete');
+              },
+            )
+          ],
+        );
+      },
     );
   }
 }

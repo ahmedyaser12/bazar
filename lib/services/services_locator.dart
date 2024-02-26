@@ -1,5 +1,6 @@
 import 'package:book_shop/screens/book_detailes_screen/logic/book_details_cubit.dart';
 import 'package:book_shop/screens/categories/logic/categories_cubit.dart';
+import 'package:book_shop/screens/favorite_screen/logic/favorite_cubit.dart';
 import 'package:book_shop/screens/home/logic/home_cubit.dart';
 import 'package:book_shop/screens/login_screen/logic/login_cubit.dart';
 import 'package:book_shop/screens/onboarding_screen/logic/onboarding_cubit.dart';
@@ -22,12 +23,11 @@ Future setupLocator() async {
     () => ApiService(locator()),
   );
   locator.registerLazySingleton(() => Dio());
-  locator.registerLazySingleton(() => DioConsumer(locator()));
+  locator.registerFactory(() => DioConsumer(dio: locator()));
   locator.registerFactory<FirebaseService>(() => FirebaseService());
   locator.registerFactory<LoginCubit>(
       () => LoginCubit(locator<FirebaseService>(), _firebaseAuth));
-  locator.registerFactory<SignUpCubit>(
-      () => SignUpCubit(locator<FirebaseService>(), _firebaseAuth));
+  locator.registerFactory<SignUpCubit>(() => SignUpCubit(locator()));
   locator
       .registerLazySingleton<HomeCubit>(() => HomeCubit(locator<ApiService>()));
   locator.registerLazySingleton<BookDetailsCubit>(
@@ -38,4 +38,5 @@ Future setupLocator() async {
   locator
       .registerLazySingleton<CategoriesCubit>(() => CategoriesCubit(locator()));
   locator.registerLazySingleton<SearchCubit>(() => SearchCubit(locator()));
+  locator.registerLazySingleton<FavoriteCubit>(() => FavoriteCubit());
 }

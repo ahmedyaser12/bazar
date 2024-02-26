@@ -1,44 +1,46 @@
-class SearchModel {
-  int? bookId;
-  String? name;
-  String? cover;
-  String? url;
-  List<String>? authors;
-  double? rating;
-  int? createdEditions;
-  int? year;
+import 'package:book_shop/screens/model/base_model.dart';
 
-  SearchModel(
-      {this.bookId,
-      this.name,
-      this.cover,
-      this.url,
-      this.authors,
-      this.rating,
-      this.createdEditions,
-      this.year});
+class SearchModel extends BaseModel {
+  final String? url;
+  final List<String>? authors;
+  final int? createdEditions;
+  final int? year;
 
-  SearchModel.fromJson(Map<String, dynamic> json) {
-    bookId = json['book_id'];
-    name = json['name'];
-    cover = json['cover'];
-    url = json['url'];
-    authors = json['authors'].cast<String>();
-    rating = json['rating'];
-    createdEditions = json['created_editions'];
-    year = json['year'];
+  SearchModel({
+    int? id,
+    String? name,
+    String? image,
+    double? rating,
+    this.url,
+    this.authors,
+    this.createdEditions,
+    this.year,
+  }) : super(id: id, name: name, image: image, rating: rating);
+
+  factory SearchModel.fromJson(Map<String, dynamic> json) {
+    return SearchModel(
+      id: json['book_id'],
+      name: json['name'],
+      image: json['cover'],
+      rating: json['rating']?.toDouble(),
+      // Ensure this conversion handles nulls if needed
+      url: json['url'],
+      authors: List<String>.from(json['authors'] ?? []),
+      createdEditions: json['created_editions'],
+      year: json['year'],
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['book_id'] = this.bookId;
-    data['name'] = this.name;
-    data['cover'] = this.cover;
-    data['url'] = this.url;
-    data['authors'] = this.authors;
-    data['rating'] = this.rating;
-    data['created_editions'] = this.createdEditions;
-    data['year'] = this.year;
-    return data;
+    return {
+      'book_id': id,
+      'name': name,
+      'cover': image,
+      'url': url,
+      'authors': authors,
+      'rating': rating,
+      'created_editions': createdEditions,
+      'year': year,
+    };
   }
 }

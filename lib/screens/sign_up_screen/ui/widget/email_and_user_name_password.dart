@@ -56,6 +56,7 @@ class _EmailAndPasswordFieldState
       key: widget.signUpCubitObject.formKey,
       child: Column(
         children: [
+
           FormTextFieldItem(
             //key: widget.signUpCubitObject.formKey,
             controller: widget.signUpCubitObject.nameController,
@@ -83,6 +84,19 @@ class _EmailAndPasswordFieldState
               }),
           heightSpace(16),
           FormTextFieldItem(
+            lines: 11,
+            controller: widget.signUpCubitObject.phoneController,
+            keyboardType: TextInputType.phone,
+            name: 'phone'[0].toUpperCase() + 'phone'.substring(1),
+            title: 'entre your Phone',
+            validator: (value) {
+              if (value.isEmpty || value == null || AppRegex.hasNumber(value)) {
+                return 'please entre your phone';
+              }
+            },
+          ),
+          heightSpace(16),
+          FormTextFieldItem(
               //key: widget.signUpCubitObject.formKey,
               isPassword: true,
               controller: widget.signUpCubitObject.passwordController,
@@ -99,7 +113,29 @@ class _EmailAndPasswordFieldState
                 });
               }),
               isSecure: isObscure,
-              lines: 1,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'please entre a valid password';
+                }
+              }),
+          heightSpace(16),
+          FormTextFieldItem(
+              //key: widget.signUpCubitObject.formKey,
+              isPassword: true,
+              controller: widget.signUpCubitObject.confirmController,
+              keyboardType: TextInputType.visiblePassword,
+              name: 'confirm Password',
+              title: 'entre your password',
+              suffixIcon: Icon(
+                !isObscure ? Icons.visibility : Icons.visibility_off,
+                //color: AppColors.greyColor,
+                size: 25,
+              ).onTap(() {
+                setState(() {
+                  isObscure = !isObscure;
+                });
+              }),
+              isSecure: isObscure,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'please entre a valid password';

@@ -16,11 +16,6 @@ class HomeCubit extends Cubit<HomeState> {
   List<TopWeakModel> topBookWeak = [];
   List<TopAuthorsModel> topAuthors = [];
 
-  void currentSwiperNum(int index) {
-    currentSwiperIndex = index;
-    emit(SwiperNumber());
-  }
-
   void getTopWeakBook() async {
     emit(LoadingList());
     final response = await apiService.getTopWeaklyBook();

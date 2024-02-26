@@ -1,10 +1,8 @@
+import 'package:book_shop/config/routs/routs_names.dart';
 import 'package:book_shop/core/utils/colors.dart';
 import 'package:book_shop/core/utils/extintions.dart';
 import 'package:book_shop/screens/author_details_screen/ui/author_details_screen.dart';
-import 'package:book_shop/screens/book_detailes_screen/logic/book_details_cubit.dart';
-import 'package:book_shop/screens/book_detailes_screen/ui/book_details.dart';
 import 'package:book_shop/screens/home/UI/widget/auther_widget.dart';
-import 'package:book_shop/screens/home/UI/widget/bottom_nav_bar.dart';
 import 'package:book_shop/screens/home/UI/widget/swiper_widget.dart';
 import 'package:book_shop/screens/home/UI/widget/top_of_week.dart';
 import 'package:book_shop/screens/home/data/top_author_model.dart';
@@ -86,6 +84,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     CustomAppBar(
                       title: 'Home',
+                      leading: const Icon(Icons.search).onTap(() {
+                        context.navigateTo(RouteName.SEARCH);
+                      }),
                       color: AppColors.whiteColor,
                       iconThemeData: IconThemeData(
                         color: AppColors.blackColor,
@@ -128,41 +129,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: context.heightPercent(38),
                       child: TopOfWeekWidget(
                         topWeakList: topWeakList,
-                        onTab: (bookModel) {
-                          int? bookId;
-                          setState(() {
-                            bookId = bookModel!.bookId;
-                          });
-                          context.read<BookDetailsCubit>().getId(bookId!);
-                          showModalBottomSheet(
-                            isScrollControlled: true,
-                            context: context,
-                            builder: (context) => DraggableScrollableSheet(
-                              initialChildSize: 0.4,
-                              // 40% of screen height
-                              minChildSize: 0.2,
-                              // 20% of screen height
-                              maxChildSize: 1.0,
-                              expand: false,
-                              //Full screen
-                              builder: (context, scrollController) {
-                                return Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10),
-                                  decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(15),
-                                        topRight: Radius.circular(15),
-                                      )),
-                                  child: BookDetailsScreen(
-                                    scrollController,
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        },
                       ),
                     ),
                     //heightSpace(10),
@@ -212,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         },
       ),
-      bottomNavigationBar: const BottomNavBar(),
+      // bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

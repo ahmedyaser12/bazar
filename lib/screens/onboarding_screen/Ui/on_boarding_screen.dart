@@ -25,7 +25,6 @@ class OnboardingScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                //flex: 6,
                 child: PageView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   controller: onboardingCubitObject.pageController,
@@ -34,23 +33,25 @@ class OnboardingScreen extends StatelessWidget {
                   },
                   itemCount: onboardingCubitObject.data.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Column(children: [
-                      Image.asset(
-                        onboardingCubitObject.data[index].image.toString(),
-                        fit:BoxFit.fill,
-                      ),
-                      Text(
-                        onboardingCubitObject.data[index].title.toString(),
-                        style: TextStyles.font24BlackBold,
-                        textAlign: TextAlign.center,
-                      ),
-                      heightSpace(12),
-                      Text(
-                        onboardingCubitObject.data[index].subTitle.toString(),
-                        style: TextStyles.font16grey,
-                        textAlign: TextAlign.center,
-                      ),
-                    ]);
+                    return SingleChildScrollView(
+                      child: Column(children: [
+                        Image.asset(
+                          onboardingCubitObject.data[index].image.toString(),
+                          fit: BoxFit.fill,height: 200,
+                        ),
+                        Text(
+                          onboardingCubitObject.data[index].title.toString(),
+                          style: TextStyles.font24BlackBold,
+                          textAlign: TextAlign.center,
+                        ),
+                        heightSpace(12),
+                        Text(
+                          onboardingCubitObject.data[index].subTitle.toString(),
+                          style: TextStyles.font16grey,
+                          textAlign: TextAlign.center,
+                        ),
+                      ]),
+                    );
                   },
                 ),
               ),
@@ -67,9 +68,11 @@ class OnboardingScreen extends StatelessWidget {
                         children: [
                           TextButton(
                             onPressed: () {
-                              onboardingCubitObject.pageController.previousPage(
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.linear);
+                              onboardingCubitObject.pageController
+                                  .previousPage(
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                      curve: Curves.linear);
                             },
                             child: Text('Previous',
                                 style: TextStyle(color: AppColors.primary)),
@@ -82,7 +85,8 @@ class OnboardingScreen extends StatelessWidget {
                                   },
                                   child: Text(
                                     'Login',
-                                    style: TextStyle(color: AppColors.primary),
+                                    style:
+                                        TextStyle(color: AppColors.primary),
                                   ),
                                 )
                               : TextButton(
@@ -94,8 +98,8 @@ class OnboardingScreen extends StatelessWidget {
                                             curve: Curves.linear);
                                   },
                                   child: Text('Next',
-                                      style:
-                                          TextStyle(color: AppColors.primary)),
+                                      style: TextStyle(
+                                          color: AppColors.primary)),
                                 )
                         ],
                       ),

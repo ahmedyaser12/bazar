@@ -8,9 +8,10 @@ import 'end_points.dart';
 
 class DioConsumer extends ApiConsumer {
   final Dio dio;
+  bool? isAuth;
 
-  DioConsumer(this.dio) {
-    dio.options.baseUrl = (EndPoints.baseUrl);
+  DioConsumer({required this.dio, this.isAuth = false}) {
+    dio.options.baseUrl = (isAuth! ? EndPoints.authBaseUrl : EndPoints.baseUrl);
     dio.interceptors.add(ApiInterceptor());
     dio.interceptors.add(PrettyDioLogger(
       request: true,

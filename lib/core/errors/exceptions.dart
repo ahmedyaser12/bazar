@@ -40,6 +40,9 @@ void handleDioExceptions(DioException e) {
         case 504:
           throw ServerExceptions(
               errModel: ErrorModel.fromJson(e.response!.data));
+        case 429:
+          throw ServerExceptions(
+              errModel: ErrorModel.fromJson(e.response!.data));
       }
     case DioExceptionType.cancel:
       throw ServerExceptions(errModel: ErrorModel.fromJson(e.response!.data));

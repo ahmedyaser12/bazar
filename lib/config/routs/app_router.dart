@@ -1,16 +1,19 @@
 import 'package:book_shop/config/routs/routs_names.dart';
 import 'package:book_shop/screens/book_detailes_screen/logic/book_details_cubit.dart';
+import 'package:book_shop/screens/favorite_screen/ui/favourite_screen.dart';
 import 'package:book_shop/screens/home/logic/home_cubit.dart';
 import 'package:book_shop/screens/login_screen/logic/login_cubit.dart';
 import 'package:book_shop/screens/login_screen/ui/login_screen.dart';
 import 'package:book_shop/screens/onboarding_screen/logic/onboarding_cubit.dart';
+import 'package:book_shop/screens/search_screen/logic/search_screen_cubit.dart';
+import 'package:book_shop/screens/search_screen/ui/search_sceen.dart';
 import 'package:book_shop/screens/sign_up_screen/ui/sign_up_screen.dart';
 import 'package:book_shop/screens/splash_screen/ui/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../screens/home/UI/home.dart';
+import '../../screens/bottom_nav_bar/bottom_nav_bar.dart';
 import '../../screens/onboarding_screen/Ui/on_boarding_screen.dart';
 import '../../screens/sign_up_screen/logic/sign_up_cubit.dart';
 import '../../services/services_locator.dart';
@@ -60,12 +63,10 @@ class AppRouter {
                   if (snapshot.connectionState == ConnectionState.active) {
                     // If the snapshot has data, it means a user is logged in.
                     if (snapshot.hasData) {
-                      return BlocProvider(
-                          create: (_) => locator<HomeCubit>(),
-                          child: BlocProvider.value(
-                              value: locator<BookDetailsCubit>(),
-                              child:
-                                  const HomeScreen())); // User is logged in, navigate to the Home Page.
+                      return BlocProvider.value(
+                          value: locator<BookDetailsCubit>(),
+                          child:
+                              const BottomNavBar()); // User is logged in, navigate to the Home Page.
                     } else {
                       return BlocProvider(
                           create: (_) => locator<LoginCubit>(),
@@ -88,6 +89,17 @@ class AppRouter {
                 child: const OnboardingScreen(),
               )),
         );
+      case RouteName.FAVOURITE:
+        return MaterialPageRoute(
+          builder: ((context) => const FavouriteScreen()),
+        );
+      case RouteName.SEARCH:
+        return MaterialPageRoute(
+          builder: ((context) => BlocProvider.value(
+                value: locator<SearchCubit>(),
+                child: const SearchScreen(),
+              )),
+        );
       case RouteName.SIGNUP:
         return MaterialPageRoute(
           builder: ((context) => StreamBuilder<User?>(
@@ -96,9 +108,9 @@ class AppRouter {
                   if (snapshot.connectionState == ConnectionState.active) {
                     // If the snapshot has data, it means a user is logged in.
                     if (snapshot.hasData) {
-                      return BlocProvider(
-                          create: (_) => locator<HomeCubit>(),
-                          child: const HomeScreen());
+                      return BlocProvider.value(
+                          value: locator<HomeCubit>(),
+                          child: const BottomNavBar());
                     } else {
                       return BlocProvider(
                           create: (_) => locator<SignUpCubit>(),

@@ -1,4 +1,3 @@
-import 'package:book_shop/config/routs/routs_names.dart';
 import 'package:book_shop/core/utils/colors.dart';
 import 'package:book_shop/core/utils/common_functions.dart';
 import 'package:book_shop/core/utils/extintions.dart';
@@ -37,6 +36,7 @@ class SignUpScreen extends StatelessWidget {
             child: BlocConsumer<SignUpCubit, SignUpState>(
               listener: (context, state) {
                 if (state is SignUpSuccess) {
+                  context.pop();
                   showAcceptDialog(context);
                 } else if (state is SignUpFailure) {
                   showAlertDialog(context, state.error);
@@ -80,7 +80,7 @@ class SignUpScreen extends StatelessWidget {
                               style: TextStyles.font16PrimarySemi,
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  context.navigateTo(RouteName.LOGIN);
+                                  context.pop();
                                 },
                             ),
                           ],
@@ -144,7 +144,7 @@ void showAcceptDialog(BuildContext context) {
         size: 32,
       ),
       content: Text(
-        'Login Success',
+        'verify your Email',
         style: TextStyles.font16PrimarySemi,
         textAlign: TextAlign.center,
       ),

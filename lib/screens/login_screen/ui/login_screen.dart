@@ -34,9 +34,10 @@ class LoginScreen extends StatelessWidget {
             child: BlocConsumer<LoginCubit, LoginState>(
               listener: (context, state) {
                 if (state is LoginSuccess) {
-                  showAcceptDialog(context);
+                  showAcceptDialog(context, state.message);
+                  context.navigateTo(RouteName.NAV);
                 } else if (state is LoginFailure) {
-                  showAlertDialog(context, state.error);
+                  showAlertDialog(context, state.error!);
                 }
               },
               builder: (context, state) {
@@ -113,69 +114,14 @@ class LoginScreen extends StatelessWidget {
   }
 
   void validateRegister(BuildContext context) async {
-    if (!context.read<LoginCubit>().formKey.currentState!.validate()) {
+    if (!context
+        .read<LoginCubit>()
+        .formKey
+        .currentState!
+        .validate()) {
       return;
     }
     context.read<LoginCubit>().login();
   }
 
-  void showAlertDialog(BuildContext context, String error) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(alignment: Alignment.centerLeft,
-        icon: const Icon(
-          Icons.error,
-          color: Colors.red,
-          size: 32,
-        ),
-        content: Text(
-          error,
-          style: TextStyles.font16PrimarySemi.copyWith(
-            fontSize: 13.sp
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              context.pop();
-            },
-            child: Text(
-              'Got it',
-              style: TextStyles.font16PrimarySemi,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-  void showAcceptDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      backgroundColor: Colors.green[100],
-      icon: const Icon(
-        Icons.check,
-        color: Colors.green,
-        size: 32,
-      ),
-      content: Text(
-        'Login Success',
-        style: TextStyles.font16PrimarySemi,
-        textAlign: TextAlign.center,
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            context.pop();
-          },
-          child: Text(
-            'OK',
-            style: TextStyles.font16PrimarySemi,
-          ),
-        ),
-      ],
-    ),
-  );
 }

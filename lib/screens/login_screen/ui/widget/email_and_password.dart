@@ -1,3 +1,4 @@
+import 'package:book_shop/core/utils/app_regex.dart';
 import 'package:book_shop/core/utils/extintions.dart';
 import 'package:book_shop/screens/login_screen/logic/login_cubit.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,9 @@ class _EmailAndPasswordFieldState extends State<EmailAndPasswordField> {
             title: 'Your email',
             keyboardType: TextInputType.emailAddress,
             validator: (value) {
-              if (value.isEmpty || value == null) {
+              if (value.isEmpty ||
+                  value == null ||
+                  !AppRegex.isEmailValid(value)) {
                 return 'please entre a valid email';
               }
             },
@@ -39,8 +42,11 @@ class _EmailAndPasswordFieldState extends State<EmailAndPasswordField> {
           FormTextFieldItem(
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'please entre a valid password';
+                return 'Please enter your password';
+              } else if (value.length < 6) {
+                return 'Password must be greater than 6 characters';
               }
+              return null;
             },
             isPassword: true,
             controller: widget.loginCubitObject.passwordController,
@@ -57,7 +63,6 @@ class _EmailAndPasswordFieldState extends State<EmailAndPasswordField> {
               });
             }),
             isSecure: isObscure,
-            lines: 1,
           ),
         ],
       ),

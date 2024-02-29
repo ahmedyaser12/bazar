@@ -10,6 +10,7 @@ class EndPoints {
   static const authorDetails = "/author";
   static const searchBook = "/search";
   static const signUp = "/signup";
+  static const signIn = "/signin";
 
   //headers
   static const String apiKey =
@@ -22,6 +23,7 @@ class EndPoints {
 class ApiKey {
   static String status = "status";
   static String errorMessage = "ErrorMessage";
+  static String errorList = "Error";
   static String email = "email";
   static String password = "password";
   static String token = "token";

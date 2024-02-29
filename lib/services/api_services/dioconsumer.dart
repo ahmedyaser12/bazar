@@ -1,18 +1,19 @@
 import 'package:book_shop/core/errors/exceptions.dart';
 import 'package:book_shop/services/api_services/api_consumer.dart';
-import 'package:book_shop/services/api_services/api_interceptors.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import '../../core/chase_helper/cache_helper.dart';
 import 'end_points.dart';
 
 class DioConsumer extends ApiConsumer {
   final Dio dio;
-  bool? isAuth;
+  final bool isAuth;
 
-  DioConsumer({required this.dio, this.isAuth = false}) {
-    dio.options.baseUrl = (isAuth! ? EndPoints.authBaseUrl : EndPoints.baseUrl);
-    dio.interceptors.add(ApiInterceptor());
+  DioConsumer({required this.dio, required this.isAuth}) {
+    print('Auth check$isAuth');
+    dio.options.baseUrl = (isAuth ? EndPoints.authBaseUrl : EndPoints.baseUrl);
+    //dio.interceptors.add(ApiInterceptor());
     dio.interceptors.add(PrettyDioLogger(
       request: true,
       requestHeader: true,
@@ -23,10 +24,12 @@ class DioConsumer extends ApiConsumer {
       compact: true,
       maxWidth: 90,
     ));
-    dio.options.headers = {
-      'X-RapidAPI-Key': EndPoints.apiKey,
-      'X-RapidAPI-Host': EndPoints.apiHost
-    };
+    dio.options.headers[isAuth == false ? 'X-RapidAPI-Key' : ApiKey.token] =
+        isAuth == false
+            ? EndPoints.apiKey
+            : CacheHelper().getData(key: ApiKey.token) != null
+                ? 'FOODAPI ${CacheHelper().getData(key: ApiKey.token)}'
+                : null;
   }
 
   @override

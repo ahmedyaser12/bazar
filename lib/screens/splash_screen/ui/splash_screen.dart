@@ -1,3 +1,4 @@
+import 'package:book_shop/core/chase_helper/cache_helper.dart';
 import 'package:book_shop/core/utils/colors.dart';
 import 'package:book_shop/core/utils/extintions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,8 +19,8 @@ class _SplashScreenState extends State<SplashScreen> {
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     Future.delayed(
       const Duration(seconds: 2),
-      () => firebaseAuth.currentUser != null
-          ? context.navigateToAndReplacement(RouteName.LOGIN)
+      () => CacheHelper().getData(key: 'login') != false
+          ? context.navigateToAndReplacement(RouteName.NAV)
           : context.navigateToAndReplacement(RouteName.ONBOARDING),
     );
     super.initState();

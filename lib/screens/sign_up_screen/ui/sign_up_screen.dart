@@ -12,16 +12,12 @@ import '../../../core/utils/styles.dart';
 import '../logic/sign_up_cubit.dart';
 
 class SignUpScreen extends StatelessWidget {
-  // final void Function(SignUpCubit signUpCubit) signUpCubit;
-
   const SignUpScreen({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final signUpCubitObject = BlocProvider.of<SignUpCubit>(context);
-
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
@@ -37,12 +33,13 @@ class SignUpScreen extends StatelessWidget {
               listener: (context, state) {
                 if (state is SignUpSuccess) {
                   context.pop();
-                  showAcceptDialog(context);
+                  showAcceptDialog(context, state.success);
                 } else if (state is SignUpFailure) {
                   showAlertDialog(context, state.error);
                 }
               },
               builder: (context, state) {
+                final signUpCubitObject = context.read<SignUpCubit>();
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -97,68 +94,16 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  void validateRegister(BuildContext context) async {
-    if (!context.read<SignUpCubit>().formKey.currentState!.validate()) {
-      return;
+  validateRegister(BuildContext context) async {
+    if (!context.read<SignUpCubit>().formKey.currentState!.validate() ||
+        context.read<SignUpCubit>().pickImage == null) {
+      return context.read<SignUpCubit>().pickImage == null
+          ? showSnackBar(context,'please entre your photo')
+          : null;
     }
     context.read<SignUpCubit>().signUp();
+    return null;
   }
 }
 
-void showAlertDialog(BuildContext context, String error) {
-  showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      icon: const Icon(
-        Icons.error,
-        color: Colors.red,
-        size: 32,
-      ),
-      content: Text(
-        error,
-        style: TextStyles.font16PrimarySemi,
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            context.pop();
-          },
-          child: Text(
-            'Got it',
-            style: TextStyles.font16PrimarySemi,
-          ),
-        ),
-      ],
-    ),
-  );
-}
 
-void showAcceptDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      backgroundColor: Colors.green[100],
-      icon: const Icon(
-        Icons.check,
-        color: Colors.green,
-        size: 32,
-      ),
-      content: Text(
-        'verify your Email',
-        style: TextStyles.font16PrimarySemi,
-        textAlign: TextAlign.center,
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            context.pop();
-          },
-          child: Text(
-            'OK',
-            style: TextStyles.font16PrimarySemi,
-          ),
-        ),
-      ],
-    ),
-  );
-}

@@ -21,7 +21,7 @@ class PickImageWidget extends StatelessWidget {
           child: context.read<SignUpCubit>().pickImage == null
               ? CircleAvatar(
                   backgroundColor: Colors.grey.shade200,
-                  backgroundImage: const AssetImage("assets/images/avatar.png"),
+                  backgroundImage: const AssetImage("assets/images/img_2.png"),
                   child: Stack(
                     children: [
                       Positioned(

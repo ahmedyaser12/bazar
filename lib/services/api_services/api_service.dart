@@ -3,6 +3,7 @@ import 'package:book_shop/screens/author_details_screen/data/author_model.dart';
 import 'package:book_shop/screens/book_detailes_screen/data/model.dart';
 import 'package:book_shop/screens/home/data/top_author_model.dart';
 import 'package:book_shop/screens/home/data/top_book_of_weak_model.dart';
+import 'package:book_shop/screens/login_screen/data/model/sign_in_model.dart';
 import 'package:book_shop/screens/search_screen/data/model.dart';
 import 'package:book_shop/screens/sign_up_screen/data/model.dart';
 import 'package:book_shop/services/api_services/dioconsumer.dart';
@@ -12,11 +13,12 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../core/utils/resources.dart';
 import '../../core/utils/status.dart';
+import '../services_locator.dart';
 
 class ApiService {
   DioConsumer api;
 
-  ApiService(this.api);
+  ApiService({required this.api});
 
   Future<Resource<SignUpModel>> signUp({
     required String name,
@@ -27,8 +29,10 @@ class ApiService {
     required XFile profilePic,
   }) async {
     try {
-      api.isAuth = true;
-      var response = await api.post(EndPoints.signUp, isFormData: true, data: {
+      var authApi = locator<DioConsumer>(param1: true);
+      print('Auth check api ${authApi.isAuth}');
+      var response =
+          await authApi.post(EndPoints.signUp, isFormData: true, data: {
         ApiKey.name: name,
         ApiKey.phone: phone,
         ApiKey.email: email,
@@ -41,7 +45,28 @@ class ApiService {
       });
       return Resource(Status.SUCCESS, data: SignUpModel.fromJson(response));
     } on ServerExceptions catch (exception) {
-      return Resource(Status.ERROR, errorMessage: exception.errModel.message);
+      return Resource(Status.ERROR,
+          errorMessage: exception.errModel.errorMessage,
+          errorList: exception.errModel.errorList);
+    }
+  }
+
+  Future<Resource<SignInModel>> signIn({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      var authApi = locator<DioConsumer>(param1: true);
+      var response =
+          await authApi.post(EndPoints.signIn, isFormData: true, data: {
+        ApiKey.email: email,
+        ApiKey.password: password,
+      });
+      return Resource(Status.SUCCESS, data: SignInModel.fromJson(response));
+    } on ServerExceptions catch (exception) {
+      return Resource(Status.ERROR,
+          errorMessage: exception.errModel.errorMessage,
+          errorList: exception.errModel.errorList);
     }
   }
 
@@ -70,7 +95,8 @@ class ApiService {
       }
       return Resource(Status.SUCCESS, data: topAuthors);
     } on ServerExceptions catch (exception) {
-      return Resource(Status.ERROR, errorMessage: exception.errModel.message);
+      return Resource(Status.ERROR,
+          errorMessage: exception.errModel.errorMessage);
     }
   }
 
@@ -80,7 +106,8 @@ class ApiService {
       return Resource(Status.SUCCESS,
           data: BookDetailsModel.fromJson(response));
     } on ServerExceptions catch (exception) {
-      return Resource(Status.ERROR, errorMessage: exception.errModel.message);
+      return Resource(Status.ERROR,
+          errorMessage: exception.errModel.errorMessage);
     }
   }
 
@@ -90,7 +117,8 @@ class ApiService {
       return Resource(Status.SUCCESS,
           data: AuthorDetailsModel.fromJson(response));
     } on ServerExceptions catch (exception) {
-      return Resource(Status.ERROR, errorMessage: exception.errModel.message);
+      return Resource(Status.ERROR,
+          errorMessage: exception.errModel.errorMessage);
     }
   }
 
@@ -104,7 +132,8 @@ class ApiService {
       }
       return Resource(Status.SUCCESS, data: topWeak);
     } on ServerExceptions catch (exception) {
-      return Resource(Status.ERROR, errorMessage: exception.errModel.message);
+      return Resource(Status.ERROR,
+          errorMessage: exception.errModel.errorMessage);
     }
   }
 
@@ -117,7 +146,8 @@ class ApiService {
       }
       return Resource(Status.SUCCESS, data: searchBook);
     } on ServerExceptions catch (exception) {
-      return Resource(Status.ERROR, errorMessage: exception.errModel.message);
+      return Resource(Status.ERROR,
+          errorMessage: exception.errModel.errorMessage);
     }
   }
 }

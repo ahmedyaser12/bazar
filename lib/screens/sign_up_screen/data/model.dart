@@ -1,18 +1,17 @@
-class SignUpModel {
-  int? status;
-  String? errorMessage;
+import 'package:book_shop/services/api_services/end_points.dart';
 
-  SignUpModel({this.status, this.errorMessage});
+class SignUpModel {
+  String? message;
+
+  SignUpModel({this.message});
 
   SignUpModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    errorMessage = json['ErrorMessage'];
+    message = json[ApiKey.message];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['ErrorMessage'] = this.errorMessage;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data[ApiKey.message] = message;
     return data;
   }
 }

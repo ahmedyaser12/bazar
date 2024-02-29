@@ -10,14 +10,15 @@ class IsSecure extends LoginState {}
 class LoginLoading extends LoginState {}
 
 class LoginSuccess extends LoginState {
-  final User user;
+  final String message;
 
-  LoginSuccess(this.user);
+  LoginSuccess(this.message);
 }
+
 class Unauthenticated extends LoginState {}
 
 class LoginFailure extends LoginState {
-  final String error;
+  final String? error;
 
   LoginFailure(this.error);
 }

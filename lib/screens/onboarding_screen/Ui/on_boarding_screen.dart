@@ -37,7 +37,8 @@ class OnboardingScreen extends StatelessWidget {
                       child: Column(children: [
                         Image.asset(
                           onboardingCubitObject.data[index].image.toString(),
-                          fit: BoxFit.fill,height: 200,
+                          fit: BoxFit.fill,
+                          height: 200,
                         ),
                         Text(
                           onboardingCubitObject.data[index].title.toString(),
@@ -66,41 +67,38 @@ class OnboardingScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          TextButton(
-                            onPressed: () {
-                              onboardingCubitObject.pageController
-                                  .previousPage(
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      curve: Curves.linear);
-                            },
-                            child: Text('Previous',
-                                style: TextStyle(color: AppColors.primary)),
-                          ),
-                          onboardingCubitObject.pageIndex == 2
+                          onboardingCubitObject.pageIndex != 0
                               ? TextButton(
                                   onPressed: () {
-                                    context.navigateToAndReplacement(
-                                        RouteName.LOGIN);
-                                  },
-                                  child: Text(
-                                    'Login',
-                                    style:
-                                        TextStyle(color: AppColors.primary),
-                                  ),
-                                )
-                              : TextButton(
-                                  onPressed: () {
                                     onboardingCubitObject.pageController
-                                        .nextPage(
+                                        .previousPage(
                                             duration: const Duration(
                                                 milliseconds: 300),
                                             curve: Curves.linear);
                                   },
-                                  child: Text('Next',
-                                      style: TextStyle(
-                                          color: AppColors.primary)),
+                                  child: Text('Previous',
+                                      style:
+                                          TextStyle(color: AppColors.primary)),
                                 )
+                              : Container(),
+                          TextButton(
+                            onPressed: () {
+                              onboardingCubitObject.pageIndex == 2
+                                  ? context
+                                      .navigateToAndReplacement(RouteName.LOGIN)
+                                  : onboardingCubitObject.pageController
+                                      .nextPage(
+                                          duration:
+                                              const Duration(milliseconds: 300),
+                                          curve: Curves.linear);
+                            },
+                            child: Text(
+                              onboardingCubitObject.pageIndex == 2
+                                  ? 'Login'
+                                  : 'Next',
+                              style: TextStyle(color: AppColors.primary),
+                            ),
+                          )
                         ],
                       ),
                     ],

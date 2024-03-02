@@ -19,8 +19,6 @@ import '../../onboarding_screen/Ui/widget/dots_indicator_widget.dart';
 import '../data/top_book_of_weak_model.dart';
 
 class HomeScreen extends StatefulWidget {
-  //final User user;
-
   const HomeScreen({
     super.key,
   });

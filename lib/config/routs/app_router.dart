@@ -3,6 +3,7 @@ import 'package:book_shop/screens/favorite_screen/ui/favourite_screen.dart';
 import 'package:book_shop/screens/login_screen/logic/login_cubit.dart';
 import 'package:book_shop/screens/login_screen/ui/login_screen.dart';
 import 'package:book_shop/screens/onboarding_screen/logic/onboarding_cubit.dart';
+import 'package:book_shop/screens/profile_screen/data/user_model.dart';
 import 'package:book_shop/screens/search_screen/logic/search_screen_cubit.dart';
 import 'package:book_shop/screens/search_screen/ui/search_sceen.dart';
 import 'package:book_shop/screens/sign_up_screen/ui/sign_up_screen.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../screens/bottom_nav_bar/bottom_nav_bar.dart';
 import '../../screens/onboarding_screen/Ui/on_boarding_screen.dart';
+import '../../screens/profile_screen/ui/acount_screen.dart';
 import '../../screens/sign_up_screen/logic/sign_up_cubit.dart';
 import '../../services/services_locator.dart';
 
@@ -42,6 +44,13 @@ class AppRouter {
       case RouteName.FAVOURITE:
         return MaterialPageRoute(
           builder: ((context) => const FavouriteScreen()),
+        );
+      case RouteName.MYACCOUNT:
+        UserModel? userDetails = settings.arguments as UserModel?;
+        return MaterialPageRoute(
+          builder: ((context) => MyAccountScreen(
+                userModel: userDetails!,
+              )),
         );
       case RouteName.SEARCH:
         return MaterialPageRoute(

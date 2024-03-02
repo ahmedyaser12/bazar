@@ -4,6 +4,7 @@ import 'package:book_shop/screens/favorite_screen/logic/favorite_cubit.dart';
 import 'package:book_shop/screens/home/logic/home_cubit.dart';
 import 'package:book_shop/screens/login_screen/logic/login_cubit.dart';
 import 'package:book_shop/screens/onboarding_screen/logic/onboarding_cubit.dart';
+import 'package:book_shop/screens/profile_screen/logic/profile_screen_cubit.dart';
 import 'package:book_shop/screens/search_screen/logic/search_screen_cubit.dart';
 import 'package:book_shop/screens/sign_up_screen/logic/sign_up_cubit.dart';
 import 'package:book_shop/services/api_services/dioconsumer.dart';
@@ -17,7 +18,7 @@ GetIt locator = GetIt.instance;
 
 Future setupLocator() async {
   locator.registerLazySingleton<ApiService>(
-    () => ApiService(api: locator<DioConsumer>(param1: false)),
+    () => ApiService(),
   );
   locator.registerLazySingleton(() => Dio());
   locator.registerFactoryParam<DioConsumer, bool, dynamic>(
@@ -25,6 +26,8 @@ Future setupLocator() async {
   );
   locator.registerLazySingleton<LoginCubit>(() => LoginCubit(locator()));
   locator.registerLazySingleton<SignUpCubit>(() => SignUpCubit(locator()));
+  locator.registerLazySingleton<ProfileScreenCubit>(
+      () => ProfileScreenCubit(locator()));
   locator
       .registerLazySingleton<HomeCubit>(() => HomeCubit(locator<ApiService>()));
   locator.registerLazySingleton<BookDetailsCubit>(

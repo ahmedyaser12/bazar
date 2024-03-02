@@ -4,6 +4,7 @@ import 'package:book_shop/screens/book_detailes_screen/data/model.dart';
 import 'package:book_shop/screens/home/data/top_author_model.dart';
 import 'package:book_shop/screens/home/data/top_book_of_weak_model.dart';
 import 'package:book_shop/screens/login_screen/data/model/sign_in_model.dart';
+import 'package:book_shop/screens/profile_screen/data/user_model.dart';
 import 'package:book_shop/screens/search_screen/data/model.dart';
 import 'package:book_shop/screens/sign_up_screen/data/model.dart';
 import 'package:book_shop/services/api_services/dioconsumer.dart';
@@ -16,9 +17,7 @@ import '../../core/utils/status.dart';
 import '../services_locator.dart';
 
 class ApiService {
-  DioConsumer api;
-
-  ApiService({required this.api});
+  ApiService();
 
   Future<Resource<SignUpModel>> signUp({
     required String name,
@@ -70,8 +69,23 @@ class ApiService {
     }
   }
 
+  Future<Resource<UserModel>> getUser({
+    required String id,
+  }) async {
+    try {
+      var authApi = locator<DioConsumer>(param1: true);
+      var response = await authApi.get('${EndPoints.get_user}/$id');
+      print(response);
+      return Resource(Status.SUCCESS, data: UserModel.fromJson(response));
+    } on ServerExceptions catch (exception) {
+      return Resource(Status.ERROR,
+          errorMessage: exception.errModel.errorMessage);
+    }
+  }
+
   Future<Resource<List<TopWeakModel>>> getTopWeaklyBook() async {
     try {
+      var api = locator<DioConsumer>(param1: false);
       var response = await api.get(EndPoints.topWeakly);
       List<TopWeakModel> topWeak = [];
       for (var item in response) {
@@ -85,6 +99,7 @@ class ApiService {
 
   Future<Resource<List<TopAuthorsModel>>> getTopAuthors() async {
     try {
+      var api = locator<DioConsumer>(param1: false);
       var response = await api.get(
         EndPoints.topAuthors,
         queryParameter: {'limit': 10},
@@ -102,6 +117,7 @@ class ApiService {
 
   Future<Resource<BookDetailsModel>> getBookDetails(int id) async {
     try {
+      var api = locator<DioConsumer>(param1: false);
       var response = await api.get("${EndPoints.bookDetails}/$id");
       return Resource(Status.SUCCESS,
           data: BookDetailsModel.fromJson(response));
@@ -113,6 +129,7 @@ class ApiService {
 
   Future<Resource<AuthorDetailsModel>> getAuthorDetails(int id) async {
     try {
+      var api = locator<DioConsumer>(param1: false);
       var response = await api.get("${EndPoints.authorDetails}/$id");
       return Resource(Status.SUCCESS,
           data: AuthorDetailsModel.fromJson(response));
@@ -125,6 +142,7 @@ class ApiService {
   Future<Resource<List<TopWeakModel>>> getCategories(
       String typeOfCategory) async {
     try {
+      var api = locator<DioConsumer>(param1: false);
       var response = await api.get('${EndPoints.category}/$typeOfCategory/10');
       List<TopWeakModel> topWeak = [];
       for (var item in response) {
@@ -139,6 +157,7 @@ class ApiService {
 
   Future<Resource<List<SearchModel>>> searchBook(String bookName) async {
     try {
+      var api = locator<DioConsumer>(param1: false);
       var response = await api.get('${EndPoints.searchBook}/$bookName');
       List<SearchModel> searchBook = [];
       for (var item in response) {

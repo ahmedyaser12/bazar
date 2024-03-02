@@ -1,6 +1,7 @@
 import 'package:book_shop/screens/categories/logic/categories_cubit.dart';
 import 'package:book_shop/screens/categories/ui/categories_screens.dart';
 import 'package:book_shop/screens/home/UI/home.dart';
+import 'package:book_shop/screens/profile_screen/logic/profile_screen_cubit.dart';
 import 'package:book_shop/screens/profile_screen/ui/profile_screen.dart';
 import 'package:book_shop/services/services_locator.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  int currentNavIndex = 0;
+  int currentNavIndex = 3;
 
   // Method to get the current page based on the navigation index
   Widget _getCurrentPage() {
@@ -40,7 +41,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
           size: 50,
         ));
       case 3:
-        return const ProfileScreen();
+        return BlocProvider.value(
+            value: locator<ProfileScreenCubit>(), child: const ProfileScreen());
       default:
         return const Center(
             child: Icon(
@@ -52,7 +54,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: AppColors.whiteColor,
+    return Scaffold(
+        backgroundColor: AppColors.whiteColor,
         body: _getCurrentPage(), // Use the method to switch pages
         bottomNavigationBar: BottomNavigationBar(
           elevation: 5,

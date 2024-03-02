@@ -11,6 +11,7 @@ class EndPoints {
   static const searchBook = "/search";
   static const signUp = "/signup";
   static const signIn = "/signin";
+  static const get_user = "/get-user";
 
   //headers
   static const String apiKey =

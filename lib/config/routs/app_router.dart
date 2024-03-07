@@ -4,6 +4,7 @@ import 'package:book_shop/screens/login_screen/logic/login_cubit.dart';
 import 'package:book_shop/screens/login_screen/ui/login_screen.dart';
 import 'package:book_shop/screens/onboarding_screen/logic/onboarding_cubit.dart';
 import 'package:book_shop/screens/profile_screen/data/user_model.dart';
+import 'package:book_shop/screens/profile_screen/logic/profile_screen_cubit.dart';
 import 'package:book_shop/screens/search_screen/logic/search_screen_cubit.dart';
 import 'package:book_shop/screens/search_screen/ui/search_sceen.dart';
 import 'package:book_shop/screens/sign_up_screen/ui/sign_up_screen.dart';
@@ -48,8 +49,11 @@ class AppRouter {
       case RouteName.MYACCOUNT:
         UserModel? userDetails = settings.arguments as UserModel?;
         return MaterialPageRoute(
-          builder: ((context) => MyAccountScreen(
-                userModel: userDetails!,
+          builder: ((context) => BlocProvider.value(
+                value: locator<ProfileScreenCubit>(),
+                child: MyAccountScreen(
+                  userModel: userDetails!,
+                ),
               )),
         );
       case RouteName.SEARCH:

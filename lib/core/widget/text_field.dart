@@ -18,7 +18,7 @@ class FormTextFieldItem extends StatelessWidget {
   final bool optional = false;
   final int? lines;
   final Widget? suffixIcon;
-  final Function(String) validator;
+  final Function(String)? validator;
 
   const FormTextFieldItem({
     super.key,
@@ -33,7 +33,7 @@ class FormTextFieldItem extends StatelessWidget {
     this.isSecure = false,
     this.keyboardType = TextInputType.text,
     this.isPassword = false,
-    required this.validator,
+    this.validator,
   });
 
   @override
@@ -60,7 +60,7 @@ class FormTextFieldItem extends StatelessWidget {
           child: Center(
             child: TextFormField(
               validator: (value) {
-                return validator(value!);
+                return validator!(value!);
               },
               initialValue: initialValue,
               controller: controller,

@@ -29,19 +29,18 @@ class _AllBooksScreenState extends State<AllBooksScreen> {
           );
         }
         final allCategoryList = context.read<CategoriesCubit>().allCategoryList;
-        return Center(
-            child: GridView.builder(
+        return GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: .6,
-            mainAxisSpacing: .5,
+            childAspectRatio: .75,
+            mainAxisSpacing: 0.5,
             crossAxisSpacing: .5,
           ),
           itemBuilder: (ctx, index) {
-            return BuildBook(categoryList: allCategoryList[index]);
+            return BuildBook(categoryList: allCategoryList[0]);
           },
           itemCount: allCategoryList.length,
-        ));
+        );
       },
     );
   }

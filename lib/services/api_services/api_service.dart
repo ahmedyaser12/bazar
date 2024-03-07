@@ -4,6 +4,7 @@ import 'package:book_shop/screens/book_detailes_screen/data/model.dart';
 import 'package:book_shop/screens/home/data/top_author_model.dart';
 import 'package:book_shop/screens/home/data/top_book_of_weak_model.dart';
 import 'package:book_shop/screens/login_screen/data/model/sign_in_model.dart';
+import 'package:book_shop/screens/profile_screen/data/update_user_model.dart';
 import 'package:book_shop/screens/profile_screen/data/user_model.dart';
 import 'package:book_shop/screens/search_screen/data/model.dart';
 import 'package:book_shop/screens/sign_up_screen/data/model.dart';
@@ -39,8 +40,8 @@ class ApiService {
         ApiKey.confirmPassword: confirmPassword,
         ApiKey.location:
             '{"name":"methalfa","address":"meet halfa","coordinates":[30.1572709,31.224779]}',
-        ApiKey.profilePic: MultipartFile.fromFile(profilePic.path,
-            filename: profilePic.path.split('/').last)
+        ApiKey.profilePic:await MultipartFile.fromFile(profilePic.path,
+            filename: profilePic.path.split('/').last),
       });
       return Resource(Status.SUCCESS, data: SignUpModel.fromJson(response));
     } on ServerExceptions catch (exception) {
@@ -66,6 +67,31 @@ class ApiService {
       return Resource(Status.ERROR,
           errorMessage: exception.errModel.errorMessage,
           errorList: exception.errModel.errorList);
+    }
+  }
+
+  Future<Resource<UpdateUser>> updateProfile({
+    required String name,
+    required String phone,
+    required XFile profilePic,
+  }) async {
+    try {
+      var authApi = locator<DioConsumer>(param1: true);
+      var response =
+          await authApi.patch(EndPoints.update, isFormData: true, data: {
+        ApiKey.name: name,
+        ApiKey.phone: phone,
+        ApiKey.location:
+            '{"name":"methalfa","address":"meet halfa","coordinates":[30.1572709,31.224779]}',
+        ApiKey.profilePic: await MultipartFile.fromFile(profilePic.path,
+            filename: profilePic.path.split('/').last)
+      });
+      return Resource(Status.SUCCESS, data: UpdateUser.fromJson(response));
+    } on ServerExceptions catch (exception) {
+      return Resource(
+        Status.ERROR,
+        errorMessage: exception.errModel.errorMessage,
+      );
     }
   }
 

@@ -1,11 +1,11 @@
 import 'package:book_shop/core/utils/app_regex.dart';
 import 'package:book_shop/core/utils/extintions.dart';
 import 'package:book_shop/screens/sign_up_screen/logic/sign_up_cubit.dart';
-import 'package:book_shop/screens/sign_up_screen/ui/widget/add_image.dart';
 import 'package:book_shop/screens/sign_up_screen/ui/widget/password_validation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/common_functions.dart';
+import '../../../../core/widget/add_image.dart';
 import '../../../../core/widget/text_field.dart';
 
 class EmailAndUserNameAndPasswordField extends StatefulWidget {
@@ -61,7 +61,7 @@ class _EmailAndPasswordFieldState
       key: widget.signUpCubitObject.formKey,
       child: Column(
         children: [
-          const PickImageWidget(),
+          const PickImageWidget(inProfile: false),
           heightSpace(16),
           FormTextFieldItem(
             //key: widget.signUpCubitObject.formKey,
@@ -124,7 +124,7 @@ class _EmailAndPasswordFieldState
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter your password';
-                }  else if (!AppRegex.isPasswordValid(value)) {
+                } else if (!AppRegex.isPasswordValid(value)) {
                   return 'Password must be same of the instruction below';
                 }
                 return null;

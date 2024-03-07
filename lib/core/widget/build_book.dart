@@ -15,7 +15,7 @@ class BuildBook extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
         ClipRRect(
           borderRadius: const BorderRadius.all(
             Radius.circular(15),

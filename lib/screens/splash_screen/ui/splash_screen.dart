@@ -16,10 +16,9 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     Future.delayed(
       const Duration(seconds: 2),
-      () => CacheHelper().getData(key: 'login') != false
+      () => CacheHelper().getData(key: 'login') == true
           ? context.navigateToAndReplacement(RouteName.NAV)
           : context.navigateToAndReplacement(RouteName.ONBOARDING),
     );

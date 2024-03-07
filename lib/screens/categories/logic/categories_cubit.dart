@@ -17,10 +17,6 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   List<TopWeakModel> actionList = [];
   List<TopWeakModel> scienceList = [];
 
-  void getAllCategory() {
-    getCategory('all');
-  }
-
   void getCategory(String typeOfCategory) async {
     emit(LoadingList());
     final response = await apiService.getCategories(typeOfCategory);

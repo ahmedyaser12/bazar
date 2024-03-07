@@ -33,7 +33,7 @@ class _RomanceBooksScreenState extends State<RomanceBooksScreen> {
           child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: .6,
+              childAspectRatio: .75,
               mainAxisSpacing: .5,
               crossAxisSpacing: .5,
             ),

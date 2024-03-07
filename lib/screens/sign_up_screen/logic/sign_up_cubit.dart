@@ -51,7 +51,6 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   void signUp() async {
     if (!formKey.currentState!.validate()) return;
-
     emit(SignUpLoading());
     var response = await apiService.signUp(
       name: nameController.text,

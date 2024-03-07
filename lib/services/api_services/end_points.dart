@@ -12,10 +12,11 @@ class EndPoints {
   static const signUp = "/signup";
   static const signIn = "/signin";
   static const get_user = "/get-user";
+  static const update = "/update";
 
   //headers
   static const String apiKey =
-      'eb86e0b2b8msh74c339c570d6522p12377bjsn453843fa672e';
+      '88a130a440mshb300cd909b824c5p1858f7jsnfd87ec5950ce';
   static const String apiHost = 'hapi-books.p.rapidapi.com';
 }
 //88a130a440mshb300cd909b824c5p1858f7jsnfd87ec5950ce

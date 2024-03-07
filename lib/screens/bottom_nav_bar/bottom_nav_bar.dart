@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/utils/colors.dart';
+import '../card_screen/ui/card_screen.dart';
 import '../home/logic/home_cubit.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -35,14 +36,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
           child: const CategoriesScreens(),
         );
       case 2:
-        return const Center(
-            child: Icon(
-          Icons.ac_unit_outlined,
-          size: 50,
-        ));
+        return const ConfirmOrderScreen();
       case 3:
         return BlocProvider.value(
-            value: locator<ProfileScreenCubit>(), child: const ProfileScreen());
+          value: locator<ProfileScreenCubit>(),
+          child: const ProfileScreen(),
+        );
       default:
         return const Center(
             child: Icon(

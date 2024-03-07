@@ -78,12 +78,12 @@ class MyAccountScreen extends StatelessWidget {
                       style: TextStyle(color: AppColors.primary)),
                 ),
                 heightSpace(24),
-                FormTextFieldItem(
+                FormTextFieldItem(hint: 'entre your Name',
                   name: 'Name',
                   controller: context.read<ProfileScreenCubit>().nameController,
                 ),
                 heightSpace(16),
-                FormTextFieldItem(
+                FormTextFieldItem(hint: 'entre your number',
                   keyboardType: TextInputType.phone,
                   lines: 11,
                   name: 'phone',

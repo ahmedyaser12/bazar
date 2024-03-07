@@ -40,7 +40,7 @@ class ApiService {
         ApiKey.confirmPassword: confirmPassword,
         ApiKey.location:
             '{"name":"methalfa","address":"meet halfa","coordinates":[30.1572709,31.224779]}',
-        ApiKey.profilePic:await MultipartFile.fromFile(profilePic.path,
+        ApiKey.profilePic: await MultipartFile.fromFile(profilePic.path,
             filename: profilePic.path.split('/').last),
       });
       return Resource(Status.SUCCESS, data: SignUpModel.fromJson(response));
@@ -73,19 +73,24 @@ class ApiService {
   Future<Resource<UpdateUser>> updateProfile({
     required String name,
     required String phone,
-    required XFile profilePic,
+    XFile? profilePic, // Note: Make sure profilePic is nullable
   }) async {
     try {
       var authApi = locator<DioConsumer>(param1: true);
-      var response =
-          await authApi.patch(EndPoints.update, isFormData: true, data: {
+      Map<String, dynamic> data = {
         ApiKey.name: name,
         ApiKey.phone: phone,
         ApiKey.location:
             '{"name":"methalfa","address":"meet halfa","coordinates":[30.1572709,31.224779]}',
-        ApiKey.profilePic: await MultipartFile.fromFile(profilePic.path,
-            filename: profilePic.path.split('/').last)
-      });
+      };
+
+      if (profilePic != null) {
+        data[ApiKey.profilePic] = await MultipartFile.fromFile(profilePic.path,
+            filename: profilePic.path.split('/').last);
+      }
+
+      var response =
+          await authApi.patch(EndPoints.update, isFormData: true, data: data);
       return Resource(Status.SUCCESS, data: UpdateUser.fromJson(response));
     } on ServerExceptions catch (exception) {
       return Resource(

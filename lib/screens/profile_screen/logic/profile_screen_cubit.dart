@@ -45,7 +45,7 @@ class ProfileScreenCubit extends Cubit<ProfileScreenState> {
     var response = await apiService.updateProfile(
         name: nameController.text,
         phone: phoneController.text,
-        profilePic: updateImage!);
+        profilePic: updateImage);
     if (response.status == Status.SUCCESS) {
       emit(UpdateSuccess(response.data!.message!));
     } else {

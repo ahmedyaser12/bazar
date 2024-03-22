@@ -45,7 +45,7 @@ class FavouriteScreen extends StatelessWidget {
                                     child: Image.network(
                                       state.favoriteList[index].image!,
                                       fit: BoxFit.fill,
-                                      width: 70,
+                                      width: 50,
                                       height: 100,
                                     ),
                                   ),

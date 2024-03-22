@@ -1,4 +1,5 @@
 import 'package:book_shop/config/routs/routs_names.dart';
+import 'package:book_shop/screens/card_screen/ui/card_screen.dart';
 import 'package:book_shop/screens/favorite_screen/ui/favourite_screen.dart';
 import 'package:book_shop/screens/login_screen/logic/login_cubit.dart';
 import 'package:book_shop/screens/login_screen/ui/login_screen.dart';
@@ -45,6 +46,10 @@ class AppRouter {
       case RouteName.FAVOURITE:
         return MaterialPageRoute(
           builder: ((context) => const FavouriteScreen()),
+        );
+      case RouteName.CART:
+        return MaterialPageRoute(
+          builder: ((context) => const CartScreen()),
         );
       case RouteName.MYACCOUNT:
         UserModel? userDetails = settings.arguments as UserModel?;

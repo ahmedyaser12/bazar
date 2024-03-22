@@ -23,6 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
+    compileSdkVersion 34
     namespace "com.example.book_shop"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion

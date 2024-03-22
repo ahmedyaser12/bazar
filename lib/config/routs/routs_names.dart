@@ -10,4 +10,5 @@ class RouteName {
   static const String SEARCH = '/search';
   static const String FAVOURITE = '/favourite';
   static const String MYACCOUNT = '/myAccount';
+  static const String CART = '/cart';
 }

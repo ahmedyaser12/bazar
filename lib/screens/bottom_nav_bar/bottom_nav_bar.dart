@@ -36,7 +36,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           child: const CategoriesScreens(),
         );
       case 2:
-        return const ConfirmOrderScreen();
+        return const CartScreen();
       case 3:
         return BlocProvider.value(
           value: locator<ProfileScreenCubit>(),

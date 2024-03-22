@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import '../../../../core/utils/styles.dart';
 
 class CounterButtons extends StatefulWidget {
-  const CounterButtons({super.key});
+  final Function(int) num;
+
+  const CounterButtons({super.key, required this.num});
 
   @override
   State<CounterButtons> createState() => _CounterButtonState();
@@ -24,7 +26,11 @@ class _CounterButtonState extends State<CounterButtons> {
           ),
           onPressed: () {
             setState(() {
+              if (counter < 1) {
+                return;
+              }
               counter--;
+              widget.num(counter);
             });
           },
           child: Icon(
@@ -45,6 +51,7 @@ class _CounterButtonState extends State<CounterButtons> {
           onPressed: () {
             setState(() {
               counter++;
+              widget.num(counter);
             });
           },
           child: Icon(Icons.add, color: AppColors.whiteColor),

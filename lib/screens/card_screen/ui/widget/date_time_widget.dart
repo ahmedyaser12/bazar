@@ -1,10 +1,20 @@
+import 'package:book_shop/core/widget/bottom_sheet.dart';
+import 'package:book_shop/screens/card_screen/ui/widget/bottom.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/styles.dart';
-class DateTimeWidget extends StatelessWidget {
+import '../../logic/card_screen_cubit.dart';
+
+class DateTimeWidget extends StatefulWidget {
   const DateTimeWidget({super.key});
 
+  @override
+  State<DateTimeWidget> createState() => _DateTimeWidgetState();
+}
+
+class _DateTimeWidgetState extends State<DateTimeWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,14 +44,34 @@ class DateTimeWidget extends StatelessWidget {
               ),
             ),
             title: const Text('Date & time'),
-            subtitle: const Text('Choose date and time'),
+            subtitle: Text(context.read<CardScreenCubit>().dateTime != null
+                ? '${context.read<CardScreenCubit>().dateTimeString}'
+                    ' ${context.read<CardScreenCubit>().dateTime!.year.toString()}'
+                : 'Choose date and time'),
             trailing: const Icon(Icons.chevron_right),
             onTap: () {
-              // TODO: Implement date and time picker
+              bottomSheet(
+                maxHeight: 0.5,
+                context,
+                buildBody: BlocProvider.value(
+                  value: BlocProvider.of<CardScreenCubit>(context),
+                  child: const BottomSheetContent(),
+                ),
+              );
             },
           ),
         ],
       ),
     );
+  }
+
+  String getDate(int index) {
+    if (index == 0) {
+      return 'today';
+    } else if (index == 1) {
+      return 'tomorrow';
+    } else {
+      return 'Pick';
+    }
   }
 }

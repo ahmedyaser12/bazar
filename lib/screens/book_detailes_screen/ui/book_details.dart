@@ -1,5 +1,7 @@
+import 'package:book_shop/config/routs/routs_names.dart';
 import 'package:book_shop/core/utils/colors.dart';
 import 'package:book_shop/core/utils/common_functions.dart';
+import 'package:book_shop/core/utils/extintions.dart';
 import 'package:book_shop/core/utils/styles.dart';
 import 'package:book_shop/core/widget/app_buttons.dart';
 import 'package:book_shop/screens/book_detailes_screen/logic/book_details_cubit.dart';
@@ -12,7 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:read_more_text/read_more_text.dart';
 
 class BookDetailsScreen extends StatelessWidget {
-  final ScrollController? scrollController;
+  final ScrollController scrollController;
   final int bookId;
 
   const BookDetailsScreen(
@@ -51,9 +53,10 @@ class _BookDetailsState extends State<BookDetails> {
   @override
   void initState() {
     context.read<BookDetailsCubit>().getBookDetailed(widget.bookId);
-
     super.initState();
   }
+
+  int num = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -92,11 +95,17 @@ class _BookDetailsState extends State<BookDetails> {
                       decoration: BoxDecoration(
                           color: AppColors.lightGery,
                           borderRadius: BorderRadius.circular(8)),
-                      child: const CounterButtons(),
+                      child: CounterButtons(
+                        num: (number) {
+                          setState(() {
+                            num = number;
+                          });
+                        },
+                      ),
                     ),
                     widthSpace(16),
                     Text(
-                      '\$39.99',
+                      '\$${int.parse(bookDetails.id.toString().substring(0, 2))}',
                       style: TextStyles.font16PrimarySemi,
                     ),
                   ],
@@ -107,12 +116,17 @@ class _BookDetailsState extends State<BookDetails> {
                     Expanded(
                       flex: 2,
                       child: primaryButton(
-                          title: 'Continue shopping', borderRadius: 50),
+                              title: 'Continue shopping', borderRadius: 50)
+                          .onTap(() {
+                        context.read<BookDetailsCubit>().addToCard(num);
+                      }),
                     ),
                     widthSpace(10),
                     Expanded(
                       flex: 1,
-                      child: secondaryButton('View Card'),
+                      child: secondaryButton('View Card').onTap(() {
+                        context.navigateTo(RouteName.CART);
+                      }),
                     )
                   ],
                 )

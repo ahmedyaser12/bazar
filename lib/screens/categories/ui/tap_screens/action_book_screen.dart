@@ -33,7 +33,7 @@ class _ActionBooksScreenState extends State<ActionBooksScreen> {
           child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: .75,
+              childAspectRatio: .65,
               mainAxisSpacing: .5,
               crossAxisSpacing: .5,
             ),

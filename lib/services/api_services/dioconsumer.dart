@@ -3,16 +3,16 @@ import 'package:book_shop/services/api_services/api_consumer.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '../../core/helper/cache_helper.dart';
-import 'end_points.dart';
-
 class DioConsumer extends ApiConsumer {
   final Dio dio;
-  final bool isAuth;
+  final String baseUrl;
+  final String? header;
 
-  DioConsumer({required this.dio, required this.isAuth}) {
-    print('Auth check$isAuth');
-    dio.options.baseUrl = (isAuth ? EndPoints.authBaseUrl : EndPoints.baseUrl);
+  final String? headerValue;
+
+  DioConsumer(this.header, this.headerValue,
+      {required this.dio, required this.baseUrl}) {
+    dio.options.baseUrl = (baseUrl);
     //dio.interceptors.add(ApiInterceptor());
     dio.interceptors.add(PrettyDioLogger(
       request: true,
@@ -24,12 +24,7 @@ class DioConsumer extends ApiConsumer {
       compact: true,
       maxWidth: 90,
     ));
-    dio.options.headers[isAuth == false ? 'X-RapidAPI-Key' : ApiKey.token] =
-        isAuth == false
-            ? EndPoints.apiKey
-            : CacheHelper().getData(key: ApiKey.token) != null
-                ? 'FOODAPI ${CacheHelper().getData(key: ApiKey.token)}'
-                : null;
+    dio.options.headers[headerValue!] = header;
   }
 
   @override

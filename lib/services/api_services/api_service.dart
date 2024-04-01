@@ -13,6 +13,7 @@ import 'package:book_shop/services/api_services/end_points.dart';
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../core/helper/cache_helper.dart';
 import '../../core/utils/resources.dart';
 import '../../core/utils/status.dart';
 import '../services_locator.dart';
@@ -29,8 +30,12 @@ class ApiService {
     required XFile profilePic,
   }) async {
     try {
-      var authApi = locator<DioConsumer>(param1: true);
-      print('Auth check api ${authApi.isAuth}');
+      var authApi = DioConsumer(
+          '${CacheHelper().getData(key: ApiKey.token) != null ? 'FOODAPI ${CacheHelper().getData(key: ApiKey.token)}' : null}',
+          ApiKey.token,
+          dio: locator<Dio>(),
+          baseUrl: EndPoints.authBaseUrl);
+      // print('Auth check api ${authApi.isAuth}');
       var response =
           await authApi.post(EndPoints.signUp, isFormData: true, data: {
         ApiKey.name: name,
@@ -56,7 +61,11 @@ class ApiService {
     required String password,
   }) async {
     try {
-      var authApi = locator<DioConsumer>(param1: true);
+      var authApi = DioConsumer(
+          '${CacheHelper().getData(key: ApiKey.token) != null ? 'FOODAPI ${CacheHelper().getData(key: ApiKey.token)}' : null}',
+          ApiKey.token,
+          dio: locator<Dio>(),
+          baseUrl: EndPoints.authBaseUrl);
       var response =
           await authApi.post(EndPoints.signIn, isFormData: true, data: {
         ApiKey.email: email,
@@ -76,7 +85,11 @@ class ApiService {
     XFile? profilePic, // Note: Make sure profilePic is nullable
   }) async {
     try {
-      var authApi = locator<DioConsumer>(param1: true);
+      var authApi = DioConsumer(
+          '${CacheHelper().getData(key: ApiKey.token) != null ? 'FOODAPI ${CacheHelper().getData(key: ApiKey.token)}' : null}',
+          ApiKey.token,
+          dio: locator<Dio>(),
+          baseUrl: EndPoints.authBaseUrl);
       Map<String, dynamic> data = {
         ApiKey.name: name,
         ApiKey.phone: phone,
@@ -104,9 +117,12 @@ class ApiService {
     required String id,
   }) async {
     try {
-      var authApi = locator<DioConsumer>(param1: true);
+      var authApi = DioConsumer(
+          '${CacheHelper().getData(key: ApiKey.token) != null ? 'FOODAPI ${CacheHelper().getData(key: ApiKey.token)}' : null}',
+          ApiKey.token,
+          dio: locator<Dio>(),
+          baseUrl: EndPoints.authBaseUrl);
       var response = await authApi.get('${EndPoints.get_user}/$id');
-      print(response);
       return Resource(Status.SUCCESS, data: UserModel.fromJson(response));
     } on ServerExceptions catch (exception) {
       return Resource(Status.ERROR,
@@ -116,7 +132,8 @@ class ApiService {
 
   Future<Resource<List<TopWeakModel>>> getTopWeaklyBook() async {
     try {
-      var api = locator<DioConsumer>(param1: false);
+      var api = DioConsumer(EndPoints.apiKey, "X-RapidAPI-Key",
+          dio: locator<Dio>(), baseUrl: EndPoints.baseUrl);
       var response = await api.get(EndPoints.topWeakly);
       List<TopWeakModel> topWeak = [];
       for (var item in response) {
@@ -130,7 +147,8 @@ class ApiService {
 
   Future<Resource<List<TopAuthorsModel>>> getTopAuthors() async {
     try {
-      var api = locator<DioConsumer>(param1: false);
+      var api = DioConsumer(EndPoints.apiKey, "X-RapidAPI-Key",
+          dio: locator<Dio>(), baseUrl: EndPoints.baseUrl);
       var response = await api.get(
         EndPoints.topAuthors,
         queryParameter: {'limit': 10},
@@ -148,7 +166,8 @@ class ApiService {
 
   Future<Resource<BookDetailsModel>> getBookDetails(int id) async {
     try {
-      var api = locator<DioConsumer>(param1: false);
+      var api = DioConsumer(EndPoints.apiKey, "X-RapidAPI-Key",
+          dio: locator<Dio>(), baseUrl: EndPoints.baseUrl);
       var response = await api.get("${EndPoints.bookDetails}/$id");
       return Resource(Status.SUCCESS,
           data: BookDetailsModel.fromJson(response));
@@ -160,7 +179,8 @@ class ApiService {
 
   Future<Resource<AuthorDetailsModel>> getAuthorDetails(int id) async {
     try {
-      var api = locator<DioConsumer>(param1: false);
+      var api = DioConsumer(EndPoints.apiKey, "X-RapidAPI-Key",
+          dio: locator<Dio>(), baseUrl: EndPoints.baseUrl);
       var response = await api.get("${EndPoints.authorDetails}/$id");
       return Resource(Status.SUCCESS,
           data: AuthorDetailsModel.fromJson(response));
@@ -173,7 +193,8 @@ class ApiService {
   Future<Resource<List<TopWeakModel>>> getCategories(
       String typeOfCategory) async {
     try {
-      var api = locator<DioConsumer>(param1: false);
+      var api = DioConsumer(EndPoints.apiKey, "X-RapidAPI-Key",
+          dio: locator<Dio>(), baseUrl: EndPoints.baseUrl);
       var response = await api.get('${EndPoints.category}/$typeOfCategory/10');
       List<TopWeakModel> topWeak = [];
       for (var item in response) {
@@ -188,13 +209,29 @@ class ApiService {
 
   Future<Resource<List<SearchModel>>> searchBook(String bookName) async {
     try {
-      var api = locator<DioConsumer>(param1: false);
+      var api = DioConsumer(EndPoints.apiKey, "X-RapidAPI-Key",
+          dio: locator<Dio>(), baseUrl: EndPoints.baseUrl);
       var response = await api.get('${EndPoints.searchBook}/$bookName');
       List<SearchModel> searchBook = [];
       for (var item in response) {
         searchBook.add(SearchModel.fromJson(item));
       }
       return Resource(Status.SUCCESS, data: searchBook);
+    } on ServerExceptions catch (exception) {
+      return Resource(Status.ERROR,
+          errorMessage: exception.errModel.errorMessage);
+    }
+  }
+
+  Future<Resource<String>> getAuthToken() async {
+    try {
+      var api = DioConsumer(null, null,
+          dio: locator<Dio>(), baseUrl: EndPoints.paymentBaseUrl);
+      var response = await api.get(EndPoints.paymentAuthToken,data: {
+        'api_key': EndPoints.paymentApiKey
+      });
+      var token = response['token'];
+      return Resource(Status.SUCCESS, data: token);
     } on ServerExceptions catch (exception) {
       return Resource(Status.ERROR,
           errorMessage: exception.errModel.errorMessage);

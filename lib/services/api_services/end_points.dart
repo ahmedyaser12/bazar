@@ -1,5 +1,9 @@
 class EndPoints {
+  static const paymentApiKey =
+      'ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2T1RZMk5qTXlMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkuWlhXWDF3d2x1TUk5WjNqQ2NFNlJXU0FnSWNYU3NCS0dsVmhTR3A5RDZjbFJ2OWhneC1DSWRwZm92TEVQdWs0SlV4RjVmOVhVS1BEQThpNF9wUzZlY2c=';
+
   static const baseUrl = "https://hapi-books.p.rapidapi.com";
+  static const paymentBaseUrl = " https://accept.paymob.com/api";
   static const authBaseUrl = "https://food-api-omega.vercel.app/api/v1/user";
 
   //EndPoints
@@ -9,6 +13,7 @@ class EndPoints {
   static const bookDetails = "/book";
   static const authorDetails = "/author";
   static const searchBook = "/search";
+  static const paymentAuthToken = "/auth/tokens";
   static const signUp = "/signup";
   static const signIn = "/signin";
   static const get_user = "/get-user";

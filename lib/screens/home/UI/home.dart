@@ -33,7 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    context.read<HomeCubit>().getTopWeakBook();
+    context.read<HomeCubit>().topBookWeak == null
+        ? context.read<HomeCubit>().getTopWeakBook()
+        : null;
     super.initState();
   }
 
@@ -103,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     SizedBox(
-                      height: context.heightPercent(20),
+                      height: context.heightPercent(25),
                       child: Swiper(
                         onIndexChanged: (value) {
                           setState(() {

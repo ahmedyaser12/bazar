@@ -46,9 +46,16 @@ class CartDetails extends StatelessWidget {
                       ),
                       title: Row(
                         children: [
-                          Text(cartList[index]['name']),
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 200),
+                            child: Text(
+                              cartList[index]['name'],
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
                           cartList[index]['num'] != 1
-                              ? Text("  \(${cartList[index]['num'].toString()}\)")
+                              ? Text(
+                                  "  \(${cartList[index]['num'].toString()}\)")
                               : Container(),
                           widthSpace(cartList[index]['num'] != 1 ? 5 : 0),
                         ],
@@ -62,7 +69,7 @@ class CartDetails extends StatelessWidget {
                 ),
               ),
               const Divider(),
-              heightSpace( 8.0),
+              heightSpace(8.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[

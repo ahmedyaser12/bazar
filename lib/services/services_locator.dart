@@ -1,5 +1,5 @@
 import 'package:book_shop/screens/book_detailes_screen/logic/book_details_cubit.dart';
-import 'package:book_shop/screens/card_screen/logic/card_screen_cubit.dart';
+import 'package:book_shop/screens/cart_screen/logic/card_screen_cubit.dart';
 import 'package:book_shop/screens/categories/logic/categories_cubit.dart';
 import 'package:book_shop/screens/favorite_screen/logic/favorite_cubit.dart';
 import 'package:book_shop/screens/home/logic/home_cubit.dart';

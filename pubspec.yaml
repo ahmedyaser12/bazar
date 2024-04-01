@@ -35,9 +35,11 @@ dependencies:
   jwt_decoder: ^2.0.1
   cached_network_image: ^3.3.1
   path_provider: ^2.1.2
-  cloud_firestore: ^4.15.7
+  cloud_firestore: ^4.15.10
   google_maps_flutter: ^2.5.3
   intl: ^0.18.1
+  geolocator: ^11.0.0
+  google_api_availability: ^5.0.0
 
 dev_dependencies:
   flutter_test:

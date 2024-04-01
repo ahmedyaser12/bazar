@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/utils/colors.dart';
-import '../card_screen/ui/card_screen.dart';
+import '../cart_screen/ui/card_screen.dart';
 import '../home/logic/home_cubit.dart';
 
 class BottomNavBar extends StatefulWidget {

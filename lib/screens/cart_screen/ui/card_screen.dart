@@ -1,3 +1,4 @@
+import 'package:book_shop/screens/cart_screen/ui/widget/adress_widget.dart';
 import 'package:book_shop/services/services_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,8 +42,8 @@ class ConfirmOrderScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          // const AddressWidget(),
-          // const SizedBox(height: 16),
+          const AddressWidget(),
+          const SizedBox(height: 16),
           const SummaryWidget(),
           const SizedBox(height: 16),
           const DateTimeWidget(),

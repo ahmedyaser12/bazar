@@ -1,5 +1,5 @@
 import 'package:book_shop/core/widget/bottom_sheet.dart';
-import 'package:book_shop/screens/card_screen/ui/widget/bottom.dart';
+import 'package:book_shop/screens/cart_screen/ui/widget/bottom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,8 +15,11 @@ class DateTimeWidget extends StatefulWidget {
 }
 
 class _DateTimeWidgetState extends State<DateTimeWidget> {
+  String? dateTime;
+
   @override
   Widget build(BuildContext context) {
+    dateTime = context.read<CardScreenCubit>().dateTimeString;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       decoration: BoxDecoration(
@@ -44,13 +47,17 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
               ),
             ),
             title: const Text('Date & time'),
-            subtitle: Text(context.read<CardScreenCubit>().dateTime != null
-                ? '${context.read<CardScreenCubit>().dateTimeString}'
-                    ' ${context.read<CardScreenCubit>().dateTime!.year.toString()}'
-                : 'Choose date and time'),
+            subtitle: BlocBuilder<CardScreenCubit, CardScreenState>(
+              builder: (context, state) {
+                return Text(dateTime != null
+                    ? '${dateTime!}'
+                        ' ${context.read<CardScreenCubit>().dateTime!.year.toString()}'
+                    : 'Choose date and time');
+              },
+            ),
             trailing: const Icon(Icons.chevron_right),
-            onTap: () {
-              bottomSheet(
+            onTap: () async {
+              await bottomSheet(
                 maxHeight: 0.5,
                 context,
                 buildBody: BlocProvider.value(
@@ -58,6 +65,9 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
                   child: const BottomSheetContent(),
                 ),
               );
+              setState(() {
+                dateTime = context.read<CardScreenCubit>().dateTimeString;
+              });
             },
           ),
         ],

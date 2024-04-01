@@ -2,7 +2,7 @@ import 'package:book_shop/services/api_services/dioconsumer.dart';
 import 'package:book_shop/services/services_locator.dart';
 import 'package:dio/dio.dart';
 
-import '../../core/chase_helper/cache_helper.dart';
+import '../../core/helper/cache_helper.dart';
 import 'end_points.dart';
 
 class ApiInterceptor extends Interceptor {

@@ -3,7 +3,7 @@ import 'package:book_shop/services/api_services/api_consumer.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '../../core/chase_helper/cache_helper.dart';
+import '../../core/helper/cache_helper.dart';
 import 'end_points.dart';
 
 class DioConsumer extends ApiConsumer {

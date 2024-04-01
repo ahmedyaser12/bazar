@@ -1,10 +1,9 @@
-import 'package:book_shop/core/chase_helper/cache_helper.dart';
 import 'package:book_shop/core/utils/colors.dart';
 import 'package:book_shop/core/utils/extintions.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/routs/routs_names.dart';
+import '../../../core/helper/cache_helper.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

@@ -45,71 +45,68 @@ class BottomSheetContentState extends State<BottomSheetContent> {
           const SizedBox(height: 20),
           // Example list of dates
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: List.generate(3, (index) {
-              return Padding(
-                padding: EdgeInsets.only(right: index == 2 ? 0 : 10.0),
-                child: ChoiceChip(
-                  showCheckmark: index == 2 ? false : true,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                  selectedColor: AppColors.primary,
-                  checkmarkColor: AppColors.whiteColor,
-                  backgroundColor: AppColors.whiteColor,
-                  labelStyle: TextStyle(
-                      color: index == selectedDateIndex
-                          ? AppColors.whiteColor
-                          : AppColors.blackColor),
-                  labelPadding: EdgeInsets.zero,
-                  label: BlocBuilder<CardScreenCubit, CardScreenState>(
-                    builder: (context, state) {
-                      return Column(
-                        children: [
-                          Text(getDate(index)),
-                          Text(
-                            index != 2
-                                ? context
-                                    .read<CardScreenCubit>()
-                                    .switchFromDateDayToHisName(
-                                        index + DateTime.now().day,
-                                        DateTime.now().month)
-                                : context
-                                            .read<CardScreenCubit>()
-                                            .dateTimeString !=
-                                        null
-                                    ? context
-                                        .read<CardScreenCubit>()
-                                        .dateTime!
-                                        .year
-                                        .toString()
-                                    : 'a date',
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                  selected: selectedDateIndex == index,
-                  onSelected: (bool selected) {
-                    setState(() {
-                      selectedDateIndex = index;
-                    });
-                    if (index == 2) {
-                      showDatePicker(
-                        context: context,
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(
-                            2030, DateTime.now().month, DateTime.now().day),
-                        initialDate: DateTime.now(),
-                      ).then(
-                        (value) {
-                          if (value != null) {
-                            context.read<CardScreenCubit>().confirmOrder(value);
-                          }
-                        },
-                      );
-                    }
+              return ChoiceChip(
+                showCheckmark: index == 2 ? false : true,
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                selectedColor: AppColors.primary,
+                checkmarkColor: AppColors.whiteColor,
+                backgroundColor: AppColors.whiteColor,
+                labelStyle: TextStyle(
+                    color: index == selectedDateIndex
+                        ? AppColors.whiteColor
+                        : AppColors.blackColor),
+                labelPadding: EdgeInsets.zero,
+                label: BlocBuilder<CardScreenCubit, CardScreenState>(
+                  builder: (context, state) {
+                    return Column(
+                      children: [
+                        Text(getDate(index)),
+                        Text(
+                          index != 2
+                              ? context
+                                  .read<CardScreenCubit>()
+                                  .switchFromDateDayToHisName(
+                                      index + DateTime.now().day,
+                                      DateTime.now().month)
+                              : context
+                                          .read<CardScreenCubit>()
+                                          .dateTimeString !=
+                                      null
+                                  ? context
+                                      .read<CardScreenCubit>()
+                                      .dateTime!
+                                      .year
+                                      .toString()
+                                  : 'a date',
+                        ),
+                      ],
+                    );
                   },
                 ),
+                selected: selectedDateIndex == index,
+                onSelected: (bool selected) {
+                  setState(() {
+                    selectedDateIndex = index;
+                  });
+                  if (index == 2) {
+                    showDatePicker(
+                      context: context,
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(
+                          2030, DateTime.now().month, DateTime.now().day),
+                      initialDate: DateTime.now(),
+                    ).then(
+                      (value) {
+                        if (value != null) {
+                          context.read<CardScreenCubit>().confirmOrder(value);
+                        }
+                      },
+                    );
+                  }
+                },
               );
             }),
           ),
@@ -127,7 +124,7 @@ class BottomSheetContentState extends State<BottomSheetContent> {
               (index) {
                 return ChoiceChip(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                   selectedColor: AppColors.primary,
                   checkmarkColor: AppColors.whiteColor,
                   backgroundColor: AppColors.whiteColor,

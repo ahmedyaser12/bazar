@@ -1,6 +1,6 @@
 import 'package:book_shop/core/widget/bottom_sheet.dart';
-import 'package:book_shop/screens/card_screen/logic/card_screen_cubit.dart';
-import 'package:book_shop/screens/card_screen/ui/widget/cart_details.dart';
+import 'package:book_shop/screens/cart_screen/logic/card_screen_cubit.dart';
+import 'package:book_shop/screens/cart_screen/ui/widget/cart_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,7 +36,6 @@ class SummaryWidget extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
               }
-
                 final cartList = context.read<CardScreenCubit>().cartList;
                 final totalPrice =
                     context.read<CardScreenCubit>().getTotalPrice(cartList);
@@ -107,7 +106,7 @@ class SummaryWidget extends StatelessWidget {
                     ),
                   ],
                 );
-              
+
               return Container();
             },
           ),

@@ -1,4 +1,3 @@
-import 'package:book_shop/core/chase_helper/cache_helper.dart';
 import 'package:book_shop/core/utils/status.dart';
 import 'package:book_shop/screens/profile_screen/data/user_model.dart';
 import 'package:book_shop/services/api_services/end_points.dart';
@@ -6,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../core/helper/cache_helper.dart';
 import '../../../services/api_services/api_service.dart';
 
 part 'profile_screen_state.dart';

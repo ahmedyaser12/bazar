@@ -1,5 +1,7 @@
+import 'package:book_shop/core/utils/extintions.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../config/routs/routs_names.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/styles.dart';
 
@@ -47,7 +49,7 @@ class AddressWidget extends StatelessWidget {
                   'Dumbo Street No.20, Dumbo,\nNew York 10001, United States'),
               trailing: const Icon(Icons.chevron_right),
               onTap: () {
-                // TODO: Implement navigation or action on tap
+                context.navigateTo(RouteName.MAP);
               },
             ),
             Align(

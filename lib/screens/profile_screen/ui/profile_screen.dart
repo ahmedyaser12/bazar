@@ -45,45 +45,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            }else{
+            } else {
               final user = context.read<ProfileScreenCubit>().userModel!.user;
-            return ListTile(
-              horizontalTitleGap: .5,
-              contentPadding: const EdgeInsets.symmetric(vertical: 8.0),
-              titleAlignment: ListTileTitleAlignment.top,
-              leading: CachedNetworkImage(
-                alignment: Alignment.center,
-                imageUrl: user!.profilePic!,
-                placeholder: (context, url) =>
-                    const CircularProgressIndicator(),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-                imageBuilder: (context, imageProvider) => Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  height: 60,
-                  width: 55,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.fill, // Start with BoxFit.cover
+              return ListTile(
+                horizontalTitleGap: .5,
+                contentPadding: const EdgeInsets.symmetric(vertical: 8.0),
+                titleAlignment: ListTileTitleAlignment.top,
+                leading: CachedNetworkImage(
+                  alignment: Alignment.center,
+                  imageUrl: user!.profilePic!,
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  imageBuilder: (context, imageProvider) => Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    height: 60,
+                    width: 55,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.fill, // Start with BoxFit.cover
+                      ),
+                      borderRadius: BorderRadius.circular(100),
                     ),
-                    borderRadius: BorderRadius.circular(100),
                   ),
                 ),
-              ),
-              title:
-                  Text(user.name.toString(), style: TextStyles.font18BlackBold),
-              trailing: Padding(
-                padding: const EdgeInsets.only(top: 15, right: 15),
-                child: Text(
-                  'Logout',
-                  style: TextStyle(color: AppColors.redColor, fontSize: 15),
-                ).onTap(() {}),
-              ),
-              subtitle: Text(
-                user.email.toString(),
-                style: TextStyles.font16grey.copyWith(fontSize: 15),
-              ),
-            );
+                title: Text(user.name.toString(),
+                    style: TextStyles.font18BlackBold),
+                trailing: Padding(
+                  padding: const EdgeInsets.only(top: 15, right: 15),
+                  child: Text(
+                    'Logout',
+                    style: TextStyle(color: AppColors.redColor, fontSize: 15),
+                  ).onTap(() {
+                    //context.navigateToAndReplacement(RouteName.LOGIN);
+                  }),
+                ),
+                subtitle: Text(
+                  user.email.toString(),
+                  style: TextStyles.font16grey.copyWith(fontSize: 15),
+                ),
+              );
             }
           },
         ),

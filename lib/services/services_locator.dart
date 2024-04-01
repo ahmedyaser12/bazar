@@ -23,9 +23,10 @@ Future setupLocator() async {
     () => ApiService(),
   );
   locator.registerLazySingleton(() => Dio());
-  locator.registerFactoryParam<DioConsumer, bool, dynamic>(
-    (isAuth, _) => DioConsumer(dio: locator(), isAuth: isAuth),
-  );
+  // locator.registerFactoryParam<DioConsumer, String, String>(
+  //   (header, baseUrl) =>
+  //       DioConsumer(dio: locator(), header, null, baseUrl: baseUrl),
+  // );
   locator.registerLazySingleton<LoginCubit>(() => LoginCubit(locator()));
   locator.registerLazySingleton<SignUpCubit>(() => SignUpCubit(locator()));
   locator.registerLazySingleton<ProfileScreenCubit>(

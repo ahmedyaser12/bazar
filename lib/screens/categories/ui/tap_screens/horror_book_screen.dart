@@ -32,7 +32,7 @@ class _HorrorBooksScreenState extends State<HorrorBooksScreen> {
         return GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: .75,
+            childAspectRatio: .65,
             mainAxisSpacing: .5,
             crossAxisSpacing: .5,
           ),

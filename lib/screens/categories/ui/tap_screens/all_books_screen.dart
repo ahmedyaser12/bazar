@@ -32,7 +32,7 @@ class _AllBooksScreenState extends State<AllBooksScreen> {
         return GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: .75,
+            childAspectRatio: .65,
             mainAxisSpacing: 0.5,
             crossAxisSpacing: .5,
           ),

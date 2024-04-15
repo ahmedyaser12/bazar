@@ -8,11 +8,11 @@ import '../../../../core/utils/styles.dart';
 import '../../logic/card_screen_cubit.dart';
 
 class CartDetails extends StatelessWidget {
-  final List cartList;
+  List cartList;
   final int totalPrice;
   final void Function(int index) onTab;
 
-  const CartDetails(
+  CartDetails(
       {super.key,
       required this.cartList,
       required this.totalPrice,
@@ -22,84 +22,90 @@ class CartDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CardScreenCubit, CardScreenState>(
       builder: (context, state) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Cart Details',
-              style: TextStyles.font18BlackBold,
-            ),
-            heightSpace(10),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: AppColors.greyColor,
-                  // Color of the border
-                  width: 1, // Width of the border
-                ),
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
+        state is RemoveItem ? cartList = state.cartList : null;
+        return cartList.isNotEmpty
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    children: List.generate(
-                      cartList.length,
-                      (index) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          leading: Image.network(
-                            cartList[index]['cover'],
-                            width: 40,
-                          ),
-                          title: Row(
-                            children: [
-                              Container(
-                                constraints:
-                                    const BoxConstraints(maxWidth: 200),
-                                child: Text(
-                                  cartList[index]['name'],
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              cartList[index]['num'] != 1
-                                  ? Text(
-                                      "  \(${cartList[index]['num'].toString()}\)")
-                                  : Container(),
-                              widthSpace(cartList[index]['num'] != 1 ? 5 : 0),
-                            ],
-                          ),
-                          trailing: Text(
-                            '\$${cartList[index]['price'].toString()}',
-                            style: TextStyles.font14BlackSemi,
-                          ).onTap(() {
-                            onTab(index);
-                          }),
-                        ),
+                  Text(
+                    'Cart Details',
+                    style: TextStyles.font18BlackBold,
+                  ),
+                  heightSpace(10),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColors.greyColor,
+                        // Color of the border
+                        width: 1, // Width of the border
                       ),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Column(
+                          children: List.generate(
+                            cartList.length,
+                            (index) => Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: Image.network(
+                                  cartList[index]['cover'],
+                                  width: 40,
+                                ),
+                                title: Row(
+                                  children: [
+                                    Container(
+                                      constraints:
+                                          const BoxConstraints(maxWidth: 200),
+                                      child: Text(
+                                        cartList[index]['name'],
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    cartList[index]['num'] != 1
+                                        ? Text(
+                                            "  \(${cartList[index]['num'].toString()}\)")
+                                        : Container(),
+                                    widthSpace(
+                                        cartList[index]['num'] != 1 ? 5 : 0),
+                                  ],
+                                ),
+                                trailing: Text(
+                                  '\$${cartList[index]['price'].toString()}',
+                                  style: TextStyles.font14BlackSemi,
+                                ).onTap(() {
+                                  onTab(index);
+                                }),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Divider(),
+                        heightSpace(8.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            const Text(
+                              'Total Price',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              '\$${(totalPrice).toString()}',
+                              style: TextStyles.font18BlackBold,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  const Divider(),
-                  heightSpace(8.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      const Text(
-                        'Total Price',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        '\$${(totalPrice).toString()}',
-                        style: TextStyles.font18BlackBold,
-                      ),
-                    ],
-                  ),
                 ],
-              ),
-            ),
-          ],
-        );
+              )
+            : const Center(
+                child: Text('Cart is empty'),
+              );
       },
     );
   }

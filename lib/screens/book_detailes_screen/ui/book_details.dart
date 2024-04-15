@@ -56,7 +56,7 @@ class _BookDetailsState extends State<BookDetails> {
     super.initState();
   }
 
-  int num = 0;
+  int num = 1;
 
   @override
   Widget build(BuildContext context) {

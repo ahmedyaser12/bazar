@@ -68,7 +68,7 @@ class FirebaseService {
     }
   }
 
-  Future<List?> removeFromCart(String userId, int itemId) async {
+  Future<List> removeFromCart(String userId, int itemId) async {
     var cartRef = _db.collection('carts').doc(userId);
     var cartSnapshot = await cartRef.get();
     if (cartSnapshot.exists) {
@@ -83,7 +83,7 @@ class FirebaseService {
         return currentCartItems;
       }
     }
-    return null;
+    return [];
   }
 }
 

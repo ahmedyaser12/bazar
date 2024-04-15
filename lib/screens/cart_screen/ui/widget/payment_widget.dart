@@ -1,7 +1,13 @@
+import 'package:book_shop/core/widget/bottom_sheet.dart';
+import 'package:book_shop/services/services_locator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/styles.dart';
+import '../../../payment_screen/logic/payment_cubit.dart';
+import '../../../payment_screen/ui/payment_screen.dart';
+
 class PaymentWidget extends StatelessWidget {
   const PaymentWidget({super.key});
 
@@ -37,7 +43,13 @@ class PaymentWidget extends StatelessWidget {
             subtitle: const Text('Choose your payment'),
             trailing: const Icon(Icons.chevron_right),
             onTap: () {
-              // TODO: Implement date and time picker
+              bottomSheet(
+                  maxHeight: .4,
+                  context,
+                  buildBody: BlocProvider.value(
+                    value: locator<PaymentCubit>(),
+                    child: const PaymentScreen(),
+                  ));
             },
           ),
         ],

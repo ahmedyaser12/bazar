@@ -21,7 +21,7 @@ class BuildContainer extends StatefulWidget {
 }
 
 class _BuildContainerState extends State<BuildContainer> {
-  var tappedDate = -1;
+  int tappedDate = -1;
 
   @override
   Widget build(BuildContext context) {

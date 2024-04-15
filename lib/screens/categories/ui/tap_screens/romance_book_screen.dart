@@ -2,6 +2,7 @@ import 'package:book_shop/core/widget/build_book.dart';
 import 'package:book_shop/screens/categories/logic/categories_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tuple/tuple.dart';
 
 class RomanceBooksScreen extends StatefulWidget {
   const RomanceBooksScreen({super.key});
@@ -12,33 +13,43 @@ class RomanceBooksScreen extends StatefulWidget {
 
 class _RomanceBooksScreenState extends State<RomanceBooksScreen> {
   @override
-
   void initState() {
+    super.initState();
     context.read<CategoriesCubit>().romanceList.isEmpty
         ? context.read<CategoriesCubit>().getCategory('romance')
         : null;
-    super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CategoriesCubit, CategoriesState>(
-      builder: (context, state) {
-        if (state is LoadingList) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+    return BlocSelector<CategoriesCubit, CategoriesState, Tuple2<bool, List>>(
+      selector: (state) {
+        final isLoading = state is LoadingList;
         final romanceList = context.read<CategoriesCubit>().romanceList;
+        return Tuple2(isLoading, romanceList);
+      },
+      builder: (context, tuple) {
+        final isLoading = tuple.item1;
+        final romanceList = tuple.item2;
+
+        if (isLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        double screenWidth = MediaQuery.of(context).size.width;
+        int crossAxisCount = screenWidth < 600 ? 2 : screenWidth < 900 ? 3 : 4;
+        double aspectRatio = screenWidth < 400 ? 0.65 : 0.75;
+
         return Center(
           child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: .65,
-              mainAxisSpacing: .5,
-              crossAxisSpacing: .5,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              childAspectRatio: aspectRatio,
+              mainAxisSpacing: 0.5,
+              crossAxisSpacing: 0.5,
             ),
             itemBuilder: (ctx, index) {
-              return BuildBook(categoryList: romanceList[index]);
+              return Center(child: BuildBook(categoryList: romanceList[index]));
             },
             itemCount: romanceList.length,
           ),

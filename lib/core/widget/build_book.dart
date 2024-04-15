@@ -1,4 +1,5 @@
 import 'package:book_shop/core/utils/extintions.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../screens/book_detailes_screen/ui/book_details.dart';
@@ -15,20 +16,23 @@ class BuildBook extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        ClipRRect(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(15),
-          ),
-          child: Image.network(
-            categoryList.cover.toString(),
-            width: 150,
-            height: 240,
-            fit: BoxFit.fill,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Expanded(
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(15),
+            ),
+            child: Image.network(
+              categoryList.cover.toString(),
+             // width: 150,
+             // height: 240,
+              fit: BoxFit.fill,
+            ),
           ),
         ),
         heightSpace(3),
         Container(
+          padding: EdgeInsets.zero,
           constraints: const BoxConstraints(maxWidth: 150),
           child: Text(
             categoryList.name.toString(),

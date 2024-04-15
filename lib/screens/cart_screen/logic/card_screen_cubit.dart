@@ -19,8 +19,8 @@ class CardScreenCubit extends Cubit<CardScreenState> {
 
   void getCartDetails() async {
     emit(CartLoading());
-    final documentId = CacheHelper().getData(key: ApiKey.id);
-    final response = await firebaseService.getCartItems(documentId);
+    final userId = CacheHelper().getData(key: ApiKey.id);
+    final response = await firebaseService.getCartItems(userId);
     cartList = response;
     emit(GetCart(response));
   }
@@ -34,6 +34,14 @@ class CardScreenCubit extends Cubit<CardScreenState> {
     }
     print(total);
     return total;
+  }
+
+  removeItem(int id) {
+    var cartList = firebaseService.removeFromCart(
+        CacheHelper().getData(key: ApiKey.id), id);
+    print('done');
+    getCartDetails();
+    emit(RemoveItem(cartList as List));
   }
 
   add(int number) {

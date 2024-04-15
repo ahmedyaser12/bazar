@@ -12,7 +12,10 @@ class ConfirmOrder extends CardScreenState {
 
   ConfirmOrder(this.dateTime);
 }
-
+ class RemoveItem extends CardScreenState {
+  final List cartList;
+    RemoveItem(this.cartList);
+ }
 class AddNum extends CardScreenState {
   final int num;
 

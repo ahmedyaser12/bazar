@@ -10,8 +10,8 @@ class DioConsumer extends ApiConsumer {
 
   final String? headerValue;
 
-  DioConsumer(this.header, this.headerValue,
-      {required this.dio, required this.baseUrl}) {
+  DioConsumer({this.header, this.headerValue,
+      required this.dio, required this.baseUrl}) {
     dio.options.baseUrl = (baseUrl);
     //dio.interceptors.add(ApiInterceptor());
     dio.interceptors.add(PrettyDioLogger(
@@ -24,7 +24,7 @@ class DioConsumer extends ApiConsumer {
       compact: true,
       maxWidth: 90,
     ));
-    dio.options.headers[headerValue!] = header;
+    dio.options.headers[headerValue??''] = header??'';
   }
 
   @override

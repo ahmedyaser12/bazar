@@ -1,6 +1,7 @@
 import 'package:book_shop/core/widget/bottom_sheet.dart';
 import 'package:book_shop/screens/cart_screen/logic/card_screen_cubit.dart';
 import 'package:book_shop/screens/cart_screen/ui/widget/cart_details.dart';
+import 'package:book_shop/services/services_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,76 +37,84 @@ class SummaryWidget extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
               }
-                final cartList = context.read<CardScreenCubit>().cartList;
-                final totalPrice =
-                    context.read<CardScreenCubit>().getTotalPrice(cartList);
-                return Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        const Row(
-                          children: [
-                            Text(
-                              'Price',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        Text('\$${totalPrice.toString()}'),
-                      ],
-                    ),
-                    const SizedBox(height: 8.0),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('Shipping'),
-                        Text('\$2'),
-                      ],
-                    ),
-                    const Divider(),
-                    const SizedBox(height: 8.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        const Text(
-                          'Total Payment',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          '\$${(totalPrice + 2).toString()}',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8.0),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          foregroundColor: AppColors.primary, // Text color
-                        ),
-                        onPressed: () {
-                          bottomSheet(
-                            context,
-                            buildBody: CartDetails(
+              final cartList = context.read<CardScreenCubit>().cartList;
+              final totalPrice =
+                  context.read<CardScreenCubit>().getTotalPrice(cartList);
+              return Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      const Row(
+                        children: [
+                          Text(
+                            'Price',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      Text('\$${totalPrice.toString()}'),
+                    ],
+                  ),
+                  const SizedBox(height: 8.0),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text('Shipping'),
+                      Text('\$2'),
+                    ],
+                  ),
+                  const Divider(),
+                  const SizedBox(height: 8.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      const Text(
+                        'Total Payment',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        '\$${(totalPrice + 2).toString()}',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8.0),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        foregroundColor: AppColors.primary, // Text color
+                      ),
+                      onPressed: () {
+                        bottomSheet(
+                          context,
+                          buildBody: BlocProvider(
+                            create: (context) => locator<CardScreenCubit>(),
+                            child: CartDetails(
                               cartList: cartList,
                               totalPrice: totalPrice,
+                              onTab: (index) {
+                                context
+                                    .read<CardScreenCubit>()
+                                    .removeItem(cartList[index]['id']);
+                              },
                             ),
-                          );
-                        },
-                        child: const Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text('See details'),
-                            Icon(Icons.chevron_right),
-                          ],
-                        ),
+                          ),
+                        );
+                      },
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text('See details'),
+                          Icon(Icons.chevron_right),
+                        ],
                       ),
                     ),
-                  ],
-                );
+                  ),
+                ],
+              );
 
               return Container();
             },

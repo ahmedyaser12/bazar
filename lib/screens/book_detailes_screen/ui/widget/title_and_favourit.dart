@@ -25,7 +25,7 @@ class TitleAndFavourite extends StatelessWidget {
           children: [
             Container(
               constraints:  const BoxConstraints(
-                maxWidth: 320,
+                maxWidth: 270,
               ) ,
               child: Text(
                 '${bookDetails.name}',

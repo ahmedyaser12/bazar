@@ -89,8 +89,8 @@ class SummaryWidget extends StatelessWidget {
                       onPressed: () {
                         bottomSheet(
                           context,
-                          buildBody: BlocProvider(
-                            create: (context) => locator<CardScreenCubit>(),
+                          buildBody: BlocProvider.value(
+                            value: locator<CardScreenCubit>(),
                             child: CartDetails(
                               cartList: cartList,
                               totalPrice: totalPrice,
@@ -115,8 +115,6 @@ class SummaryWidget extends StatelessWidget {
                   ),
                 ],
               );
-
-              return Container();
             },
           ),
         ],

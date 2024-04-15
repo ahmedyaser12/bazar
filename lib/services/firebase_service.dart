@@ -78,7 +78,6 @@ class FirebaseService {
       int index = currentCartItems.indexWhere((item) => item['id'] == itemId);
       if (index >= 0) {
         currentCartItems.removeAt(index);
-        print(currentCartItems);
         cartRef.update({'cartItems': currentCartItems});
         return currentCartItems;
       }

@@ -24,7 +24,7 @@ class BookDetailsModel extends BaseModel {
     image = json['cover'];
     url = json['url'];
     authors = json['authors'].cast<String>();
-    rating = json['rating'];
+    rating =double.parse( json['rating'].toString());
     pages = json['pages'];
     publishedDate = json['published_date'];
     synopsis = json['synopsis'];
@@ -37,7 +37,7 @@ class BookDetailsModel extends BaseModel {
     data['cover'] = this.image;
     data['url'] = this.url;
     data['authors'] = this.authors;
-    data['rating'] = this.rating;
+    data['rating'] = rating;
     data['pages'] = this.pages;
     data['published_date'] = this.publishedDate;
     data['synopsis'] = this.synopsis;

@@ -32,7 +32,6 @@ class CardScreenCubit extends Cubit<CardScreenState> {
         total += cart['price'] as int;
       }
     }
-    print(total);
     return total;
   }
 
@@ -41,7 +40,8 @@ class CardScreenCubit extends Cubit<CardScreenState> {
         CacheHelper().getData(key: ApiKey.id), id);
     print('done');
     this.cartList = cartList;
-    emit(RemoveItem(cartList));
+  int totalPrice= getTotalPrice(cartList);
+    emit(RemoveItem(cartList,totalPrice));
   }
 
   add(int number) {

@@ -23,9 +23,14 @@ class TitleAndFavourite extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              '${bookDetails.name}',
-              style: TextStyles.font18BlackBold,
+            Container(
+              constraints:  const BoxConstraints(
+                maxWidth: 320,
+              ) ,
+              child: Text(
+                '${bookDetails.name}',
+                style: TextStyles.font18BlackBold,
+              ),
             ),
             FavouriteButton(
               backgroundColor: AppColors.whiteColor,

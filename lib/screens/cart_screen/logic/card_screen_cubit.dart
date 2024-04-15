@@ -36,12 +36,12 @@ class CardScreenCubit extends Cubit<CardScreenState> {
     return total;
   }
 
-  removeItem(int id) {
-    var cartList = firebaseService.removeFromCart(
+  removeItem(int id) async {
+    List<dynamic> cartList = await firebaseService.removeFromCart(
         CacheHelper().getData(key: ApiKey.id), id);
     print('done');
-    getCartDetails();
-    emit(RemoveItem(cartList as List));
+    this.cartList = cartList;
+    emit(RemoveItem(cartList));
   }
 
   add(int number) {

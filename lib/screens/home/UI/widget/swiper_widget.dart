@@ -1,5 +1,6 @@
 import 'package:book_shop/core/utils/extintions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/common_functions.dart';
@@ -20,13 +21,13 @@ class ContentCard extends StatelessWidget {
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(top: 25.0, left: 25, bottom: 25),
+              padding: EdgeInsets.only(top: 30.0.h, left: 20.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Special Offer',
-                    style: TextStyles.font24BlackBold,
+                    style: TextStyles.font24BlackBold.copyWith(fontSize: 23),
                   ),
                   Text(
                     'Discount 25%',
@@ -34,10 +35,10 @@ class ContentCard extends StatelessWidget {
                   ),
                   heightSpace(16),
                   primaryButton(
-                          title: 'Order Now',
-                          borderRadius: 40,
-                          verticalHeight: 5)
-                      .onTap(() {}),
+                    title: 'Order Now',
+                    borderRadius: 40,
+                    verticalHeight: 5,
+                  ).onTap(() {}),
                 ],
               ),
             ),

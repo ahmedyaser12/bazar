@@ -1,6 +1,7 @@
 import 'package:book_shop/core/utils/colors.dart';
 import 'package:book_shop/core/utils/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../utils/common_functions.dart';
 
@@ -17,7 +18,7 @@ class FormTextFieldItem extends StatelessWidget {
   final bool optional = false;
   final int? lines;
   final Widget? suffixIcon;
-  final Function(String) validator;
+  final Function(String)? validator;
 
   const FormTextFieldItem({
     super.key,
@@ -32,7 +33,7 @@ class FormTextFieldItem extends StatelessWidget {
     this.isSecure = false,
     this.keyboardType = TextInputType.text,
     this.isPassword = false,
-    required this.validator,
+    this.validator,
   });
 
   @override
@@ -59,7 +60,7 @@ class FormTextFieldItem extends StatelessWidget {
           child: Center(
             child: TextFormField(
               validator: (value) {
-                return validator(value!);
+                return validator!(value!);
               },
               initialValue: initialValue,
               controller: controller,
@@ -97,11 +98,12 @@ class FormTextFieldItem extends StatelessWidget {
                 //border: InputBorder.none,
                 hintText: hint ?? title ?? "hint",
                 suffixIcon: suffixIcon,
-
+                counterText: '',
                 //contentPadding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15),
                 isDense: true,
               ),
-              minLines: lines ?? 1,
+              maxLength: lines,
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,
               enabled: enabled,
               obscureText: isPassword == true ? isSecure! : false,
             ),

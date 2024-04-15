@@ -1,3 +1,4 @@
+import 'package:book_shop/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -5,7 +6,7 @@ class CustomAppBar extends StatelessWidget {
   final String title;
   final IconThemeData iconThemeData;
   final Color color;
-  final List<Widget> action;
+  final List<Widget>? action;
 
   const CustomAppBar(
       {super.key,
@@ -13,7 +14,7 @@ class CustomAppBar extends StatelessWidget {
       required this.title,
       required this.iconThemeData,
       required this.color,
-      required this.action});
+        this.action});
 
   @override
   Widget build(BuildContext context) {

@@ -31,7 +31,8 @@ class TextStyles {
     fontSize: 14,
     fontWeight: FontWeight.w700,
     color: AppColors.primary,
-  ); static TextStyle font14BlackSemi = TextStyle(
+  );
+  static TextStyle font14BlackSemi = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w700,
     color: AppColors.blackColor,
@@ -40,11 +41,13 @@ class TextStyles {
     fontSize: 16,
     fontWeight: FontWeight.w700,
     color: AppColors.primary,
-  ); static TextStyle font18BlackBold = TextStyle(
+  );
+  static TextStyle font18BlackBold = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.bold,
     color: AppColors.blackColor,
-  );static TextStyle font14RedBold = TextStyle(
+  );
+  static TextStyle font14RedBold = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w300,
     color: AppColors.redColor,

@@ -1,7 +1,9 @@
 class AppConstance {
-  static const baseUrl = "https://hapi-books.p.rapidapi.com";
-  static const topWeakly = "/week/all/10";
-  static const String apiKey =
-      'c8d7ad50b6msh8cccde41a0e9a95p1d1255jsnf5392f75d64c';
-  static const String apiHost = 'hapi-books.p.rapidapi.com';
+  static const googleMapApiKey = 'AIzaSyBsR5iNEfzgK4xt439K2ouJxOOa4Fgk2aw';
+  static const suggestionsBaseUrl =
+      'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+  static const placeLocationBaseUrl =
+      'https://maps.googleapis.com/maps/api/place/details/json';
+  static const directionsBaseUrl =
+      'https://maps.googleapis.com/maps/api/directions/json';
 }

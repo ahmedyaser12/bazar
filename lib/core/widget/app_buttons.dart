@@ -1,5 +1,6 @@
 import 'package:book_shop/core/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils/common_functions.dart';
 
@@ -31,6 +32,7 @@ Widget secondaryButton(String title, {String? image}) {
     alignment: Alignment.center,
     padding: const EdgeInsets.symmetric(vertical: 16),
     decoration: BoxDecoration(
+      color: AppColors.secondary,
       borderRadius: BorderRadius.circular(30),
     ),
     child: Row(
@@ -40,15 +42,16 @@ Widget secondaryButton(String title, {String? image}) {
         if (image != null)
           Image.asset(
             image,
-            width: 20,
-            height: 20,
+            width: 20.w,
+            height: 20.h,
           ),
         if (image != null) widthSpace(6),
         Text(
           title,
           style: TextStyle(
-            color: AppColors.whiteColor,
-            fontSize: 22,
+            color: AppColors.primary,
+            fontSize: 16,
+            fontWeight: FontWeight.bold
           ),
         ),
       ],

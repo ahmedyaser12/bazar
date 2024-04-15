@@ -5,12 +5,14 @@ abstract class SignUpState {}
 
 class SignUpInitial extends SignUpState {}
 
+class PickImage extends SignUpState {}
+
 class SignUpLoading extends SignUpState {}
 
 class SignUpSuccess extends SignUpState {
-  final User user;
+  final String success;
 
-  SignUpSuccess(this.user);
+  SignUpSuccess(this.success);
 }
 
 class SignUpFailure extends SignUpState {
@@ -18,4 +20,3 @@ class SignUpFailure extends SignUpState {
 
   SignUpFailure(this.error);
 }
-

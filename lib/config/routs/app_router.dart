@@ -19,7 +19,7 @@ import '../../screens/onboarding_screen/Ui/on_boarding_screen.dart';
 import '../../screens/profile_screen/ui/acount_screen.dart';
 import '../../screens/sign_up_screen/logic/sign_up_cubit.dart';
 import '../../services/services_locator.dart';
-
+//
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {

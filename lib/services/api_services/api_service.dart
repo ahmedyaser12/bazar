@@ -31,8 +31,9 @@ class ApiService {
   }) async {
     try {
       var authApi = DioConsumer(
-          '${CacheHelper().getData(key: ApiKey.token) != null ? 'FOODAPI ${CacheHelper().getData(key: ApiKey.token)}' : null}',
-          ApiKey.token,
+          header:
+              '${CacheHelper().getData(key: ApiKey.token) != null ? 'FOODAPI ${CacheHelper().getData(key: ApiKey.token)}' : null}',
+          headerValue: ApiKey.token,
           dio: locator<Dio>(),
           baseUrl: EndPoints.authBaseUrl);
       // print('Auth check api ${authApi.isAuth}');
@@ -62,8 +63,9 @@ class ApiService {
   }) async {
     try {
       var authApi = DioConsumer(
-          '${CacheHelper().getData(key: ApiKey.token) != null ? 'FOODAPI ${CacheHelper().getData(key: ApiKey.token)}' : null}',
-          ApiKey.token,
+          header:
+              '${CacheHelper().getData(key: ApiKey.token) != null ? 'FOODAPI ${CacheHelper().getData(key: ApiKey.token)}' : null}',
+          headerValue: ApiKey.token,
           dio: locator<Dio>(),
           baseUrl: EndPoints.authBaseUrl);
       var response =
@@ -86,8 +88,9 @@ class ApiService {
   }) async {
     try {
       var authApi = DioConsumer(
-          '${CacheHelper().getData(key: ApiKey.token) != null ? 'FOODAPI ${CacheHelper().getData(key: ApiKey.token)}' : null}',
-          ApiKey.token,
+          header:
+              '${CacheHelper().getData(key: ApiKey.token) != null ? 'FOODAPI ${CacheHelper().getData(key: ApiKey.token)}' : null}',
+          headerValue: ApiKey.token,
           dio: locator<Dio>(),
           baseUrl: EndPoints.authBaseUrl);
       Map<String, dynamic> data = {
@@ -118,8 +121,9 @@ class ApiService {
   }) async {
     try {
       var authApi = DioConsumer(
-          '${CacheHelper().getData(key: ApiKey.token) != null ? 'FOODAPI ${CacheHelper().getData(key: ApiKey.token)}' : null}',
-          ApiKey.token,
+          header:
+              '${CacheHelper().getData(key: ApiKey.token) != null ? 'FOODAPI ${CacheHelper().getData(key: ApiKey.token)}' : null}',
+          headerValue: ApiKey.token,
           dio: locator<Dio>(),
           baseUrl: EndPoints.authBaseUrl);
       var response = await authApi.get('${EndPoints.get_user}/$id');
@@ -132,8 +136,11 @@ class ApiService {
 
   Future<Resource<List<TopWeakModel>>> getTopWeaklyBook() async {
     try {
-      var api = DioConsumer(EndPoints.apiKey, "X-RapidAPI-Key",
-          dio: locator<Dio>(), baseUrl: EndPoints.baseUrl);
+      var api = DioConsumer(
+          header: EndPoints.apiKey,
+          headerValue: "X-RapidAPI-Key",
+          dio: locator<Dio>(),
+          baseUrl: EndPoints.baseUrl);
       var response = await api.get(EndPoints.topWeakly);
       List<TopWeakModel> topWeak = [];
       for (var item in response) {
@@ -147,8 +154,11 @@ class ApiService {
 
   Future<Resource<List<TopAuthorsModel>>> getTopAuthors() async {
     try {
-      var api = DioConsumer(EndPoints.apiKey, "X-RapidAPI-Key",
-          dio: locator<Dio>(), baseUrl: EndPoints.baseUrl);
+      var api = DioConsumer(
+          header: EndPoints.apiKey,
+          headerValue: "X-RapidAPI-Key",
+          dio: locator<Dio>(),
+          baseUrl: EndPoints.baseUrl);
       var response = await api.get(
         EndPoints.topAuthors,
         queryParameter: {'limit': 10},
@@ -166,8 +176,11 @@ class ApiService {
 
   Future<Resource<BookDetailsModel>> getBookDetails(int id) async {
     try {
-      var api = DioConsumer(EndPoints.apiKey, "X-RapidAPI-Key",
-          dio: locator<Dio>(), baseUrl: EndPoints.baseUrl);
+      var api = DioConsumer(
+          header: EndPoints.apiKey,
+          headerValue: "X-RapidAPI-Key",
+          dio: locator<Dio>(),
+          baseUrl: EndPoints.baseUrl);
       var response = await api.get("${EndPoints.bookDetails}/$id");
       return Resource(Status.SUCCESS,
           data: BookDetailsModel.fromJson(response));
@@ -179,8 +192,11 @@ class ApiService {
 
   Future<Resource<AuthorDetailsModel>> getAuthorDetails(int id) async {
     try {
-      var api = DioConsumer(EndPoints.apiKey, "X-RapidAPI-Key",
-          dio: locator<Dio>(), baseUrl: EndPoints.baseUrl);
+      var api = DioConsumer(
+          header: EndPoints.apiKey,
+          headerValue: "X-RapidAPI-Key",
+          dio: locator<Dio>(),
+          baseUrl: EndPoints.baseUrl);
       var response = await api.get("${EndPoints.authorDetails}/$id");
       return Resource(Status.SUCCESS,
           data: AuthorDetailsModel.fromJson(response));
@@ -193,8 +209,11 @@ class ApiService {
   Future<Resource<List<TopWeakModel>>> getCategories(
       String typeOfCategory) async {
     try {
-      var api = DioConsumer(EndPoints.apiKey, "X-RapidAPI-Key",
-          dio: locator<Dio>(), baseUrl: EndPoints.baseUrl);
+      var api = DioConsumer(
+          header: EndPoints.apiKey,
+          headerValue: "X-RapidAPI-Key",
+          dio: locator<Dio>(),
+          baseUrl: EndPoints.baseUrl);
       var response = await api.get('${EndPoints.category}/$typeOfCategory/10');
       List<TopWeakModel> topWeak = [];
       for (var item in response) {
@@ -209,8 +228,11 @@ class ApiService {
 
   Future<Resource<List<SearchModel>>> searchBook(String bookName) async {
     try {
-      var api = DioConsumer(EndPoints.apiKey, "X-RapidAPI-Key",
-          dio: locator<Dio>(), baseUrl: EndPoints.baseUrl);
+      var api = DioConsumer(
+          header: EndPoints.apiKey,
+          headerValue: "X-RapidAPI-Key",
+          dio: locator<Dio>(),
+          baseUrl: EndPoints.baseUrl);
       var response = await api.get('${EndPoints.searchBook}/$bookName');
       List<SearchModel> searchBook = [];
       for (var item in response) {
@@ -223,18 +245,85 @@ class ApiService {
     }
   }
 
+
   Future<Resource<String>> getAuthToken() async {
     try {
-      var api = DioConsumer(null, null,
-          dio: locator<Dio>(), baseUrl: EndPoints.paymentBaseUrl);
-      var response = await api.get(EndPoints.paymentAuthToken,data: {
-        'api_key': EndPoints.paymentApiKey
+      var api =
+          DioConsumer(dio: locator<Dio>(), baseUrl: EndPoints.paymentBaseUrl);
+      var response = await api.post(EndPoints.paymentAuthToken, data: {
+        'api_key': EndPoints.paymentApiKey,
       });
-      var token = response['token'];
+     var token = response['token'];
       return Resource(Status.SUCCESS, data: token);
+    } catch (exception) {
+      print('this is exception $exception');
+      return Resource(Status.ERROR, errorMessage: exception.toString());
+    }
+  }
+
+  Future<Resource<String>> getOrderId(
+      {required String authenticationToken,
+      required String amount,
+      required String currency}) async {
+    try {
+      var api =
+          DioConsumer(dio: locator<Dio>(), baseUrl: EndPoints.paymentBaseUrl);
+      var response = await api.post(EndPoints.paymentOrderId, data: {
+        "auth_token": authenticationToken,
+        "amount_cents": amount,
+        "currency": currency,
+        "delivery_needed": "false",
+        "items": [],
+      });
+     String orderId = response['id'].toString();
+      return Resource(Status.SUCCESS, data: orderId);
     } on ServerExceptions catch (exception) {
-      return Resource(Status.ERROR,
-          errorMessage: exception.errModel.errorMessage);
+      return Resource(Status.ERROR, errorMessage: exception.errModel.message);
+    }
+  }
+
+  Future<Resource<String>> getPaymentToken({
+    required String authenticationToken,
+    required String orderId,
+    required String amount,
+    required String currency,
+  }) async {
+    try {
+      var api =
+          DioConsumer(dio: locator<Dio>(), baseUrl: EndPoints.paymentBaseUrl);
+      var response = await api.post(EndPoints.paymentKey, data: {
+        "expiration": 3600,
+
+        "auth_token": authenticationToken, //From First Api
+        "order_id": orderId,
+        "integration_id": 4541880,
+
+        "amount_cents": amount,
+        "currency": currency,
+
+        "billing_data": {
+          //Have To Be Values
+          "first_name": "Clifford",
+          "last_name": "Nicolas",
+          "email": "claudette09@exa.com",
+          "phone_number": "+86(8)9135210487",
+
+          //Can Set "NA"
+          "apartment": "NA",
+          "floor": "NA",
+          "street": "NA",
+          "building": "NA",
+          "shipping_method": "NA",
+          "postal_code": "NA",
+          "city": "NA",
+          "country": "NA",
+          "state": "NA",
+        }
+      });
+     var lastToken = response['token'].toString();
+      return Resource(Status.SUCCESS, data: lastToken);
+    } on ServerExceptions catch (exception) {
+      return Resource(Status.ERROR, errorMessage: exception.errModel.message);
     }
   }
 }

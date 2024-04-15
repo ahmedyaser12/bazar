@@ -1,23 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseService {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+//   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  Future<UserCredential> signUp(String email, String password) async {
-    return await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email, password: password);
-  }
-
-  Future<UserCredential> signIn(String email, String password) async {
-    return await _firebaseAuth.signInWithEmailAndPassword(
-        email: email, password: password);
-  }
-
-  User? getCurrentUser() {
-    return _firebaseAuth.currentUser;
-  }
+//
+//   Future<UserCredential> signUp(String email, String password) async {
+//     return await _firebaseAuth.createUserWithEmailAndPassword(
+//         email: email, password: password);
+//   }
+//
+//   Future<UserCredential> signIn(String email, String password) async {
+//     return await _firebaseAuth.signInWithEmailAndPassword(
+//         email: email, password: password);
+//   }
+//
+//   User? getCurrentUser() {
+//     return _firebaseAuth.currentUser;
+//   }
 
   Future<void> addToCart(String userId, Map<String, dynamic> newItem) async {
     var cartRef = FirebaseFirestore.instance.collection('carts').doc(userId);
@@ -67,7 +67,26 @@ class FirebaseService {
       return [];
     }
   }
+
+  Future<List?> removeFromCart(String userId, int itemId) async {
+    var cartRef = _db.collection('carts').doc(userId);
+    var cartSnapshot = await cartRef.get();
+    if (cartSnapshot.exists) {
+      var cartData = cartSnapshot.data() as Map<String, dynamic>;
+      var currentCartItems =
+          cartData['cartItems'] != null ? List.from(cartData['cartItems']) : [];
+      int index = currentCartItems.indexWhere((item) => item['id'] == itemId);
+      if (index >= 0) {
+        currentCartItems.removeAt(index);
+        print(currentCartItems);
+        cartRef.update({'cartItems': currentCartItems});
+        return currentCartItems;
+      }
+    }
+    return null;
+  }
 }
+
 // import 'package:google_sign_in/google_sign_in.dart';
 //
 // class GoogleAuthHelper {

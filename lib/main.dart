@@ -21,7 +21,7 @@ void main() async {
   await setupLocator();
   CacheHelper().init();
   runApp(DevicePreview(
-    enabled: false,
+    enabled: true,
     builder: (BuildContext context) {
       return const MyApp();
     },

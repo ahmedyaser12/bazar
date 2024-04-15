@@ -5,10 +5,10 @@ import 'package:book_shop/screens/favorite_screen/logic/favorite_cubit.dart';
 import 'package:book_shop/screens/home/logic/home_cubit.dart';
 import 'package:book_shop/screens/login_screen/logic/login_cubit.dart';
 import 'package:book_shop/screens/onboarding_screen/logic/onboarding_cubit.dart';
+import 'package:book_shop/screens/payment_screen/logic/payment_cubit.dart';
 import 'package:book_shop/screens/profile_screen/logic/profile_screen_cubit.dart';
 import 'package:book_shop/screens/search_screen/logic/search_screen_cubit.dart';
 import 'package:book_shop/screens/sign_up_screen/logic/sign_up_cubit.dart';
-import 'package:book_shop/services/api_services/dioconsumer.dart';
 import 'package:book_shop/services/firebase_service.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -28,6 +28,7 @@ Future setupLocator() async {
   //       DioConsumer(dio: locator(), header, null, baseUrl: baseUrl),
   // );
   locator.registerLazySingleton<LoginCubit>(() => LoginCubit(locator()));
+  locator.registerLazySingleton<PaymentCubit>(() => PaymentCubit(locator()));
   locator.registerLazySingleton<SignUpCubit>(() => SignUpCubit(locator()));
   locator.registerLazySingleton<ProfileScreenCubit>(
       () => ProfileScreenCubit(locator()));

@@ -12,7 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 
-import '../../../core/utils/common_functions.dart';
 import '../../../core/utils/styles.dart';
 import '../../../core/widget/custom_appBar.dart';
 import '../../onboarding_screen/Ui/widget/dots_indicator_widget.dart';
@@ -33,7 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    context.read<HomeCubit>().topBookWeak == null
+    print(context.read<HomeCubit>().topBookWeak);
+    context.read<HomeCubit>().topBookWeak.isEmpty
         ? context.read<HomeCubit>().getTopWeakBook()
         : null;
     super.initState();
@@ -82,30 +82,33 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    CustomAppBar(
-                      title: 'Home',
-                      leading: const Icon(Icons.search).onTap(() {
-                        context.navigateTo(RouteName.SEARCH);
-                      }),
-                      color: AppColors.whiteColor,
-                      iconThemeData: IconThemeData(
-                        color: AppColors.blackColor,
+                    SizedBox(
+                      height: context.heightPercent(10),
+                      child: CustomAppBar(
+                        title: 'Home',
+                        leading: const Icon(Icons.search).onTap(() {
+                          context.navigateTo(RouteName.SEARCH);
+                        }),
+                        color: AppColors.whiteColor,
+                        iconThemeData: IconThemeData(
+                          color: AppColors.blackColor,
+                        ),
+                        action: [
+                          IconButton(
+                              onPressed: () {
+                                //FirebaseAuth.instance.signOut();
+                                print('List$authorsList');
+                              },
+                              icon:
+                                  SvgPicture.asset('assets/svgs/Notification.svg')
+                                      .onTap(() {
+                                print(MediaQuery.of(context).size.width);
+                              }))
+                        ],
                       ),
-                      action: [
-                        IconButton(
-                            onPressed: () {
-                              //FirebaseAuth.instance.signOut();
-                              print('List$authorsList');
-                            },
-                            icon:
-                                SvgPicture.asset('assets/svgs/Notification.svg')
-                                    .onTap(() {
-                              print(MediaQuery.of(context).size.width);
-                            }))
-                      ],
                     ),
                     SizedBox(
-                      height: context.heightPercent(25),
+                      height: context.heightPercent(20),
                       child: Swiper(
                         onIndexChanged: (value) {
                           setState(() {
@@ -119,14 +122,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     ),
-                    heightSpace(5),
-                    Center(
-                      child: DotsIndicatorWidget(
-                          currentIndex:
-                              context.read<HomeCubit>().currentSwiperIndex),
+                    SizedBox(
+                      height: context.heightPercent(3),
+                      child: Center(
+                        child: DotsIndicatorWidget(
+                            currentIndex:
+                                context.read<HomeCubit>().currentSwiperIndex),
+                      ),
                     ),
                     SizedBox(
-                      height: context.heightPercent(38),
+                      height: context.heightPercent(37),
                       child: TopOfWeekWidget(
                         topWeakList: topWeakList,
                       ),

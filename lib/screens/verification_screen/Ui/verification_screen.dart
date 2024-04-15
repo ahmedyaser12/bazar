@@ -1,6 +1,5 @@
 import 'package:book_shop/core/widget/app_buttons.dart';
 import 'package:book_shop/screens/verification_screen/Ui/widget/verify_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +14,7 @@ class VerificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userDetails = FirebaseAuth.instance.currentUser;
+    //final userDetails = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
@@ -42,10 +41,10 @@ class VerificationScreen extends StatelessWidget {
                     TextSpan(
                         text: 'Please enter the code we just sent to',
                         style: TextStyles.font16grey),
-                    TextSpan(
-                      text: '\n${userDetails!.email}',
-                      style: TextStyles.font15BlackMedium,
-                    ),
+                    // TextSpan(
+                    //   text: '\n${userDetails!.email}',
+                    //   style: TextStyles.font15BlackMedium,
+                    // ),
                   ]),
                 ),
               ),

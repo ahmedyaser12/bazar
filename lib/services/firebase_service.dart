@@ -84,6 +84,29 @@ class FirebaseService {
     }
     return [];
   }
+
+  Future<List> updateNumberOfItems(String userId, int itemId, int num) async {
+    var cartRef = _db.collection('carts').doc(userId);
+    var cartSnapshot = await cartRef.get();
+    if (cartSnapshot.exists) {
+      var cartData = cartSnapshot.data() as Map<String, dynamic>;
+      var currentCartItems =
+          cartData['cartItems'] != null ? List.from(cartData['cartItems']) : [];
+      int index = currentCartItems.indexWhere((item) => item['id'] == itemId);
+      if (index >= 0) {
+        currentCartItems[index]['num'] = num;
+        cartRef.update({'cartItems': currentCartItems});
+        return currentCartItems;
+      }
+    }
+    return [];
+  }
+
+  Future<void> updateCart(
+      String userId, List<Map<String, dynamic>> cartItems) async {
+    var cartRef = _db.collection('carts').doc(userId);
+    cartRef.update({'cartItems': cartItems});
+  }
 }
 
 // import 'package:google_sign_in/google_sign_in.dart';

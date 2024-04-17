@@ -12,7 +12,7 @@ part 'card_screen_state.dart';
 class CardScreenCubit extends Cubit<CardScreenState> {
   CardScreenCubit(this.firebaseService) : super(CardScreenInitial());
   final FirebaseService firebaseService;
-  late int numberCount;
+  int numberCount = 0;
   String? dateTimeString;
   DateTime? dateTime;
   List cartList = [];
@@ -29,7 +29,7 @@ class CardScreenCubit extends Cubit<CardScreenState> {
     int total = 0;
     for (var cart in cartDetails) {
       if (cart['price'] != null) {
-        total += cart['price'] as int;
+        total += cart['price'] * cart['num'] as int;
       }
     }
     return total;
@@ -39,21 +39,16 @@ class CardScreenCubit extends Cubit<CardScreenState> {
     List<dynamic> cartList = await firebaseService.removeFromCart(
         CacheHelper().getData(key: ApiKey.id), id);
     print('done');
-    this.cartList = cartList;
-  int totalPrice= getTotalPrice(cartList);
-    emit(RemoveItem(cartList,totalPrice));
+    int totalPrice = getTotalPrice(cartList);
+    emit(RemoveItem(cartList, totalPrice));
   }
 
-  add(int number) {
-    number++;
-    numberCount = number;
-    emit(AddNum(number));
-  }
+  updateNumberOfItems(int id, int num) async {
+    List<dynamic> cartDetails = await firebaseService.updateNumberOfItems(
+        CacheHelper().getData(key: ApiKey.id), id, num);
+    int totalPrice = getTotalPrice(cartList);
 
-  remove(int number) {
-    number--;
-    numberCount = number;
-    emit(RemoveNum(number));
+    emit(UpdateNumberOfItems(totalPrice));
   }
 
   String switchFromDateDayToHisName(int day, int month) {

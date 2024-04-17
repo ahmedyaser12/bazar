@@ -8,7 +8,7 @@ import '../../../../core/utils/common_functions.dart';
 import '../../../../core/utils/styles.dart';
 import '../../logic/card_screen_cubit.dart';
 
-class CartDetails extends StatelessWidget {
+class CartDetails extends StatefulWidget {
   List cartList;
   int totalPrice;
   final void Function(int index) onTab;
@@ -20,95 +20,20 @@ class CartDetails extends StatelessWidget {
       required this.onTab});
 
   @override
+  State<CartDetails> createState() => _CartDetailsState();
+}
+
+class _CartDetailsState extends State<CartDetails> {
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<CardScreenCubit, CardScreenState>(
       builder: (context, state) {
         if (state is RemoveItem) {
-          cartList = state.cartList;
-          totalPrice = state.totalPrice;
-          return cartList.isNotEmpty
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Cart Details',
-                      style: TextStyles.font18BlackBold,
-                    ),
-                    heightSpace(10),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: AppColors.greyColor,
-                          // Color of the border
-                          width: 1, // Width of the border
-                        ),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        children: [
-                          Column(
-                            children: List.generate(
-                              cartList.length,
-                              (index) => Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: ListTile(
-                                  contentPadding: EdgeInsets.zero,
-                                  leading: Image.network(
-                                    cartList[index]['cover'],
-                                    width: 40,
-                                  ),
-                                  title: Row(
-                                    children: [
-                                      Container(
-                                        constraints:
-                                            const BoxConstraints(maxWidth: 200),
-                                        child: Text(
-                                          cartList[index]['name'],
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                      cartList[index]['num'] != 1
-                                          ? Text(
-                                              "  \(${cartList[index]['num'].toString()}\)")
-                                          : Container(),
-                                      widthSpace(
-                                          cartList[index]['num'] != 1 ? 5 : 0),
-                                    ],
-                                  ),
-                                  trailing: Text(
-                                    '\$${cartList[index]['price'].toString()}',
-                                    style: TextStyles.font14BlackSemi,
-                                  ).onTap(() {
-                                    onTab(index);
-                                  }),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const Divider(),
-                          heightSpace(8.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              const Text(
-                                'Total Price',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                '\$${(totalPrice).toString()}',
-                                style: TextStyles.font18BlackBold,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                )
-              : const Center(
-                  child: Text('Cart is empty'),
-                );
+          widget.cartList = state.cartList;
+          widget.totalPrice = state.totalPrice;
+        }
+        if (state is UpdateNumberOfItems) {
+          widget.totalPrice = state.totalPrice;
         }
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,90 +43,152 @@ class CartDetails extends StatelessWidget {
               style: TextStyles.font18BlackBold,
             ),
             heightSpace(10),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: AppColors.greyColor,
-                  // Color of the border
-                  width: 1, // Width of the border
-                ),
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  cartList.isNotEmpty
-                      ? Column(
-                          children: List.generate(
-                            cartList.length,
-                            (index) => Padding(
+            widget.cartList.isNotEmpty
+                ? Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColors.greyColor,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Column(
+                          children:
+                              List.generate(widget.cartList.length, (index) {
+                            return Padding(
                               padding: const EdgeInsets.only(bottom: 8.0),
                               child: ListTile(
+                                horizontalTitleGap: 5,
                                 contentPadding: EdgeInsets.zero,
                                 leading: Image.network(
-                                  cartList[index]['cover'],
+                                  widget.cartList[index]['cover'],
                                   width: 40,
                                 ),
                                 title: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
-                                      constraints:
-                                          const BoxConstraints(maxWidth: 200),
+                                      constraints: BoxConstraints(
+                                          maxWidth: MediaQuery.of(context)
+                                                      .size
+                                                      .width >
+                                                  600
+                                              ? 150
+                                              : 90,
+                                          minWidth: MediaQuery.of(context)
+                                                      .size
+                                                      .width >
+                                                  600
+                                              ? 150
+                                              : 90),
                                       child: Text(
-                                        cartList[index]['name'],
+                                        widget.cartList[index]['name'],
                                         overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                        style: TextStyles.font14BlackSemi
+                                            .copyWith(fontSize: 12),
                                       ),
                                     ),
-                                    cartList[index]['num'] != 1
-                                        ? Text(
-                                            "  \(${cartList[index]['num'].toString()}\)")
-                                        : Container(),
-                                    widthSpace(
-                                        cartList[index]['num'] != 1 ? 5 : 0),
+                                    Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          const Icon(
+                                                  Icons.remove_circle_outline)
+                                              .onTap(() {
+                                            if (widget.cartList[index]['num'] >
+                                                1) {
+                                              int newNum = widget
+                                                      .cartList[index]['num'] -
+                                                  1; // Pre-decrement
+                                              context
+                                                  .read<CardScreenCubit>()
+                                                  .updateNumberOfItems(
+                                                      widget.cartList[index]
+                                                          ['id'],
+                                                      newNum);
+                                              setState(() {
+                                                widget.cartList[index]['num'] =
+                                                    newNum; // Update state to newNum after BLoC
+                                              });
+                                            }
+                                          }),
+                                          widthSpace(3),
+                                          Text(widget.cartList[index]['num']
+                                              .toString()),
+                                          widthSpace(3),
+                                          const Icon(Icons.add_circle_outline)
+                                              .onTap(() {
+                                            int newNum = widget.cartList[index]
+                                                    ['num'] +
+                                                1; // Pre-increment
+                                            context
+                                                .read<CardScreenCubit>()
+                                                .updateNumberOfItems(
+                                                    widget.cartList[index]
+                                                        ['id'],
+                                                    newNum);
+                                            setState(() {
+                                              widget.cartList[index]['num'] =
+                                                  newNum; // Update state to newNum after BLoC
+                                            });
+                                          }),
+                                        ]),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          '\$${(widget.cartList[index]['price'] * widget.cartList[index]['num']).toString()}',
+                                          style: TextStyles.font14BlackSemi,
+                                        ),
+                                        widthSpace(5),
+                                        Icon(
+                                          Icons.delete,
+                                          color: AppColors.redColor,
+                                        ).onTap(() {
+                                          widget.onTab(index);
+                                        })
+                                      ],
+                                    ),
                                   ],
                                 ),
-                                trailing: Text(
-                                  '\$${cartList[index]['price'].toString()}',
-                                  style: TextStyles.font14BlackSemi,
-                                ).onTap(() {
-                                  onTab(index);
-                                }),
                               ),
-                            ),
-                          ),
-                        )
-                      : Center(
-                          child: Column(
-                            children: [
-                              Text(
-                                'Cart is empty',
-                                style: TextStyles.font18BlackBold,
-                              ),
-                              Center(
-                                child:
-                                    SvgPicture.asset('assets/svgs/Group.svg'),
-                              ),
-                            ],
-                          ),
+                            );
+                          }),
                         ),
-                  const Divider(),
-                  heightSpace(8.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      const Text(
-                        'Total Price',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
+                        const Divider(),
+                        heightSpace(8.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            const Text(
+                              'Total Price',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              '\$${widget.totalPrice.toString()}',
+                              style: TextStyles.font18BlackBold,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      heightSpace(50.0),
+                      Center(child: SvgPicture.asset('assets/svgs/Group.svg')),
+                      heightSpace(20.0),
                       Text(
-                        '\$${(totalPrice).toString()}',
+                        'There is no product in cart',
                         style: TextStyles.font18BlackBold,
                       ),
                     ],
                   ),
-                ],
-              ),
-            ),
           ],
         );
       },

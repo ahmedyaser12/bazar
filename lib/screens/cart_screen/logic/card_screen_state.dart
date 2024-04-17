@@ -20,6 +20,12 @@ class RemoveItem extends CardScreenState {
   RemoveItem(this.cartList, this.totalPrice);
 }
 
+class UpdateNumberOfItems extends CardScreenState {
+  final int totalPrice;
+
+  UpdateNumberOfItems(this.totalPrice);
+}
+
 class AddNum extends CardScreenState {
   final int num;
 

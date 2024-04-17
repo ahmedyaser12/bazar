@@ -39,7 +39,7 @@ class BookDetailsCubit extends Cubit<BookDetailsState> {
         'id': bookDetails!.id,
         'num': number,
         'name': bookDetails!.name,
-        'price': int.parse(bookDetails!.id.toString().substring(0, 2)) * number,
+        'price': int.parse(bookDetails!.id.toString().substring(0, 2)),
         'cover': bookDetails!.image,
       });
       //     .setDocument('Card', CacheHelper().getData(key: ApiKey.id), {

@@ -1,3 +1,4 @@
+import 'package:book_shop/core/utils/extintions.dart';
 import 'package:book_shop/core/widget/bottom_sheet.dart';
 import 'package:book_shop/screens/cart_screen/logic/card_screen_cubit.dart';
 import 'package:book_shop/screens/cart_screen/ui/widget/cart_details.dart';
@@ -86,8 +87,8 @@ class SummaryWidget extends StatelessWidget {
                       style: TextButton.styleFrom(
                         foregroundColor: AppColors.primary, // Text color
                       ),
-                      onPressed: () {
-                        bottomSheet(
+                      onPressed: () async {
+                        await bottomSheet(
                           context,
                           buildBody: BlocProvider.value(
                             value: locator<CardScreenCubit>(),
@@ -102,6 +103,7 @@ class SummaryWidget extends StatelessWidget {
                             ),
                           ),
                         );
+                        context.read<CardScreenCubit>().getCartDetails();
                       },
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,

@@ -26,7 +26,7 @@ class AuthorWidget extends StatelessWidget {
         const Header(header: 'Authors'),
         Expanded(
           child: ListView.builder(
-              itemCount: authorsList.length,
+              itemCount: 5,
               scrollDirection: Axis.horizontal,
               itemBuilder: (_, index) {
                 return Padding(
@@ -37,14 +37,14 @@ class AuthorWidget extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         backgroundImage:
-                            NetworkImage(authorsList[5].image.toString(),),
+                            NetworkImage(authorsList[(index*2+5)].image.toString(),),
                         radius: avatarSize,
                       ),
                       heightSpace(15),
                       Container(
-                        constraints: const BoxConstraints(maxWidth: 120),
+                        constraints: const BoxConstraints(maxWidth: 80,minWidth: 80),
                         child: Text(
-                          '${authorsList[index].name}',
+                          '${authorsList[index*2+5].name}',
                           style: TextStyles.font18BlackBold
                               .copyWith(fontSize: 13),
                           softWrap: true,
@@ -54,12 +54,12 @@ class AuthorWidget extends StatelessWidget {
                       ),
                       heightSpace(5),
                       Text(
-                        authorsList[index].numberPublishedBooks.toString(),
+                        authorsList[index*2+5].numberPublishedBooks.toString(),
                         style: TextStyles.font16grey.copyWith(fontSize: 13),
                       )
                     ],
                   ).onTap(() {
-                    onTab(authorsList[index]);
+                    onTab(authorsList[index*2+5]);
                   }),
                 );
               }),

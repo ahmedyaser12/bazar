@@ -1,6 +1,8 @@
+import 'package:book_shop/core/widget/rating_widget.dart';
 import 'package:book_shop/screens/book_detailes_screen/data/model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/utils/common_functions.dart';
 import '../../../../core/utils/styles.dart';
 
 class ReviewWidget extends StatelessWidget {
@@ -22,7 +24,8 @@ class ReviewWidget extends StatelessWidget {
         ),
         Row(
           children: [
-            Row(children: List.generate(5, (index) => const Icon(Icons.star))),
+            RatingWidget(rating: bookDetails.rating!),
+            widthSpace(5),
             Text('${bookDetails.rating}')
           ],
         ),

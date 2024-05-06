@@ -1,14 +1,12 @@
 import 'package:book_shop/core/utils/extintions.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../screens/book_detailes_screen/ui/book_details.dart';
-import '../../screens/home/data/top_book_of_weak_model.dart';
 import '../utils/common_functions.dart';
 import '../utils/styles.dart';
 
 class BuildBook extends StatelessWidget {
-  final TopWeakModel categoryList;
+  final dynamic categoryList;
 
   const BuildBook({super.key, required this.categoryList});
 
@@ -24,8 +22,8 @@ class BuildBook extends StatelessWidget {
             ),
             child: Image.network(
               categoryList.cover.toString(),
-             // width: 150,
-             // height: 240,
+              // width: 150,
+              // height: 240,
               fit: BoxFit.fill,
             ),
           ),
@@ -66,7 +64,7 @@ class BuildBook extends StatelessWidget {
                       topRight: Radius.circular(15),
                     )),
                 child: BookDetailsScreen(
-                  scrollController,
+                  scrollController: scrollController,
                   bookId: categoryList.bookId!,
                 ),
               );

@@ -1,3 +1,4 @@
+import 'package:book_shop/core/helper/cache_helper.dart';
 import 'package:book_shop/core/utils/common_functions.dart';
 import 'package:book_shop/core/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,8 @@ class PaymentScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
               onTap: () {
-                context.read<PaymentCubit>().getPaymentKey(10, 'EGP');
+                context.read<PaymentCubit>().getPaymentKey(
+                    CacheHelper().getData(key: 'total price'), 'EGP');
               },
             ),
           ),
@@ -69,8 +71,10 @@ class PaymentScreen extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (BuildContext context) => PaypalCheckout(
                       sandboxMode: true,
-                      clientId: "AU7y-cFH3X-5kogDUYmJ8ohLCV_y-Rj2QrJCcAX1HjSVQFVzYh0da0VSL6SUK75HkGaX6SmWIIaRqdiQ",
-                      secretKey: "ED9Du7Xyu32ryeglWeAg1OlUGv_1m-B9oetVO7SyvXAla80FJ2wX1gjGWfZQAoiXMpk3dx2ZTzkHHRVB",
+                      clientId:
+                          "AU7y-cFH3X-5kogDUYmJ8ohLCV_y-Rj2QrJCcAX1HjSVQFVzYh0da0VSL6SUK75HkGaX6SmWIIaRqdiQ",
+                      secretKey:
+                          "ED9Du7Xyu32ryeglWeAg1OlUGv_1m-B9oetVO7SyvXAla80FJ2wX1gjGWfZQAoiXMpk3dx2ZTzkHHRVB",
                       returnURL: "success.snippetcoder.com",
                       cancelURL: "cancel.snippetcoder.com",
                       transactions: const [

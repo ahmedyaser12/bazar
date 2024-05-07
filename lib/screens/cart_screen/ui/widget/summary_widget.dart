@@ -32,6 +32,7 @@ class SummaryWidget extends StatelessWidget {
           ),
           const SizedBox(height: 16.0),
           BlocBuilder<CardScreenCubit, CardScreenState>(
+            buildWhen: (_,state) => state is GetCart,
             builder: (context, state) {
               if (state is CartLoading) {
                 return const Center(

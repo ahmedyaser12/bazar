@@ -1,12 +1,22 @@
-import 'package:book_shop/core/utils/extintions.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart' as geo;
+import 'package:geolocator/geolocator.dart';
 
-import '../../../../config/routs/routs_names.dart';
+import '../../../../core/helper/location_helper.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/styles.dart';
 
-class AddressWidget extends StatelessWidget {
+class AddressWidget extends StatefulWidget {
   const AddressWidget({super.key});
+
+  @override
+  State<AddressWidget> createState() => _AddressWidgetState();
+}
+
+class _AddressWidgetState extends State<AddressWidget> {
+  Position? position;
+  bool isLoading = false;
+  List<geo.Placemark> addresses = [];
 
   @override
   Widget build(BuildContext context) {
@@ -41,32 +51,50 @@ class AddressWidget extends StatelessWidget {
                   color: AppColors.primary,
                 ),
               ),
-              title: const Text(
-                'Utama Street No.20',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              subtitle: const Text(
-                  'Dumbo Street No.20, Dumbo,\nNew York 10001, United States'),
+              // title: addresses[0].street != null ?Text(
+              //   addresses[0].locality ?? 'No address available',
+              //   style: const TextStyle(fontWeight: FontWeight.bold),
+              // ):Container(),
+              // subtitle: addresses[0].street != null ? Text(
+              //         '${addresses[0].street!.substring(0, addresses[0].street!.length - 11)},\n${addresses[0].administrativeArea}, ${addresses[0].country}',
+              //       )
+              //     : const Text('No address available'),
               trailing: const Icon(Icons.chevron_right),
               onTap: () {
-                context.navigateTo(RouteName.MAP);
+                print(addresses);
+                setState(() {
+                  isLoading = true;
+                });
+                _getLocation().then((value) {
+                  addresses = value;
+                  setState(() {
+                    isLoading = false;
+                  });
+                });
               },
             ),
-            Align(
-              alignment: Alignment.center,
-              child: TextButton(
-                onPressed: () {
-                  // TODO: Implement change address action
-                },
-                child: Text(
-                  'Change',
-                  style: TextStyle(color: AppColors.primary),
-                ),
-              ),
-            ),
+            isLoading ? const LinearProgressIndicator() : Container(),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> getMyCurrentLocation() async {
+    position = await LocationHelper.getCurrentLocation().whenComplete(() {
+      setState(() {});
+    });
+  }
+
+  Future<dynamic> _getLocation() async {
+    await getMyCurrentLocation();
+    final addresses = await geo.placemarkFromCoordinates(
+        position!.latitude, position!.longitude);
+
+    if (addresses.isNotEmpty) {
+      return addresses;
+    } else {
+      return 'No address available';
+    }
   }
 }

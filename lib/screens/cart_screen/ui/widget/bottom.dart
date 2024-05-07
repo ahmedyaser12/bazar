@@ -92,19 +92,28 @@ class BottomSheetContentState extends State<BottomSheetContent> {
                     selectedDateIndex = index;
                   });
                   if (index == 2) {
-                    showDatePicker(
-                      context: context,
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime(
-                          2030, DateTime.now().month, DateTime.now().day),
-                      initialDate: DateTime.now(),
-                    ).then(
-                      (value) {
-                        if (value != null) {
-                          context.read<CardScreenCubit>().confirmOrder(value);
-                        }
-                      },
-                    );
+                    {
+                      showDatePicker(
+                        context: context,
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime(
+                            2030, DateTime.now().month, DateTime.now().day),
+                        initialDate: DateTime.now(),
+                      ).then(
+                        (value) {
+                          if (value != null) {
+                            context.read<CardScreenCubit>().confirmOrder(value);
+                          }
+                        },
+                      );
+                    }
+                  } else if (index == 0) {
+                    context
+                        .read<CardScreenCubit>()
+                        .confirmOrder(DateTime.now());
+                  } else {
+                    context.read<CardScreenCubit>().confirmOrder(
+                        DateTime.now().add(const Duration(days: 1)));
                   }
                 },
               );

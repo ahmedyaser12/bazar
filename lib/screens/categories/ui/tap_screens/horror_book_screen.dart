@@ -32,10 +32,11 @@ class _HorrorBooksScreenState extends State<HorrorBooksScreen> {
         final isLoading = tuple.item1;
         final horrorList = tuple.item2;
 
-        if (isLoading) {
-          return const Center(child: CircularProgressIndicator());
+        if (tuple.item2.isEmpty) {
+          if (isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
         }
-
         double screenWidth = MediaQuery.of(context).size.width;
         int crossAxisCount = screenWidth < 600 ? 2 : screenWidth < 900 ? 3 : 4;
         double aspectRatio = screenWidth < 400 ? 0.65 : 0.75;

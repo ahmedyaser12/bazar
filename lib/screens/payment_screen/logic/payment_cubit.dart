@@ -18,7 +18,7 @@ class PaymentCubit extends Cubit<PaymentState> {
 
       int? orderId = await _getOrderId(
         authenticationToken: authenticationToken,
-        amount: (100 * amount).toString(),
+        amount: (100 * amount).toString() + 2.toString(),
         currency: currency,
       );
       String? paymentKey = await _getPaymentKey(

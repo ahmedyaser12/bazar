@@ -1,4 +1,5 @@
 import 'package:book_shop/core/utils/extintions.dart';
+import 'package:book_shop/screens/model/base_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../screens/book_detailes_screen/ui/book_details.dart';
@@ -6,7 +7,7 @@ import '../utils/common_functions.dart';
 import '../utils/styles.dart';
 
 class BuildBook extends StatelessWidget {
-  final dynamic categoryList;
+  final BaseModel categoryList;
 
   const BuildBook({super.key, required this.categoryList});
 
@@ -21,7 +22,7 @@ class BuildBook extends StatelessWidget {
               Radius.circular(15),
             ),
             child: Image.network(
-              categoryList.cover.toString(),
+              categoryList.image.toString(),
               // width: 150,
               // height: 240,
               fit: BoxFit.fill,
@@ -41,7 +42,6 @@ class BuildBook extends StatelessWidget {
           ),
         ),
       ]).onTap(() {
-        print('idbooktop${categoryList.bookId!}');
         showModalBottomSheet(
           isScrollControlled: true,
           context: context,
@@ -65,7 +65,7 @@ class BuildBook extends StatelessWidget {
                     )),
                 child: BookDetailsScreen(
                   scrollController: scrollController,
-                  bookId: categoryList.bookId!,
+                  bookId: categoryList.id!,
                 ),
               );
             },

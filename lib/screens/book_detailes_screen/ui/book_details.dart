@@ -14,11 +14,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:read_more_text/read_more_text.dart';
 
 class BookDetailsScreen extends StatelessWidget {
-  final ScrollController scrollController;
+  final ScrollController? scrollController;
   final int bookId;
 
-  const BookDetailsScreen(
-    this.scrollController, {
+  const BookDetailsScreen({
+    this.scrollController,
     super.key,
     required this.bookId,
   });

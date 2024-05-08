@@ -43,6 +43,8 @@ dependencies:
   flutter_paypal_checkout: ^1.0.1
   flutter_inappwebview: ^5.8.0
   tuple: ^2.0.2
+  flutter_rating_bar: ^4.0.1
+  geocoding: ^3.0.0
 
 dev_dependencies:
   flutter_test:

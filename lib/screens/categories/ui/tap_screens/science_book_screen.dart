@@ -32,8 +32,10 @@ class _ScienceBooksScreenState extends State<ScienceBooksScreen> {
         final isLoading = tuple.item1;
         final scienceList = tuple.item2;
 
-        if (isLoading) {
-          return const Center(child: CircularProgressIndicator());
+        if (tuple.item2.isEmpty) {
+          if (isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
         }
 
         double screenWidth = MediaQuery.of(context).size.width;

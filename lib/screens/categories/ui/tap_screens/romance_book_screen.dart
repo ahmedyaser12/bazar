@@ -32,8 +32,10 @@ class _RomanceBooksScreenState extends State<RomanceBooksScreen> {
         final isLoading = tuple.item1;
         final romanceList = tuple.item2;
 
-        if (isLoading) {
-          return const Center(child: CircularProgressIndicator());
+        if (tuple.item2.isEmpty) {
+          if (isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
         }
 
         double screenWidth = MediaQuery.of(context).size.width;

@@ -1,6 +1,5 @@
 import 'package:book_shop/core/utils/common_functions.dart';
 import 'package:book_shop/core/widget/search_and_button_search.dart';
-import 'package:book_shop/screens/search_screen/data/model.dart';
 import 'package:book_shop/screens/search_screen/logic/search_screen_cubit.dart';
 import 'package:book_shop/screens/search_screen/ui/widget/search_result_widget.dart';
 import 'package:flutter/material.dart';
@@ -17,55 +16,12 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  List<SearchModel> _searchResults = [];
-
-  @override
-  void initState() {
-    super.initState();
-    //context.read<SearchCubit>().getSearchBook();
-    context.read<SearchCubit>().searchController.addListener(
-          _onSearchChanged,
-        );
-  }
-
-  @override
-  void dispose() {
-    context
-        .read<SearchCubit>()
-        .searchController
-        .removeListener(_onSearchChanged);
-    context.read<SearchCubit>().searchController.dispose();
-    super.dispose();
-  }
-
-  _onSearchChanged() {
-    search(context.read<SearchCubit>().searchController.text);
-  }
-
-  void search(String query) {
-    if (query.isEmpty) {
-      setState(() {
-        _searchResults = [];
-      });
-      return;
-    }
-    context.read<SearchCubit>().getSearchBook();
-    List<SearchModel> _results = [];
-    context.read<SearchCubit>().bookSearch.forEach((element) {
-      if (element.name!.toLowerCase().contains(query.toLowerCase())) {
-        _results.add(element);
-      }
-    });
-
-    setState(() {
-      _searchResults = _results;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
+        backgroundColor: AppColors.whiteColor,
         title: Text(
           'Search',
           style: TextStyles.font18BlackBold,
@@ -80,37 +36,49 @@ class _SearchScreenState extends State<SearchScreen> {
               color: AppColors.whiteColor,
               child: SearchAndButtonSearch(
                 controller: context.read<SearchCubit>().searchController,
-                isButtonSearch: false,
+                isButtonSearch: true,
                 color: AppColors.gery50,
                 iconColor: AppColors.blackColor,
                 textTypingColor: AppColors.blackColor,
                 borderRadius: BorderRadius.circular(15),
+                onPressed: () {
+                  if (context
+                      .read<SearchCubit>()
+                      .searchController
+                      .text
+                      .isEmpty) {
+                    return showSnackBar(context, 'Please Enter Data');
+                  }
+                  context.read<SearchCubit>().getSearchBook();
+                },
               ),
             ),
             heightSpace(20),
-            _searchResults.isNotEmpty
-                ? Expanded(
-                    child: ListView.builder(
-                        itemCount: _searchResults.length,
-                        itemBuilder: (ctx, index) {
-                          return BlocBuilder<SearchCubit, SearchScreenState>(
-                              builder: (ctx, state) {
-                            if (state is LoadingList) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                            if (state is ListSearchLoaded) {
-                              //final searchList = state.searchBook;
-                              return SearchResultWidget(
-                                searchModel: _searchResults[index],
-                              );
-                            }
-                            return Container();
-                          });
-                        }),
-                  )
-                : const Text('Search Result'),
+            Expanded(
+              child: BlocBuilder<SearchCubit, SearchScreenState>(
+                 buildWhen:  (_,state) => state is LoadingList || state is ListSearchLoaded,
+                  builder: (ctx, state) {
+                if (state is LoadingList) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (state is ListSearchLoaded) {
+                  //final searchList = state.searchBook;(
+                  return context.read<SearchCubit>().bookSearch.isNotEmpty
+                      ? ListView.builder(
+                          itemCount: state.searchBook.length,
+                          itemBuilder: (ctx, index) {
+                            return SearchResultWidget(
+                              searchModel: state.searchBook[index],
+                            );
+                          },
+                        )
+                      : const Text('No Search Result');
+                }
+                return Container();
+              }),
+            )
           ],
         ),
       ),

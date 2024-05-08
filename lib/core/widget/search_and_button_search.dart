@@ -10,6 +10,7 @@ class SearchAndButtonSearch extends StatelessWidget {
   final Color color;
   final Color iconColor;
   final Color textTypingColor;
+  final void Function() onPressed;
 
   const SearchAndButtonSearch({
     super.key,
@@ -19,26 +20,13 @@ class SearchAndButtonSearch extends StatelessWidget {
     required this.iconColor,
     required this.borderRadius,
     required this.controller,
+    required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        isButtonSearch
-            ? TextButton(
-                onPressed: () {},
-                style: ButtonStyle(
-                    minimumSize: const MaterialStatePropertyAll(Size(70, 40)),
-                    backgroundColor:
-                        MaterialStatePropertyAll(AppColors.redColor)),
-                child: const Text(
-                  'للتأمين',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                ),
-              )
-            : Container(),
-        widthSpace(isButtonSearch ? 20 : 0),
         Expanded(
           child: SizedBox(
             height: 50,
@@ -46,7 +34,7 @@ class SearchAndButtonSearch extends StatelessWidget {
               decoration: BoxDecoration(
                   border: isButtonSearch
                       ? Border.all(
-                          color: AppColors.fourthColor,
+                          color: AppColors.secondary,
                           width: .5,
                         )
                       : null,
@@ -77,7 +65,23 @@ class SearchAndButtonSearch extends StatelessWidget {
               ),
             ),
           ),
-        )
+        ),
+        widthSpace(isButtonSearch ? 10 : 0),
+        isButtonSearch
+            ? TextButton(
+                onPressed: () {
+                  onPressed();
+                },
+                style: ButtonStyle(
+                    minimumSize: const MaterialStatePropertyAll(Size(40, 40)),
+                    backgroundColor:
+                        MaterialStatePropertyAll(AppColors.lightGery)),
+                child: const Text(
+                  'search',
+                  style: TextStyle( fontSize: 15),
+                ),
+              )
+            : Container(),
       ],
     );
   }

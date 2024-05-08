@@ -1,8 +1,14 @@
 import 'package:book_shop/core/utils/common_functions.dart';
+import 'package:book_shop/core/utils/extintions.dart';
 import 'package:book_shop/core/utils/styles.dart';
+import 'package:book_shop/core/widget/bottom_sheet.dart';
 import 'package:book_shop/screens/search_screen/data/model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+
+import '../../../../core/utils/colors.dart';
+import '../../../../core/widget/rating_widget.dart';
+import '../../../book_detailes_screen/ui/book_details.dart';
 
 class SearchResultWidget extends StatelessWidget {
   final SearchModel searchModel;
@@ -12,6 +18,7 @@ class SearchResultWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: AppColors.whiteColor,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -19,11 +26,13 @@ class SearchResultWidget extends StatelessWidget {
             borderRadius: const BorderRadius.all(
               Radius.circular(12),
             ),
-            child: Image.network(
-              searchModel.image!,
+            child: CachedNetworkImage(
+              imageUrl: searchModel.image!,
               fit: BoxFit.fill,
-              height: 90,
               width: 90,
+              height: 90,
+              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
           Expanded(
@@ -34,22 +43,32 @@ class SearchResultWidget extends StatelessWidget {
                 children: [
                   Text(
                     searchModel.name!,
-                    style: TextStyles.font18BlackBold,
+                    style: TextStyles.font15BlackMedium,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   heightSpace(8),
-                  Text(searchModel.rating.toString()),
+                  Row(
+                    children: [
+                      RatingWidget(rating: searchModel.rating!),
+                      widthSpace(5),
+                      Text(searchModel.rating.toString()),
+                    ],
+                  ),
                 ],
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 35),
-            child: SvgPicture.asset('assets/svgs/Heart.svg', height: 30),
-          ),
         ],
-      ),
+      ).onTap(() {
+        bottomSheet(
+          maxHeight: 1,
+          context,
+          buildBody: BookDetailsScreen(
+            bookId: searchModel.id!,
+          ),
+        );
+      }),
     );
   }
 }

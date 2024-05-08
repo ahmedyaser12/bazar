@@ -33,10 +33,10 @@ class _ActionBooksScreenState extends State<ActionBooksScreen> {
         final isLoading = tuple.item1;
         final actionList = tuple.item2;
 
-        if (isLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+        if (tuple.item2.isEmpty) {
+          if (isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
         }
 
         double screenWidth = MediaQuery.of(context).size.width;

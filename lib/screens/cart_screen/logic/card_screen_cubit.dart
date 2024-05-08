@@ -32,6 +32,7 @@ class CardScreenCubit extends Cubit<CardScreenState> {
         total += cart['price'] * cart['num'] as int;
       }
     }
+    CacheHelper().saveData(key: 'total price', value: total);
     return total;
   }
 
@@ -115,7 +116,6 @@ class CardScreenCubit extends Cubit<CardScreenState> {
   void confirmOrder(DateTime dateTime) {
     dateTimeString = formatDateTime(dateTime);
     this.dateTime = dateTime;
-    print('$dateTime&$dateTimeString');
     emit(ConfirmOrder(dateTime));
   }
 }

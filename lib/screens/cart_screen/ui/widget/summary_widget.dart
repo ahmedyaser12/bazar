@@ -1,4 +1,3 @@
-import 'package:book_shop/core/utils/extintions.dart';
 import 'package:book_shop/core/widget/bottom_sheet.dart';
 import 'package:book_shop/screens/cart_screen/logic/card_screen_cubit.dart';
 import 'package:book_shop/screens/cart_screen/ui/widget/cart_details.dart';
@@ -32,6 +31,7 @@ class SummaryWidget extends StatelessWidget {
           ),
           const SizedBox(height: 16.0),
           BlocBuilder<CardScreenCubit, CardScreenState>(
+            buildWhen: (_,state) => state is GetCart,
             builder: (context, state) {
               if (state is CartLoading) {
                 return const Center(

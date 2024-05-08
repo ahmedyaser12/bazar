@@ -24,7 +24,7 @@ class AuthorDetailsModel extends BaseModel {
     if (json['author_books'] != null) {
       authorBooks = <AuthorBooks>[];
       json['author_books'].forEach((v) {
-        authorBooks!.add(new AuthorBooks.fromJson(v));
+        authorBooks!.add(AuthorBooks.fromJson(v));
       });
     }
   }

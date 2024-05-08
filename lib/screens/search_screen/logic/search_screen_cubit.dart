@@ -15,10 +15,14 @@ class SearchCubit extends Cubit<SearchScreenState> {
   List<SearchModel> bookSearch = [];
 
   void getSearchBook() async {
+    bookSearch.clear();
     emit(LoadingList());
     final response = await apiService.searchBook(searchController.text);
     if (response.status == Status.SUCCESS) {
-      bookSearch = response.data!;
+      bookSearch = response.data!
+          .where((element) =>
+              element.name!.toLowerCase().startsWith(searchController.text))
+          .toList();
       emit(ListSearchLoaded(bookSearch));
       print('success');
     } else if (response.status == Status.ERROR) {

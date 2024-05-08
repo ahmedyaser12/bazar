@@ -16,7 +16,13 @@ class AddressWidget extends StatefulWidget {
 class _AddressWidgetState extends State<AddressWidget> {
   Position? position;
   bool isLoading = false;
-  List<geo.Placemark> addresses = [];
+  List<geo.Placemark>? addresses;
+
+  @override
+  void initState() {
+    print(addresses);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,40 +45,39 @@ class _AddressWidgetState extends State<AddressWidget> {
             ),
             const SizedBox(height: 8.0),
             ListTile(
-              contentPadding: EdgeInsets.zero,
-              leading: Container(
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(40)),
-                    color: AppColors.secondary),
-                child: Icon(
-                  Icons.location_on_rounded,
-                  color: AppColors.primary,
+                contentPadding: EdgeInsets.zero,
+                leading: Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(40)),
+                      color: AppColors.secondary),
+                  child: Icon(
+                    Icons.location_on_rounded,
+                    color: AppColors.primary,
+                  ),
                 ),
-              ),
-              // title: addresses[0].street != null ?Text(
-              //   addresses[0].locality ?? 'No address available',
-              //   style: const TextStyle(fontWeight: FontWeight.bold),
-              // ):Container(),
-              // subtitle: addresses[0].street != null ? Text(
-              //         '${addresses[0].street!.substring(0, addresses[0].street!.length - 11)},\n${addresses[0].administrativeArea}, ${addresses[0].country}',
-              //       )
-              //     : const Text('No address available'),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () {
-                print(addresses);
-                setState(() {
-                  isLoading = true;
-                });
-                _getLocation().then((value) {
-                  addresses = value;
+                title: addresses != null
+                    ? Text(
+                        addresses![0].locality ?? 'No address available',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      )
+                    : const Text('No address available'),
+                subtitle: addresses != null
+                    ? Text(
+                        '${addresses![0].street!.substring(0, addresses![0].street!.length - 11)},\n${addresses![0].administrativeArea}, ${addresses![0].country}',
+                      )
+                    : null,
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () async {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  await _getLocation();
                   setState(() {
                     isLoading = false;
                   });
-                });
-              },
-            ),
+                }),
             isLoading ? const LinearProgressIndicator() : Container(),
           ],
         ),
@@ -92,7 +97,7 @@ class _AddressWidgetState extends State<AddressWidget> {
         position!.latitude, position!.longitude);
 
     if (addresses.isNotEmpty) {
-      return addresses;
+      this.addresses = addresses;
     } else {
       return 'No address available';
     }

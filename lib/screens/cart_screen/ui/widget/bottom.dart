@@ -21,31 +21,36 @@ class BottomSheetContent extends StatefulWidget {
 class BottomSheetContentState extends State<BottomSheetContent> {
   late int selectedDateIndex;
 
-  int selectedTimeIndex = 0;
+  late int selectedTimeIndex;
+
   String? pickedDate;
 
   @override
   void initState() {
     int today = DateTime.now().day;
     int tomorrow = DateTime.now().add(const Duration(days: 1)).day;
-    pickedDate = context.read<CardScreenCubit>().dateTime!.day == today ||
-            context.read<CardScreenCubit>().dateTime!.day == tomorrow
-        ? null
-        : context.read<CardScreenCubit>().dateTimeString;
+
     if (context.read<CardScreenCubit>().dateTime == null) {
       selectedDateIndex = -1;
+      selectedTimeIndex = -1;
     } else {
       int cubitDay = context.read<CardScreenCubit>().dateTime!.day;
 
       if (cubitDay == today) {
         selectedDateIndex = 0;
+        selectedTimeIndex = 0;
       } else if (cubitDay == tomorrow) {
         selectedDateIndex = 1;
+        selectedTimeIndex = 1;
       } else {
+        selectedTimeIndex = 0;
         selectedDateIndex = 2;
       }
+      pickedDate = context.read<CardScreenCubit>().dateTime!.day == today ||
+              context.read<CardScreenCubit>().dateTime!.day == tomorrow
+          ? null
+          : context.read<CardScreenCubit>().dateTimeString;
     }
-
     super.initState();
   }
 

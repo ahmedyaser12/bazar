@@ -9,6 +9,7 @@ import 'package:book_shop/screens/payment_screen/logic/payment_cubit.dart';
 import 'package:book_shop/screens/profile_screen/logic/profile_screen_cubit.dart';
 import 'package:book_shop/screens/search_screen/logic/search_screen_cubit.dart';
 import 'package:book_shop/screens/sign_up_screen/logic/sign_up_cubit.dart';
+import 'package:book_shop/screens/status_order_screen/logic/status_screen_cubit.dart';
 import 'package:book_shop/services/firebase_service.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -46,4 +47,6 @@ Future setupLocator() async {
       .registerLazySingleton<CategoriesCubit>(() => CategoriesCubit(locator()));
   locator.registerLazySingleton<SearchCubit>(() => SearchCubit(locator()));
   locator.registerLazySingleton<FavoriteCubit>(() => FavoriteCubit());
+  locator.registerLazySingleton<StatusScreenCubit>(
+      () => StatusScreenCubit(locator()));
 }

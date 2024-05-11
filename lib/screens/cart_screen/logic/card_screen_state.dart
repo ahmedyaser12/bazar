@@ -43,3 +43,11 @@ class GetCart extends CardScreenState {
 
   GetCart(this.cartList);
 }
+
+class LocationLoading extends CardScreenState {
+  LocationLoading();
+}
+
+class GetLocation extends CardScreenState {
+  GetLocation();
+}

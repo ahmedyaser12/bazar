@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart' as geo;
+import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/helper/cache_helper.dart';
+import '../../../core/helper/location_helper.dart';
 import '../../../services/api_services/end_points.dart';
 import '../../../services/firebase_service.dart';
 
@@ -16,6 +19,8 @@ class CardScreenCubit extends Cubit<CardScreenState> {
   String? dateTimeString;
   DateTime? dateTime;
   List cartList = [];
+  Position? position;
+  List<geo.Placemark>? addresses;
 
   void getCartDetails() async {
     emit(CartLoading());
@@ -39,17 +44,24 @@ class CardScreenCubit extends Cubit<CardScreenState> {
   removeItem(int id) async {
     List<dynamic> cartList = await firebaseService.removeFromCart(
         CacheHelper().getData(key: ApiKey.id), id);
-    print('done');
     int totalPrice = getTotalPrice(cartList);
     emit(RemoveItem(cartList, totalPrice));
   }
 
   updateNumberOfItems(int id, int num) async {
-    List<dynamic> cartDetails = await firebaseService.updateNumberOfItems(
+    await firebaseService.updateNumberOfItems(
         CacheHelper().getData(key: ApiKey.id), id, num);
     int totalPrice = getTotalPrice(cartList);
 
     emit(UpdateNumberOfItems(totalPrice));
+  }
+
+  addDeliveryTime() {
+    firebaseService.updateCartItem(CacheHelper().getData(key: ApiKey.id), {
+      'deliveryTime': dateTime,
+      'deliveryDate': dateTimeString,
+      'totalPrice': getTotalPrice(cartList)
+    });
   }
 
   String switchFromDateDayToHisName(int day, int month) {
@@ -117,5 +129,23 @@ class CardScreenCubit extends Cubit<CardScreenState> {
     dateTimeString = formatDateTime(dateTime);
     this.dateTime = dateTime;
     emit(ConfirmOrder(dateTime));
+  }
+
+  Future<void> getMyCurrentLocation() async {
+    position = await LocationHelper.getCurrentLocation();
+  }
+
+  Future<dynamic> getLocation() async {
+    emit(LocationLoading());
+    await getMyCurrentLocation();
+    final addresses = await geo.placemarkFromCoordinates(
+        position!.latitude, position!.longitude);
+
+    if (addresses.isNotEmpty) {
+      this.addresses = addresses;
+      emit(GetLocation());
+    } else {
+      return 'No address available';
+    }
   }
 }

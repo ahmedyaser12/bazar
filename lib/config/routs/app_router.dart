@@ -82,8 +82,8 @@ class AppRouter {
                 value: locator<SignUpCubit>(), child: const SignUpScreen()));
       case RouteName.STATUSORDER:
         return MaterialPageRoute(
-          builder: ((context) => BlocProvider(
-              create: (_) => locator<StatusScreenCubit>()..getOrders(),
+          builder: ((context) => BlocProvider.value(
+              value: locator<StatusScreenCubit>()..getOrders(),
               child: const StatusOrder())),
         );
       default:

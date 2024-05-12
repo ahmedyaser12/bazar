@@ -85,16 +85,14 @@ class StatusOrder extends StatelessWidget {
         children: [
           Text(leading,
               style: TextStyle(
-                  fontSize: isTotal ? 18 : 16,
-                  fontWeight: FontWeight.bold,
-                  color: isTotal == true
-                      ? AppColors.redColor
-                      : AppColors.blackColor)),
+                  fontSize: isTotal ? 18 : 15,
+                  fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
+                  color: AppColors.blackColor)),
           Text(trailing,
               style: TextStyle(
-                  fontSize: isTotal ? 18 : 16,
-                  fontWeight: FontWeight.bold,
-                  color: isTotal ? AppColors.redColor : AppColors.blackColor)),
+                  fontSize: isTotal ? 18 : 15,
+                  fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
+                  color: isTotal ? AppColors.primary : AppColors.blackColor)),
         ],
       ),
     );

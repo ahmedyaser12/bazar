@@ -50,7 +50,9 @@ class MyApp extends StatelessWidget {
           builder: DevicePreview.appBuilder,
           debugShowCheckedModeBanner: false,
           theme: ThemeData(),
-          initialRoute: RouteName.SPLASH,
+          initialRoute: CacheHelper().getData(key: 'login') == true
+              ? RouteName.HOME
+              : RouteName.ONBOARDING,
           onGenerateRoute: AppRouter.generateRoute,
         ),
       ),

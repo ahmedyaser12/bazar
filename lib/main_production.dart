@@ -13,7 +13,7 @@ import 'core/helper/cache_helper.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           builder: DevicePreview.appBuilder,
           debugShowCheckedModeBanner: false,
           theme: ThemeData(),
-          initialRoute: RouteName.SPLASH,
+          initialRoute: RouteName.NAV,
           onGenerateRoute: AppRouter.generateRoute,
         ),
       ),

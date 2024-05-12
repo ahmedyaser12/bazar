@@ -67,6 +67,7 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
               );
               setState(() {
                 dateTime = context.read<CardScreenCubit>().dateTime.toString();
+                context.read<CardScreenCubit>().addDeliveryTime();
               });
             },
           ),

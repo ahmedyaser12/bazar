@@ -11,6 +11,7 @@ import 'package:book_shop/screens/search_screen/logic/search_screen_cubit.dart';
 import 'package:book_shop/screens/search_screen/ui/search_sceen.dart';
 import 'package:book_shop/screens/sign_up_screen/ui/sign_up_screen.dart';
 import 'package:book_shop/screens/splash_screen/ui/splash_screen.dart';
+import 'package:book_shop/screens/status_order_screen/logic/status_screen_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,7 +19,9 @@ import '../../screens/bottom_nav_bar/bottom_nav_bar.dart';
 import '../../screens/onboarding_screen/Ui/on_boarding_screen.dart';
 import '../../screens/profile_screen/ui/acount_screen.dart';
 import '../../screens/sign_up_screen/logic/sign_up_cubit.dart';
+import '../../screens/status_order_screen/ui/status_order_screen.dart';
 import '../../services/services_locator.dart';
+
 //
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -77,6 +80,12 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (context) => BlocProvider.value(
                 value: locator<SignUpCubit>(), child: const SignUpScreen()));
+      case RouteName.STATUSORDER:
+        return MaterialPageRoute(
+          builder: ((context) => BlocProvider.value(
+              value: locator<StatusScreenCubit>()..getOrders(),
+              child: const StatusOrder())),
+        );
       default:
         return notFound();
     }

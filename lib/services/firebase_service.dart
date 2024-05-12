@@ -68,6 +68,19 @@ class FirebaseService {
     }
   }
 
+  Future<Map<String, dynamic>> getCartItemsToStatusScreen(String userId) async {
+    var cartRef = _db.collection('carts').doc(userId);
+
+    var cartSnapshot = await cartRef.get();
+    if (cartSnapshot.exists) {
+      var cartData = cartSnapshot.data() as Map<String, dynamic>;
+      return cartData;
+    } else {
+      // Cart document doesn't exist, return an empty list
+      return {};
+    }
+  }
+
   Future<List> removeFromCart(String userId, int itemId) async {
     var cartRef = _db.collection('carts').doc(userId);
     var cartSnapshot = await cartRef.get();
@@ -100,6 +113,10 @@ class FirebaseService {
       }
     }
     return [];
+  }
+
+  void updateCartItem(String docId, Map<String, dynamic> data) {
+        _db.collection('carts').doc(docId).set(data, SetOptions(merge: true));
   }
 
   Future<void> updateCart(

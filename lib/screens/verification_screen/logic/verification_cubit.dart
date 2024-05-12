@@ -1,8 +1,8 @@
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-
-part 'verification_state.dart';
-
-class VerificationCubit extends Cubit<VerificationState> {
-  VerificationCubit() : super(VerificationInitial());
-}
+// import 'package:bloc/bloc.dart';
+// import 'package:meta/meta.dart';
+//
+// part 'status_screen_state.dart';
+//
+// class StatusScreenCubit extends Cubit<VerificationState> {
+//   StatusScreenCubit() : super(VerificationInitial());
+// }

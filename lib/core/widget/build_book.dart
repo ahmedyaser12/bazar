@@ -32,7 +32,7 @@ class BuildBook extends StatelessWidget {
         heightSpace(3),
         Container(
           padding: EdgeInsets.zero,
-          constraints: const BoxConstraints(maxWidth: 150),
+          constraints: const BoxConstraints(maxWidth: 140),
           child: Text(
             categoryList.name.toString(),
             style: TextStyles.font14BlackSemi.copyWith(height: 1),

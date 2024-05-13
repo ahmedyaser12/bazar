@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends StatelessWidget {
   final Widget? leading;
   final String title;
-  final IconThemeData iconThemeData;
-  final Color color;
+  final IconThemeData? iconThemeData;
+  final Color? color;
   final List<Widget>? action;
 
   const CustomAppBar(
       {super.key,
       this.leading,
       required this.title,
-      required this.iconThemeData,
-      required this.color,
+       this.iconThemeData,
+       this.color,
         this.action});
 
   @override

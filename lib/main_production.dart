@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(),
           initialRoute: CacheHelper().getData(key: 'login') == true
-              ? RouteName.HOME
+              ? RouteName.NAV
               : RouteName.ONBOARDING,
           onGenerateRoute: AppRouter.generateRoute,
         ),

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'hex_color.dart';
 
 class AppColors {
+  static const darkBlue = Color(0xFF1E1E2C);
+  static const lightBlue = Color(0xFF2D2D44);
   static Color primary = HexColor('#54408C');
   static Color secondary = HexColor('#FAF9FD');
   static Color lighterPrimary = HexColor('#EBF2EF');

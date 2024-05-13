@@ -20,7 +20,7 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  int currentNavIndex = 3;
+  int currentNavIndex = 0;
 
   // Method to get the current page based on the navigation index
   Widget _getCurrentPage() {
@@ -53,60 +53,71 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: AppColors.whiteColor,
-        body: _getCurrentPage(), // Use the method to switch pages
-        bottomNavigationBar: BottomNavigationBar(
-          elevation: 5,
+    return PopScope(
+      canPop: currentNavIndex == 0,
+      onPopInvoked: (_) {
+        if (currentNavIndex != 0) {
+          setState(() {
+            currentNavIndex = 0;
+          });
+          // Prevents the app from exiting
+        } // Exits the app
+      },
+      child: Scaffold(
           backgroundColor: AppColors.whiteColor,
-          type: BottomNavigationBarType.fixed,
-          currentIndex: currentNavIndex,
-          onTap: (index) {
-            setState(() {
-              currentNavIndex = index;
-              print('$currentNavIndex&$index');
-            });
-          },
-          selectedItemColor: AppColors.primary,
-          unselectedItemColor: AppColors.greyColor,
-          items: [
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/svgs/Home.svg',
-                color: currentNavIndex == 0
-                    ? AppColors.primary
-                    : AppColors.greyColor,
+          body: _getCurrentPage(), // Use the method to switch pages
+          bottomNavigationBar: BottomNavigationBar(
+            elevation: 5,
+            backgroundColor: AppColors.whiteColor,
+            type: BottomNavigationBarType.fixed,
+            currentIndex: currentNavIndex,
+            onTap: (index) {
+              setState(() {
+                currentNavIndex = index;
+                print('$currentNavIndex&$index');
+              });
+            },
+            selectedItemColor: AppColors.primary,
+            unselectedItemColor: AppColors.greyColor,
+            items: [
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  'assets/svgs/Home.svg',
+                  color: currentNavIndex == 0
+                      ? AppColors.primary
+                      : AppColors.greyColor,
+                ),
+                label: 'Home',
               ),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/svgs/Document.svg',
-                color: currentNavIndex == 1
-                    ? AppColors.primary
-                    : AppColors.greyColor,
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  'assets/svgs/Document.svg',
+                  color: currentNavIndex == 1
+                      ? AppColors.primary
+                      : AppColors.greyColor,
+                ),
+                label: 'Category',
               ),
-              label: 'Category',
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/svgs/Buy.svg',
-                color: currentNavIndex == 2
-                    ? AppColors.primary
-                    : AppColors.greyColor,
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  'assets/svgs/Buy.svg',
+                  color: currentNavIndex == 2
+                      ? AppColors.primary
+                      : AppColors.greyColor,
+                ),
+                label: 'Cart',
               ),
-              label: 'Cart',
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/svgs/Profile.svg',
-                color: currentNavIndex == 3
-                    ? AppColors.primary
-                    : AppColors.greyColor,
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  'assets/svgs/Profile.svg',
+                  color: currentNavIndex == 3
+                      ? AppColors.primary
+                      : AppColors.greyColor,
+                ),
+                label: 'Profile',
               ),
-              label: 'Profile',
-            ),
-          ],
-        ));
+            ],
+          )),
+    );
   }
 }

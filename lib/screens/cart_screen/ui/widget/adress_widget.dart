@@ -27,7 +27,7 @@ class AddressWidget extends StatelessWidget {
               children: <Widget>[
                 Text(
                   'Address:',
-                  style: TextStyles.font18BlackBold,
+                  style: TextStyles.font18BlackBold(context),
                 ),
                 const SizedBox(height: 8.0),
                 ListTile(

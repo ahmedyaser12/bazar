@@ -64,7 +64,7 @@ class _AuthorDetailsState extends State<AuthorDetails> {
                   children: [
                     Text(
                       'Author',
-                      style: TextStyles.font24BlackBold,
+                      style: TextStyles.font24BlackBold(context),
                     ),
                   ],
                 ),
@@ -75,7 +75,7 @@ class _AuthorDetailsState extends State<AuthorDetails> {
                 heightSpace(20),
                 Text(
                   'Product',
-                  style: TextStyles.font15BlackMedium,
+                  style: TextStyles.font15BlackMedium(context),
                 ),
                 heightSpace(16),
                 SizedBox(
@@ -94,7 +94,7 @@ class _AuthorDetailsState extends State<AuthorDetails> {
                                 children: [
                                   Text(
                                     e.name.toString(),
-                                    style: TextStyles.font15BlackMedium,
+                                    style: TextStyles.font15BlackMedium(context),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                   ),

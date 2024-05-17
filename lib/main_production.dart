@@ -9,17 +9,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'core/cubit_theme/theme_cubit.dart';
 import 'core/helper/cache_helper.dart';
+import 'core/utils/styles.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   Bloc.observer = MyBlocObserver();
   await setupLocator();
-  CacheHelper().init();
+  await CacheHelper().init();
   runApp(DevicePreview(
     enabled: false,
     builder: (BuildContext context) {
@@ -36,18 +38,25 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
-      child: BlocProvider(
-        create: (context) => FavoriteCubit(),
-        child: MaterialApp(
-          useInheritedMediaQuery: true,
-          locale: DevicePreview.locale(context),
-          builder: DevicePreview.appBuilder,
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(),
-          initialRoute: CacheHelper().getData(key: 'login') == true
-              ? RouteName.NAV
-              : RouteName.ONBOARDING,
-          onGenerateRoute: AppRouter.generateRoute,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => FavoriteCubit()),
+          BlocProvider(create: (context) => ThemeCubit()),
+        ],
+        child: BlocBuilder<ThemeCubit, ThemeState>(
+          builder: (context, state) {
+            return MaterialApp(
+              useInheritedMediaQuery: true,
+              locale: DevicePreview.locale(context),
+              builder: DevicePreview.appBuilder,
+              debugShowCheckedModeBanner: false,
+              theme: state.themeData,
+              initialRoute: CacheHelper().getData(key: 'login') == true
+                  ? RouteName.NAV
+                  : RouteName.ONBOARDING,
+              onGenerateRoute: AppRouter.generateRoute,
+            );
+          },
         ),
       ),
     );

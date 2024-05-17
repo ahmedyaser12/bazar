@@ -31,7 +31,7 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
         children: <Widget>[
           Text(
             'Date and time:',
-            style: TextStyles.font18BlackBold,
+            style: TextStyles.font18BlackBold(context),
           ),
           ListTile(
             contentPadding: EdgeInsets.zero,

@@ -55,8 +55,9 @@ class SearchAndButtonSearch extends StatelessWidget {
                       style: TextStyle(
                         color: textTypingColor,
                       ),
-                      decoration: const InputDecoration(
+                      decoration:  InputDecoration(
                         hintText: 'Search',
+                        hintStyle: TextStyle(color: AppColors.blackColor),
                         border: InputBorder.none,
                       ),
                     ),

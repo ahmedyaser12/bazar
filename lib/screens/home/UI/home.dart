@@ -1,5 +1,4 @@
 import 'package:book_shop/config/routs/routs_names.dart';
-import 'package:book_shop/core/utils/colors.dart';
 import 'package:book_shop/core/utils/extintions.dart';
 import 'package:book_shop/screens/author_details_screen/ui/author_details_screen.dart';
 import 'package:book_shop/screens/home/UI/widget/auther_widget.dart';
@@ -12,6 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 
+import '../../../core/cubit_theme/theme_cubit.dart';
+import '../../../core/utils/colors.dart';
 import '../../../core/utils/styles.dart';
 import '../../../core/widget/custom_appBar.dart';
 import '../../onboarding_screen/Ui/widget/dots_indicator_widget.dart';
@@ -89,21 +90,28 @@ class _HomeScreenState extends State<HomeScreen> {
                         leading: const Icon(Icons.search).onTap(() {
                           context.navigateTo(RouteName.SEARCH);
                         }),
-                        color: AppColors.whiteColor,
-                        iconThemeData: IconThemeData(
-                          color: AppColors.blackColor,
-                        ),
                         action: [
                           IconButton(
-                              onPressed: () {
-                                //FirebaseAuth.instance.signOut();
-                                print('List$authorsList');
-                              },
-                              icon:
-                                  SvgPicture.asset('assets/svgs/Notification.svg')
-                                      .onTap(() {
-                                print(MediaQuery.of(context).size.width);
-                              }))
+                            onPressed: () {},
+                            icon: SvgPicture.asset(
+                              'assets/svgs/Notification.svg',
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? AppColors.whiteColor
+                                  : AppColors.darkBlue,
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.brightness_6,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? AppColors.whiteColor
+                                  : AppColors.darkBlue,
+                            ),
+                            onPressed: () =>
+                                context.read<ThemeCubit>().toggleTheme(),
+                          ),
                         ],
                       ),
                     ),
@@ -157,9 +165,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 return Container(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 20, vertical: 10),
-                                  decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.only(
+                                  decoration:  BoxDecoration(
+                                      color:Theme.of(context).brightness ==
+                                          Brightness.dark
+                                          ?AppColors.darkBlue
+                                          : AppColors.whiteColor,
+                                      borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(15),
                                         topRight: Radius.circular(15),
                                       )),

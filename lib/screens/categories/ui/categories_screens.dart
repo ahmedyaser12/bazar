@@ -53,11 +53,7 @@ class _TabScreenState extends State<CategoriesScreens>
       appBar: AppBar(
         centerTitle: true,
         leading: const Icon(Icons.search),
-        iconTheme: IconThemeData(
-          color: AppColors.blackColor,
-        ),
         title: const Text('Category'),
-        backgroundColor: AppColors.whiteColor,
         actions: [
           IconButton(
               onPressed: () {

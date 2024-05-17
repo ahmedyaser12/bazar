@@ -27,7 +27,7 @@ class SummaryWidget extends StatelessWidget {
         children: <Widget>[
           Text(
             'Summary',
-            style: TextStyles.font18BlackBold,
+            style: TextStyles.font18BlackBold(context),
           ),
           const SizedBox(height: 16.0),
           BlocBuilder<CardScreenCubit, CardScreenState>(

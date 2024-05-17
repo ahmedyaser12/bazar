@@ -45,7 +45,7 @@ class FormTextFieldItem extends StatelessWidget {
           padding: const EdgeInsets.only(left: 5.0),
           child: Text(
             name!,
-            style: TextStyles.font15BlackMedium,
+            style: TextStyles.font15BlackMedium(context),
           ),
         ),
         if (title != null) heightSpace(8),

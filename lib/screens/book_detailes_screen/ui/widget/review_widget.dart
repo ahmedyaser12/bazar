@@ -20,13 +20,13 @@ class ReviewWidget extends StatelessWidget {
       children: [
         Text(
           'Review',
-          style: TextStyles.font18BlackBold,
+          style: TextStyles.font18BlackBold(context),
         ),
         Row(
           children: [
             RatingWidget(rating: bookDetails.rating!),
             widthSpace(5),
-            Text('${bookDetails.rating}')
+            Text('${bookDetails.rating}',style: TextStyles.font14BlackSemi(context),)
           ],
         ),
       ],

@@ -35,7 +35,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         CustomAppBar(
           title: 'Profile',
           iconThemeData: IconThemeData(color: AppColors.blackColor),
-          color: AppColors.whiteColor,
         ),
         heightSpace(20),
         const DividerWidget(),
@@ -71,7 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 title: Text(user.name.toString(),
-                    style: TextStyles.font18BlackBold),
+                    style: TextStyles.font18BlackBold(context)),
                 trailing: Padding(
                   padding: const EdgeInsets.only(top: 15, right: 15),
                   child: Text(
@@ -83,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 subtitle: Text(
                   user.email.toString(),
-                  style: TextStyles.font16grey.copyWith(fontSize: 15),
+                  style: TextStyles.font16grey(context).copyWith(fontSize: 15),
                 ),
               );
             }

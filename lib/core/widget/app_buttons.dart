@@ -27,12 +27,14 @@ Widget primaryButton(
   );
 }
 
-Widget secondaryButton(String title, {String? image}) {
+Widget secondaryButton(context, String title, {String? image}) {
   return Container(
     alignment: Alignment.center,
     padding: const EdgeInsets.symmetric(vertical: 16),
     decoration: BoxDecoration(
-      color: AppColors.secondary,
+      color: Theme.of(context).brightness == Brightness.dark
+          ? AppColors.secondary
+          : AppColors.darkBlue,
       borderRadius: BorderRadius.circular(30),
     ),
     child: Row(
@@ -49,10 +51,9 @@ Widget secondaryButton(String title, {String? image}) {
         Text(
           title,
           style: TextStyle(
-            color: AppColors.primary,
-            fontSize: 16,
-            fontWeight: FontWeight.bold
-          ),
+              color: AppColors.primary,
+              fontSize: 16,
+              fontWeight: FontWeight.bold),
         ),
       ],
     ),

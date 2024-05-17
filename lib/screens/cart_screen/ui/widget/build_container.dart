@@ -39,11 +39,11 @@ class _BuildContainerState extends State<BuildContainer> {
         children: [
           Text(
             widget.name,
-            style: TextStyles.font18BlackBold,
+            style: TextStyles.font18BlackBold(context),
           ),
           Text(
             widget.date,
-            style: TextStyles.font18BlackBold,
+            style: TextStyles.font18BlackBold(context),
           ),
         ],
       ),

@@ -19,12 +19,10 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
-        backgroundColor: AppColors.whiteColor,
         title: Text(
           'Search',
-          style: TextStyles.font18BlackBold,
+          style: TextStyles.font18BlackBold(context),
         ),
       ),
       body: Padding(
@@ -33,7 +31,6 @@ class _SearchScreenState extends State<SearchScreen> {
           children: [
             Container(
               padding: const EdgeInsets.only(left: 0, bottom: 20, right: 8.0),
-              color: AppColors.whiteColor,
               child: SearchAndButtonSearch(
                 controller: context.read<SearchCubit>().searchController,
                 isButtonSearch: true,

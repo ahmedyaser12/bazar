@@ -15,7 +15,7 @@ class ContentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.lighterPrimary,
+      //color: AppColors.lighterPrimary,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -27,11 +27,11 @@ class ContentCard extends StatelessWidget {
                 children: [
                   Text(
                     'Special Offer',
-                    style: TextStyles.font24BlackBold.copyWith(fontSize: 23),
+                    style: TextStyles.font24BlackBold(context).copyWith(fontSize: 23),
                   ),
                   Text(
                     'Discount 25%',
-                    style: TextStyles.font15BlackMedium,
+                    style: TextStyles.font15BlackMedium(context),
                   ),
                   heightSpace(16),
                   primaryButton(

@@ -144,7 +144,7 @@ class BottomSheetContentState extends State<BottomSheetContent> {
           // Example list of times
           Text(
             'Delivery time',
-            style: TextStyles.font18BlackBold,
+            style: TextStyles.font18BlackBold(context),
           ),
           heightSpace(20),
           Row(

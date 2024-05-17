@@ -15,14 +15,14 @@ class AboutAuthor extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('About', style: TextStyles.font15BlackMedium),
+        Text('About', style: TextStyles.font15BlackMedium(context)),
         heightSpace(8),
         ReadMoreText(
           authorDetails.info.toString(),
           numLines: 4,
           readMoreText: 'Read more',
           readLessText: 'Read less',
-          style: TextStyles.font16grey,
+          style: TextStyles.font16grey(context),
         )
       ],
     );

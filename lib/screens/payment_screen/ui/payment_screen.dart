@@ -34,7 +34,7 @@ class PaymentScreen extends StatelessWidget {
         return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
             'Your payments:',
-            style: TextStyles.font18BlackBold.copyWith(fontSize: 25),
+            style: TextStyles.font18BlackBold(context).copyWith(fontSize: 25),
           ),
           heightSpace(20),
           ClipRRect(

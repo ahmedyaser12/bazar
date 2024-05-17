@@ -24,7 +24,7 @@ class PaymentWidget extends StatelessWidget {
         children: <Widget>[
           Text(
             'Payment:',
-            style: TextStyles.font18BlackBold,
+            style: TextStyles.font18BlackBold(context),
           ),
           ListTile(
             contentPadding: EdgeInsets.zero,

@@ -29,9 +29,7 @@ class ConfirmOrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         leading: const BackButton(),
         title: const Text('Confirm Order'),
         actions: [

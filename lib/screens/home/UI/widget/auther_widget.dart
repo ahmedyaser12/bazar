@@ -45,7 +45,7 @@ class AuthorWidget extends StatelessWidget {
                         constraints: const BoxConstraints(maxWidth: 80,minWidth: 80),
                         child: Text(
                           '${authorsList[index*2+5].name}',
-                          style: TextStyles.font18BlackBold
+                          style: TextStyles.font18BlackBold(context)
                               .copyWith(fontSize: 13),
                           softWrap: true,
                           maxLines: 1,
@@ -55,7 +55,7 @@ class AuthorWidget extends StatelessWidget {
                       heightSpace(5),
                       Text(
                         authorsList[index*2+5].numberPublishedBooks.toString(),
-                        style: TextStyles.font16grey.copyWith(fontSize: 13),
+                        style: TextStyles.font16grey(context).copyWith(fontSize: 13),
                       )
                     ],
                   ).onTap(() {

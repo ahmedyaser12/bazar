@@ -21,10 +21,8 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final loginCubitObject = context.read<LoginCubit>();
     return Scaffold(
-      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         iconTheme: IconThemeData(color: AppColors.blackColor),
-        backgroundColor: AppColors.whiteColor,
         elevation: 0,
       ),
       body: SafeArea(
@@ -46,12 +44,12 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     Text(
                       'Welcome Back 👋',
-                      style: TextStyles.font24BlackBold,
+                      style: TextStyles.font24BlackBold(context),
                     ),
                     heightSpace(8),
                     Text(
                       'Sign to your account',
-                      style: TextStyles.font16grey,
+                      style: TextStyles.font16grey(context),
                     ),
                     heightSpace(30),
                     EmailAndPasswordField(
@@ -77,7 +75,7 @@ class LoginScreen extends StatelessWidget {
                           children: [
                             TextSpan(
                               text: 'Don’t have an account?',
-                              style: TextStyles.font16grey,
+                              style: TextStyles.font16grey(context),
                             ),
                             TextSpan(
                               text: ' Sign Up',

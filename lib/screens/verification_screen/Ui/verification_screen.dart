@@ -31,7 +31,7 @@ class VerificationScreen extends StatelessWidget {
             children: [
               Text(
                 'Verification Email',
-                style: TextStyles.font24BlackBold,
+                style: TextStyles.font24BlackBold(context),
               ),
               heightSpace(8),
               Center(
@@ -40,7 +40,7 @@ class VerificationScreen extends StatelessWidget {
                   text: TextSpan(children: [
                     TextSpan(
                         text: 'Please enter the code we just sent to',
-                        style: TextStyles.font16grey),
+                        style: TextStyles.font16grey(context)),
                     // TextSpan(
                     //   text: '\n${userDetails!.email}',
                     //   style: TextStyles.font15BlackMedium,
@@ -57,7 +57,7 @@ class VerificationScreen extends StatelessWidget {
                   children: [
                     TextSpan(
                       text: 'If you didn’t receive a code?',
-                      style: TextStyles.font16grey,
+                      style: TextStyles.font16grey(context),
                     ),
                     TextSpan(
                       text: ' Resend',

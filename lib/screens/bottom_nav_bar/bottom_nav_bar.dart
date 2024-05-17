@@ -20,7 +20,7 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  int currentNavIndex = 0;
+  int currentNavIndex = 2;
 
   // Method to get the current page based on the navigation index
   Widget _getCurrentPage() {
@@ -64,11 +64,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
         } // Exits the app
       },
       child: Scaffold(
-          backgroundColor: AppColors.whiteColor,
           body: _getCurrentPage(), // Use the method to switch pages
           bottomNavigationBar: BottomNavigationBar(
             elevation: 5,
-            backgroundColor: AppColors.whiteColor,
             type: BottomNavigationBarType.fixed,
             currentIndex: currentNavIndex,
             onTap: (index) {

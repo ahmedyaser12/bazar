@@ -83,7 +83,7 @@ class _BookDetailsState extends State<BookDetails> {
                   numLines: 4,
                   readMoreText: 'Read more',
                   readLessText: 'Read less',
-                  style: TextStyles.font16grey,
+                  style: TextStyles.font16grey(context),
                 ),
                 heightSpace(20),
                 ReviewWidget(bookDetails: bookDetails),
@@ -93,7 +93,9 @@ class _BookDetailsState extends State<BookDetails> {
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                          color: AppColors.lightGery,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.darkBlue
+                              : AppColors.lightGery,
                           borderRadius: BorderRadius.circular(8)),
                       child: CounterButtons(
                         num: (number) {
@@ -124,7 +126,7 @@ class _BookDetailsState extends State<BookDetails> {
                     widthSpace(10),
                     Expanded(
                       flex: 1,
-                      child: secondaryButton('View Card').onTap(() {
+                      child: secondaryButton(context, 'View Card').onTap(() {
                         context.navigateTo(RouteName.CART);
                       }),
                     )
@@ -134,7 +136,7 @@ class _BookDetailsState extends State<BookDetails> {
             );
           } else {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: Expanded(child: CircularProgressIndicator()),
             );
           }
         },

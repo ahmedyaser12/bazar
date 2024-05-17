@@ -40,7 +40,7 @@ class _CartDetailsState extends State<CartDetails> {
           children: [
             Text(
               'Cart Details',
-              style: TextStyles.font18BlackBold,
+              style: TextStyles.font18BlackBold(context),
             ),
             heightSpace(10),
             widget.cartList.isNotEmpty
@@ -89,7 +89,7 @@ class _CartDetailsState extends State<CartDetails> {
                                         widget.cartList[index]['name'],
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 2,
-                                        style: TextStyles.font14BlackSemi
+                                        style: TextStyles.font14BlackSemi(context)
                                             .copyWith(fontSize: 12),
                                       ),
                                     ),
@@ -142,7 +142,7 @@ class _CartDetailsState extends State<CartDetails> {
                                       children: [
                                         Text(
                                           '\$${(widget.cartList[index]['price'] * widget.cartList[index]['num']).toString()}',
-                                          style: TextStyles.font14BlackSemi,
+                                          style: TextStyles.font14BlackSemi(context),
                                         ),
                                         widthSpace(5),
                                         Icon(
@@ -170,7 +170,7 @@ class _CartDetailsState extends State<CartDetails> {
                             ),
                             Text(
                               '\$${widget.totalPrice.toString()}',
-                              style: TextStyles.font18BlackBold,
+                              style: TextStyles.font18BlackBold(context),
                             ),
                           ],
                         ),
@@ -185,7 +185,7 @@ class _CartDetailsState extends State<CartDetails> {
                       heightSpace(20.0),
                       Text(
                         'There is no product in cart',
-                        style: TextStyles.font18BlackBold,
+                        style: TextStyles.font18BlackBold(context),
                       ),
                     ],
                   ),

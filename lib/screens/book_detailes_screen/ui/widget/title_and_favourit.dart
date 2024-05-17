@@ -29,11 +29,11 @@ class TitleAndFavourite extends StatelessWidget {
               ) ,
               child: Text(
                 '${bookDetails.name}',
-                style: TextStyles.font18BlackBold,
+                style: TextStyles.font18BlackBold(context),
               ),
             ),
             FavouriteButton(
-              backgroundColor: AppColors.whiteColor,
+              backgroundColor:Theme.of(context).brightness == Brightness.dark ? AppColors.darkBlue : AppColors.whiteColor,
               addFavorite: () {
                 checkFavorite.addFavorite(bookDetails);
                 print('add');

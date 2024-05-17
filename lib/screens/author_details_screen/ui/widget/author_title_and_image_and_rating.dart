@@ -20,7 +20,7 @@ class AuthorTitleAndImageAndRating extends StatelessWidget {
         heightSpace(16),
         Text(
           '${authorDetails.name}',
-          style: TextStyles.font18BlackBold,
+          style: TextStyles.font18BlackBold(context),
         ),
         heightSpace(24),
         Row(

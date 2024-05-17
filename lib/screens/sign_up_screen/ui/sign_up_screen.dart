@@ -19,10 +19,8 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         iconTheme: IconThemeData(color: AppColors.blackColor),
-        backgroundColor: AppColors.whiteColor,
         elevation: 0,
       ),
       body: SafeArea(
@@ -45,12 +43,12 @@ class SignUpScreen extends StatelessWidget {
                   children: [
                     Text(
                       'Sign Up',
-                      style: TextStyles.font24BlackBold,
+                      style: TextStyles.font24BlackBold(context),
                     ),
                     heightSpace(8),
                     Text(
                       'Create account and choose favorite menu',
-                      style: TextStyles.font16grey,
+                      style: TextStyles.font16grey(context),
                     ),
                     heightSpace(30),
                     EmailAndUserNameAndPasswordField(
@@ -70,7 +68,7 @@ class SignUpScreen extends StatelessWidget {
                           children: [
                             TextSpan(
                               text: 'Have an account?',
-                              style: TextStyles.font16grey,
+                              style: TextStyles.font16grey(context),
                             ),
                             TextSpan(
                               text: ' Sign in',

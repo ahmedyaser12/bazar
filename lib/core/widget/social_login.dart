@@ -1,7 +1,6 @@
+import 'package:book_shop/core/utils/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/common_functions.dart';
 
@@ -25,7 +24,7 @@ class SocialLogin extends StatelessWidget {
           widthSpace(8),
           Text(
             title,
-            style: const TextStyle(fontSize: 15),
+            style: TextStyles.font15BlackMedium(context),
           ),
         ],
       ),

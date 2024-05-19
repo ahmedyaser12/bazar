@@ -46,6 +46,7 @@ class MyAppThemes {
     ),
     cardTheme: CardTheme(color: AppColors.darkCardColor,),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(elevation: 10,
+    
       backgroundColor: AppColors.darkBlue,
     ),
     backgroundColor: AppColors.darkBlue,

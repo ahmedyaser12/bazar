@@ -51,13 +51,13 @@ class AddressWidget extends StatelessWidget {
                                     .addresses![0]
                                     .locality ??
                                 'No address available',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            style:  TextStyles.font15BlackMedium(context),
                           )
-                        : const Text('No address available'),
+                        : Text('No address available', style:  TextStyles.font15BlackMedium(context)),
                     subtitle: context.read<CardScreenCubit>().addresses != null
                         ? Text(
                             '${context.read<CardScreenCubit>().addresses![0].street!.substring(0, context.read<CardScreenCubit>().addresses![0].street!.length - 11)},\n${context.read<CardScreenCubit>().addresses![0].administrativeArea}, ${context.read<CardScreenCubit>().addresses![0].country}',
-                          )
+                           style:  TextStyles.font15BlackMedium(context))
                         : null,
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () async {

@@ -46,13 +46,13 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
                 color: AppColors.primary,
               ),
             ),
-            title: const Text('Date & time'),
+            title: Text('Date & time',style: TextStyles.font14BlackSemi(context),),
             subtitle: BlocBuilder<CardScreenCubit, CardScreenState>(
               builder: (context, state) {
                 return Text(dateTime != null
                     ? '${dateTime!}'
                         ' ${context.read<CardScreenCubit>().dateTime!.year.toString()}'
-                    : 'Choose date and time');
+                    : 'Choose date and time',style: TextStyles.font14BlackSemi(context));
               },
             ),
             trailing: const Icon(Icons.chevron_right),

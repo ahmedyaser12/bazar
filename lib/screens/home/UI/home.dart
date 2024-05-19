@@ -43,6 +43,62 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar:customAppBarr(context: context, title: 'Home',
+                        leading: const Icon(Icons.search).onTap(() {
+                          context.navigateTo(RouteName.SEARCH);
+                        }),
+                        action: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: SvgPicture.asset(
+                              'assets/svgs/Notification.svg',
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? AppColors.whiteColor
+                                  : AppColors.darkBlue,
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.brightness_6,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? AppColors.whiteColor
+                                  : AppColors.darkBlue,
+                            ),
+                            onPressed: () =>
+                                context.read<ThemeCubit>().toggleTheme(),
+                          ),
+                        ],),
+      //  CustomAppBar(
+      //                   title: 'Home',
+      //                   leading: const Icon(Icons.search).onTap(() {
+      //                     context.navigateTo(RouteName.SEARCH);
+      //                   }),
+      //                   action: [
+      //                     IconButton(
+      //                       onPressed: () {},
+      //                       icon: SvgPicture.asset(
+      //                         'assets/svgs/Notification.svg',
+      //                         color: Theme.of(context).brightness ==
+      //                                 Brightness.dark
+      //                             ? AppColors.whiteColor
+      //                             : AppColors.darkBlue,
+      //                       ),
+      //                     ),
+      //                     IconButton(
+      //                       icon: Icon(
+      //                         Icons.brightness_6,
+      //                         color: Theme.of(context).brightness ==
+      //                                 Brightness.dark
+      //                             ? AppColors.whiteColor
+      //                             : AppColors.darkBlue,
+      //                       ),
+      //                       onPressed: () =>
+      //                           context.read<ThemeCubit>().toggleTheme(),
+      //                     ),
+      //                   ],
+      //                 ),
       body: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
           if (state is FailureRequest) {
@@ -83,38 +139,38 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SizedBox(
-                      height: context.heightPercent(10),
-                      child: CustomAppBar(
-                        title: 'Home',
-                        leading: const Icon(Icons.search).onTap(() {
-                          context.navigateTo(RouteName.SEARCH);
-                        }),
-                        action: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: SvgPicture.asset(
-                              'assets/svgs/Notification.svg',
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? AppColors.whiteColor
-                                  : AppColors.darkBlue,
-                            ),
-                          ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.brightness_6,
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? AppColors.whiteColor
-                                  : AppColors.darkBlue,
-                            ),
-                            onPressed: () =>
-                                context.read<ThemeCubit>().toggleTheme(),
-                          ),
-                        ],
-                      ),
-                    ),
+                    // SizedBox(
+                    //   height: context.heightPercent(10),
+                    //   child: CustomAppBar(
+                    //     title: 'Home',
+                    //     leading: const Icon(Icons.search).onTap(() {
+                    //       context.navigateTo(RouteName.SEARCH);
+                    //     }),
+                    //     action: [
+                    //       IconButton(
+                    //         onPressed: () {},
+                    //         icon: SvgPicture.asset(
+                    //           'assets/svgs/Notification.svg',
+                    //           color: Theme.of(context).brightness ==
+                    //                   Brightness.dark
+                    //               ? AppColors.whiteColor
+                    //               : AppColors.darkBlue,
+                    //         ),
+                    //       ),
+                    //       IconButton(
+                    //         icon: Icon(
+                    //           Icons.brightness_6,
+                    //           color: Theme.of(context).brightness ==
+                    //                   Brightness.dark
+                    //               ? AppColors.whiteColor
+                    //               : AppColors.darkBlue,
+                    //         ),
+                    //         onPressed: () =>
+                    //             context.read<ThemeCubit>().toggleTheme(),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     SizedBox(
                       height: context.heightPercent(20),
                       child: Swiper(

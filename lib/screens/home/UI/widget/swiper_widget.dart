@@ -15,7 +15,7 @@ class ContentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //color: AppColors.lighterPrimary,
+      color:Theme.of(context).brightness==Brightness.dark?const Color.fromARGB(255, 32, 32, 48): AppColors.lighterPrimary,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

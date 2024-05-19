@@ -1,5 +1,6 @@
 import 'package:book_shop/config/routs/routs_names.dart';
 import 'package:book_shop/core/utils/extintions.dart';
+import 'package:book_shop/core/utils/styles.dart';
 import 'package:book_shop/screens/cart_screen/ui/widget/adress_widget.dart';
 import 'package:book_shop/services/services_locator.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,8 @@ class ConfirmOrderScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(),
-        title: const Text('Confirm Order'),
+        title: Text('Confirm Order',style: TextStyles.font24BlackBold(context
+        ),),
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_none_rounded),

@@ -46,23 +46,23 @@ class SummaryWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      const Row(
+                       Row(
                         children: [
                           Text(
                             'Price',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style:  TextStyles.font14BlackSemi(context),
                           ),
                         ],
                       ),
-                      Text('\$${totalPrice.toString()}'),
+                      Text('\$${totalPrice.toString()}',style:  TextStyles.font14BlackSemi(context),),
                     ],
                   ),
                   const SizedBox(height: 8.0),
-                  const Row(
+                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text('Shipping'),
-                      Text('\$2'),
+                      Text('Shipping',style:  TextStyles.font14BlackSemi(context),),
+                      Text('\$2',style:  TextStyles.font14BlackSemi(context),),
                     ],
                   ),
                   const Divider(),
@@ -70,13 +70,13 @@ class SummaryWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      const Text(
+                       Text(
                         'Total Payment',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style:  TextStyles.font15BlackMedium(context).copyWith(fontWeight: FontWeight.bold),
                       ),
                       Text(
                         '\$${(totalPrice + 2).toString()}',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style:  TextStyles.font15BlackMedium(context).copyWith(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),

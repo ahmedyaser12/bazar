@@ -1,4 +1,5 @@
 import 'package:book_shop/config/routs/routs_names.dart';
+import 'package:book_shop/core/helper/cache_helper.dart';
 import 'package:book_shop/core/utils/colors.dart';
 import 'package:book_shop/core/utils/common_functions.dart';
 import 'package:book_shop/core/utils/extintions.dart';
@@ -32,9 +33,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomAppBar(
+         const CustomAppBar(
           title: 'Profile',
-          iconThemeData: IconThemeData(color: AppColors.blackColor),
         ),
         heightSpace(20),
         const DividerWidget(),
@@ -77,7 +77,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     'Logout',
                     style: TextStyle(color: AppColors.redColor, fontSize: 15),
                   ).onTap(() {
-                    //context.navigateToAndReplacement(RouteName.LOGIN);
+                    context.navigateToAndReplacement(RouteName.LOGIN);
+                    CacheHelper().saveData(key: 'login', value: false);
                   }),
                 ),
                 subtitle: Text(
@@ -98,7 +99,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               context.read<ProfileScreenCubit>().getUser();
             }
           },
-          title: const Text('My Account'),
+          title:  Text('My Account',style: TextStyles.font15BlackMedium(context),),
           leading: Container(
             height: 50,
             width: 50,
@@ -116,7 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         ListTile(
-          title: const Text('Your Favourite'),
+          title:  Text('Your Favourite',style: TextStyles.font15BlackMedium(context),),
           leading: FavouriteButton(backgroundColor: AppColors.secondary),
           trailing: Icon(
             Icons.arrow_forward_ios_outlined,
@@ -127,7 +128,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           }),
         ),
         ListTile(
-          title: const Text('order history'),
+          title: Text('order history',style: TextStyles.font15BlackMedium(context),),
           leading: Container(
             height: 50,
             width: 50,
@@ -145,7 +146,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         ListTile(
-          title: const Text('Help Center'),
+          title: Text('Help Center',style: TextStyles.font15BlackMedium(context),),
           leading: Container(
             height: 50,
             width: 50,

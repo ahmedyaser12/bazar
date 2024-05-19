@@ -1,11 +1,22 @@
 import 'package:book_shop/screens/status_order_screen/logic/status_screen_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:screenshot/screenshot.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 import '../../../core/utils/colors.dart';
 
-class StatusOrder extends StatelessWidget {
+class StatusOrder extends StatefulWidget {
   const StatusOrder({super.key});
+
+  @override
+  State<StatusOrder> createState() => _StatusOrderState();
+}
+
+class _StatusOrderState extends State<StatusOrder> {
+    final ScreenshotController screenshotController = ScreenshotController();
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +73,7 @@ class StatusOrder extends StatelessWidget {
                         'Delivery in',
                         "(${context.read<StatusScreenCubit>().getDayLeft(order)}Left)  ${order['deliveryDate']}",
                       ),
+                      ElevatedButton(onPressed:()=> _captureScreenshotAndSaveAsPDF(), child: const Text('Print As PDF'))
                     ],
                   ),
                 ),
@@ -95,6 +107,30 @@ class StatusOrder extends StatelessWidget {
                   color: isTotal ? AppColors.primary : AppColors.blackColor)),
         ],
       ),
+    );
+  }
+
+Future<void> _captureScreenshotAndSaveAsPDF() async {
+    final image = await screenshotController.capture();
+    if (image == null) return print('not found');
+print('success');
+    final pdf = pw.Document();
+    final imageProvider = pw.MemoryImage(image);
+
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) => pw.Center(
+          child: pw.Image(imageProvider),
+        ),
+      ),
+    );
+
+    final output = await getExternalStorageDirectory();
+    final file = File('${output!.path}/screenshot.pdf');
+    await file.writeAsBytes(await pdf.save());
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('PDF saved to ${file.path}')),
     );
   }
 }

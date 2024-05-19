@@ -24,7 +24,7 @@ import '../../services/services_locator.dart';
 
 //
 class AppRouter {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteName.LOGIN:
         return MaterialPageRoute(
@@ -87,7 +87,7 @@ class AppRouter {
               child: const StatusOrder())),
         );
       default:
-        return notFound();
+        return null;
     }
   }
 

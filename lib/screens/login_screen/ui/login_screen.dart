@@ -22,7 +22,6 @@ class LoginScreen extends StatelessWidget {
     final loginCubitObject = context.read<LoginCubit>();
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: AppColors.blackColor),
         elevation: 0,
       ),
       body: SafeArea(

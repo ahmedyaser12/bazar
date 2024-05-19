@@ -39,8 +39,8 @@ class PaymentWidget extends StatelessWidget {
                 color: AppColors.primary,
               ),
             ),
-            title: const Text('Payment'),
-            subtitle: const Text('Choose your payment'),
+            title:  Text('Payment',style: TextStyles.font14BlackSemi(context)),
+            subtitle:  Text('Choose your payment',style: TextStyles.font14BlackSemi(context)),
             trailing: const Icon(Icons.chevron_right),
             onTap: () {
               bottomSheet(

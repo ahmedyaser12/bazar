@@ -61,9 +61,9 @@ class BottomSheetContentState extends State<BottomSheetContent> {
       child: Column(
         mainAxisSize: MainAxisSize.min, // Adjust size to content
         children: [
-          const Text(
+           Text(
             'Select Date and Time',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyles.font18BlackBold(context),
           ),
           const SizedBox(height: 20),
           // Example list of dates
@@ -76,7 +76,10 @@ class BottomSheetContentState extends State<BottomSheetContent> {
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                 selectedColor: AppColors.primary,
                 checkmarkColor: AppColors.whiteColor,
-                backgroundColor: AppColors.whiteColor,
+                backgroundColor:Theme.of(context).brightness ==
+                                          Brightness.dark
+                                          ?AppColors.darkBlue
+                                          : AppColors.whiteColor,
                 labelStyle: TextStyle(
                     color: index == selectedDateIndex
                         ? AppColors.whiteColor
@@ -86,7 +89,7 @@ class BottomSheetContentState extends State<BottomSheetContent> {
                   builder: (context, state) {
                     return Column(
                       children: [
-                        Text(getDate(index)),
+                        Text(getDate(index),style: TextStyles.font14BlackSemi(context),),
                         Text(
                           index != 2
                               ? context
@@ -100,7 +103,7 @@ class BottomSheetContentState extends State<BottomSheetContent> {
                                       .dateTime!
                                       .year
                                       .toString()
-                                  : 'a date',
+                                  : 'a date',style: TextStyles.font14BlackSemi(context)
                         ),
                       ],
                     );
@@ -157,7 +160,10 @@ class BottomSheetContentState extends State<BottomSheetContent> {
                       const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                   selectedColor: AppColors.primary,
                   checkmarkColor: AppColors.whiteColor,
-                  backgroundColor: AppColors.whiteColor,
+                  backgroundColor: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                          ?AppColors.darkBlue
+                                          : AppColors.whiteColor,
                   labelStyle: TextStyle(
                       color: index == selectedTimeIndex
                           ? AppColors.whiteColor
@@ -165,8 +171,8 @@ class BottomSheetContentState extends State<BottomSheetContent> {
                   labelPadding: EdgeInsets.zero,
                   label: Column(
                     children: [
-                      const Text('Between'),
-                      Text(index == 0 ? '9am : 4pm' : '5pm : 10pm'),
+                       Text('Between',style: TextStyles.font14BlackSemi(context)),
+                      Text(index == 0 ? '9am : 4pm' : '5pm : 10pm',style: TextStyles.font14BlackSemi(context)),
                     ],
                   ),
                   selected: selectedTimeIndex == index,

@@ -65,56 +65,77 @@ class _BottomNavBarState extends State<BottomNavBar> {
       },
       child: Scaffold(
           body: _getCurrentPage(), // Use the method to switch pages
-          bottomNavigationBar: BottomNavigationBar(
-            elevation: 5,
-            type: BottomNavigationBarType.fixed,
-            currentIndex: currentNavIndex,
-            onTap: (index) {
-              setState(() {
-                currentNavIndex = index;
-                print('$currentNavIndex&$index');
-              });
-            },
-            selectedItemColor: AppColors.primary,
-            unselectedItemColor: AppColors.greyColor,
-            items: [
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  'assets/svgs/Home.svg',
-                  color: currentNavIndex == 0
-                      ? AppColors.primary
-                      : AppColors.greyColor,
-                ),
-                label: 'Home',
+          bottomNavigationBar: Stack(
+            children: [
+                Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              height: 60,
+              decoration: const BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.white, // Custom shadow color
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3),
+                  ),
+                ],
               ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  'assets/svgs/Document.svg',
-                  color: currentNavIndex == 1
-                      ? AppColors.primary
-                      : AppColors.greyColor,
+            ),
+          ),
+              BottomNavigationBar(
+              elevation: 5,
+              type: BottomNavigationBarType.fixed,
+              currentIndex: currentNavIndex,
+              onTap: (index) {
+                setState(() {
+                  currentNavIndex = index;
+                  print('$currentNavIndex&$index');
+                });
+              },
+              selectedItemColor: AppColors.primary,
+              unselectedItemColor: AppColors.greyColor,
+              items: [
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    'assets/svgs/Home.svg',
+                    color: currentNavIndex == 0
+                        ? AppColors.primary
+                        : AppColors.greyColor,
+                  ),
+                  label: 'Home',
                 ),
-                label: 'Category',
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  'assets/svgs/Buy.svg',
-                  color: currentNavIndex == 2
-                      ? AppColors.primary
-                      : AppColors.greyColor,
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    'assets/svgs/Document.svg',
+                    color: currentNavIndex == 1
+                        ? AppColors.primary
+                        : AppColors.greyColor,
+                  ),
+                  label: 'Category',
                 ),
-                label: 'Cart',
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  'assets/svgs/Profile.svg',
-                  color: currentNavIndex == 3
-                      ? AppColors.primary
-                      : AppColors.greyColor,
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    'assets/svgs/Buy.svg',
+                    color: currentNavIndex == 2
+                        ? AppColors.primary
+                        : AppColors.greyColor,
+                  ),
+                  label: 'Cart',
                 ),
-                label: 'Profile',
-              ),
-            ],
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    'assets/svgs/Profile.svg',
+                    color: currentNavIndex == 3
+                        ? AppColors.primary
+                        : AppColors.greyColor,
+                  ),
+                  label: 'Profile',
+                ),
+              ],
+            ),]
           )),
     );
   }

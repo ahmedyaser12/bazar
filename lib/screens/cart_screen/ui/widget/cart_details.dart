@@ -97,8 +97,11 @@ class _CartDetailsState extends State<CartDetails> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: <Widget>[
-                                          const Icon(
-                                                  Icons.remove_circle_outline)
+                                           Icon(
+                                                  Icons.remove_circle_outline,color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                          ? AppColors.whiteColor
+                                          :AppColors.darkBlue,)
                                               .onTap(() {
                                             if (widget.cartList[index]['num'] >
                                                 1) {
@@ -119,9 +122,12 @@ class _CartDetailsState extends State<CartDetails> {
                                           }),
                                           widthSpace(3),
                                           Text(widget.cartList[index]['num']
-                                              .toString()),
+                                              .toString(),style: TextStyles.font14BlackSemi(context),),
                                           widthSpace(3),
-                                          const Icon(Icons.add_circle_outline)
+                                           Icon(Icons.add_circle_outline,color:Theme.of(context).brightness ==
+                                          Brightness.dark
+                                          ? AppColors.whiteColor
+                                          :AppColors.darkBlue,)
                                               .onTap(() {
                                             int newNum = widget.cartList[index]
                                                     ['num'] +
@@ -164,9 +170,9 @@ class _CartDetailsState extends State<CartDetails> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            const Text(
+                           Text(
                               'Total Price',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyles.font18BlackBold(context),
                             ),
                             Text(
                               '\$${widget.totalPrice.toString()}',

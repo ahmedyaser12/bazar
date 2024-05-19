@@ -1,6 +1,7 @@
 import 'package:book_shop/core/utils/colors.dart';
 import 'package:book_shop/core/utils/common_functions.dart';
 import 'package:book_shop/core/utils/extintions.dart';
+import 'package:book_shop/core/utils/styles.dart';
 import 'package:book_shop/core/widget/app_buttons.dart';
 import 'package:book_shop/screens/profile_screen/data/user_model.dart';
 import 'package:book_shop/screens/profile_screen/logic/profile_screen_cubit.dart';
@@ -20,7 +21,8 @@ class MyAccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Account'),
+        centerTitle: true,
+        title: Text('My Account',style: TextStyles.font18BlackBold(context),),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -71,7 +73,7 @@ class MyAccountScreen extends StatelessWidget {
                   onPressed: () {
                     ImagePicker().pickImage(source: ImageSource.gallery).then(
                         (value) => context
-                            .read<ProfileScreenCubit>()
+                            .read<ProfileScreenCubit>() 
                             .uploadProfilePic(value!));
                   },
                   child: Text('Change Picture',

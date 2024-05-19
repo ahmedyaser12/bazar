@@ -94,7 +94,7 @@ class _BookDetailsState extends State<BookDetails> {
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                           color: Theme.of(context).brightness == Brightness.dark
-                              ? AppColors.darkBlue
+                              ? const Color.fromARGB(255, 40, 40, 54)
                               : AppColors.lightGery,
                           borderRadius: BorderRadius.circular(8)),
                       child: CounterButtons(

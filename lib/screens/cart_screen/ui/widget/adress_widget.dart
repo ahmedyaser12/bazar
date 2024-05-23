@@ -6,23 +6,23 @@ import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/styles.dart';
 
 class AddressWidget extends StatelessWidget {
-  const AddressWidget({super.key});
+  const AddressWidget({super.key,});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: 1,
-          color: AppColors.greyColor,
-        ),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: BlocBuilder<CardScreenCubit, CardScreenState>(
-          builder: (context, state) {
-            return Column(
+    return BlocBuilder<CardScreenCubit, CardScreenState>(
+      builder: (context, state) {
+        return Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 1,
+              color: !context.read<CardScreenCubit>().isLocated ? AppColors.redColor : AppColors.greyColor,
+            ),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
@@ -51,13 +51,14 @@ class AddressWidget extends StatelessWidget {
                                     .addresses![0]
                                     .locality ??
                                 'No address available',
-                            style:  TextStyles.font15BlackMedium(context),
+                            style: TextStyles.font15BlackMedium(context),
                           )
-                        : Text('No address available', style:  TextStyles.font15BlackMedium(context)),
+                        : Text('No address available',
+                            style: TextStyles.font15BlackMedium(context)),
                     subtitle: context.read<CardScreenCubit>().addresses != null
                         ? Text(
                             '${context.read<CardScreenCubit>().addresses![0].street!.substring(0, context.read<CardScreenCubit>().addresses![0].street!.length - 11)},\n${context.read<CardScreenCubit>().addresses![0].administrativeArea}, ${context.read<CardScreenCubit>().addresses![0].country}',
-                           style:  TextStyles.font15BlackMedium(context))
+                            style: TextStyles.font15BlackMedium(context))
                         : null,
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () async {
@@ -67,10 +68,10 @@ class AddressWidget extends StatelessWidget {
                     ? const LinearProgressIndicator()
                     : Container(),
               ],
-            );
-          },
-        ),
-      ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

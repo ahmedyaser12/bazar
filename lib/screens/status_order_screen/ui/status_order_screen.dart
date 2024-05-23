@@ -2,11 +2,9 @@ import 'package:book_shop/screens/status_order_screen/logic/status_screen_cubit.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
+
 import '../../../core/utils/colors.dart';
+import '../../../core/utils/styles.dart';
 
 class StatusOrder extends StatefulWidget {
   const StatusOrder({super.key});
@@ -16,7 +14,7 @@ class StatusOrder extends StatefulWidget {
 }
 
 class _StatusOrderState extends State<StatusOrder> {
-    final ScreenshotController screenshotController = ScreenshotController();
+  final ScreenshotController screenshotController = ScreenshotController();
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +71,11 @@ class _StatusOrderState extends State<StatusOrder> {
                         'Delivery in',
                         "(${context.read<StatusScreenCubit>().getDayLeft(order)}Left)  ${order['deliveryDate']}",
                       ),
-                      ElevatedButton(onPressed:()=> _captureScreenshotAndSaveAsPDF(), child: const Text('Print As PDF'))
+                      Text(
+                          order['location'] != null
+                              ? '${order['location'][0]['street'].substring(0, order['location'][0]['street'].length - 11)},\n${order['location'][0]['administrativeArea']}, ${order['location'][0]['country']}'
+                              : 'not found',
+                          style: TextStyles.font15BlackMedium(context)),
                     ],
                   ),
                 ),
@@ -109,28 +111,49 @@ class _StatusOrderState extends State<StatusOrder> {
       ),
     );
   }
-
-Future<void> _captureScreenshotAndSaveAsPDF() async {
-    final image = await screenshotController.capture();
-    if (image == null) return print('not found');
-print('success');
-    final pdf = pw.Document();
-    final imageProvider = pw.MemoryImage(image);
-
-    pdf.addPage(
-      pw.Page(
-        build: (pw.Context context) => pw.Center(
-          child: pw.Image(imageProvider),
-        ),
-      ),
-    );
-
-    final output = await getExternalStorageDirectory();
-    final file = File('${output!.path}/screenshot.pdf');
-    await file.writeAsBytes(await pdf.save());
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('PDF saved to ${file.path}')),
-    );
-  }
+// Future<void> _takeScreenshot() async {
+//   print('hello1');
+//   final directory = await getApplicationDocumentsDirectory();
+//   String imagePath = path.join(directory.path, 'screenshot.png');
+//   String pdfPath = path.join(directory.path, 'screenshot.pdf');
+//
+//   // Save image to local storage
+//   // screenshotController.capture().then((image) async {
+//   //   File(imagePath).writeAsBytesSync(image );
+//   // }).catchError((onError) {
+//   //   print(onError);
+//   // });
+//
+//   // Capture the screenshot
+//   screenshotController.capture().then((image) async {
+//     print('hello2');
+//     if (image != null) {
+//       print(imagePath);
+//       // Save image to local storage
+//       File(imagePath).writeAsBytesSync(image);
+//
+//       // Convert image to PDF
+//       final pdf = pw.Document();
+//       final imageMemory = pw.MemoryImage(image);
+//
+//       pdf.addPage(pw.Page(build: (pw.Context context) {
+//         return pw.Center(child: pw.Image(imageMemory));
+//       }));
+//
+//       // Save PDF to local storage
+//       final pdfFile = File(pdfPath);
+//       await pdfFile.writeAsBytes(await pdf.save());
+//
+//       // Optionally: Open the PDF
+//       Printing.layoutPdf(onLayout: (PdfPageFormat format) async => pdf.save());
+//
+//       // Show a dialog or toast to indicate success
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(content: Text('Screenshot saved as PDF: $pdfPath')),
+//       );
+//     }
+//   }).catchError((onError) {
+//     print(onError);
+//   });
+// }
 }

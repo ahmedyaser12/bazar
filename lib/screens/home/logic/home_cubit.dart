@@ -18,7 +18,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   void getTopWeakBook() async {
     emit(LoadingList());
-    final response = await apiService.getTopWeaklyBook();
+   final response = await apiService.getTopWeaklyBook();
     await getTopAuthors();
     if (response.status == Status.SUCCESS) {
       topBookWeak = response.data!;

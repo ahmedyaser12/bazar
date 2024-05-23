@@ -54,38 +54,31 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: currentNavIndex == 0,
-      onPopInvoked: (_) {
-        if (currentNavIndex != 0) {
-          setState(() {
-            currentNavIndex = 0;
-          });
-          // Prevents the app from exiting
-        } // Exits the app
-      },
-      child: Scaffold(
+        canPop: currentNavIndex == 0,
+        onPopInvoked: (_) {
+          if (currentNavIndex != 0) {
+            setState(() {
+              currentNavIndex = 0;
+            });
+            // Prevents the app from exiting
+          } // Exits the app
+        },
+        child: Scaffold(
           body: _getCurrentPage(), // Use the method to switch pages
-          bottomNavigationBar: Stack(
-            children: [
-                Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              height: 60,
-              decoration: const BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.white, // Custom shadow color
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-              ),
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.whiteColor
+                      : AppColors.greyColor,
+                  spreadRadius: 2.5,
+                  blurRadius: 1,
+                  offset: const Offset(0, 3),
+                ),
+              ],
             ),
-          ),
-              BottomNavigationBar(
+            child: BottomNavigationBar(
               elevation: 5,
               type: BottomNavigationBarType.fixed,
               currentIndex: currentNavIndex,
@@ -135,8 +128,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   label: 'Profile',
                 ),
               ],
-            ),]
-          )),
-    );
+            ),
+          ),
+        ));
   }
 }

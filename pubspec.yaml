@@ -45,6 +45,8 @@ dependencies:
   geocoding: ^3.0.0
   screenshot: ^2.5.0
   pdf: ^3.10.8
+  shimmer: ^3.0.0
+  printing: ^5.12.0
 
 dev_dependencies:
   flutter_test:

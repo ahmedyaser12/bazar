@@ -8,7 +8,9 @@ import '../../../../core/utils/styles.dart';
 import '../../logic/card_screen_cubit.dart';
 
 class DateTimeWidget extends StatefulWidget {
-  const DateTimeWidget({super.key});
+  const DateTimeWidget({
+    super.key,
+  });
 
   @override
   State<DateTimeWidget> createState() => _DateTimeWidgetState();
@@ -20,59 +22,71 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
   @override
   Widget build(BuildContext context) {
     dateTime = context.read<CardScreenCubit>().dateTimeString;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.greyColor, width: 1),
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            'Date and time:',
-            style: TextStyles.font18BlackBold(context),
+    return BlocBuilder<CardScreenCubit, CardScreenState>(
+      builder: (context, state) {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          decoration: BoxDecoration(
+            border: Border.all(
+                color: !context.read<CardScreenCubit>().isTimeTaken
+                    ? AppColors.redColor
+                    : AppColors.greyColor,
+                width: 1),
+            borderRadius: BorderRadius.circular(12.0),
           ),
-          ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: Container(
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(40)),
-                  color: AppColors.secondary),
-              child: Icon(
-                Icons.calendar_month_outlined,
-                color: AppColors.primary,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Date and time:',
+                style: TextStyles.font18BlackBold(context),
               ),
-            ),
-            title: Text('Date & time',style: TextStyles.font14BlackSemi(context),),
-            subtitle: BlocBuilder<CardScreenCubit, CardScreenState>(
-              builder: (context, state) {
-                return Text(dateTime != null
-                    ? '${dateTime!}'
-                        ' ${context.read<CardScreenCubit>().dateTime!.year.toString()}'
-                    : 'Choose date and time',style: TextStyles.font14BlackSemi(context));
-              },
-            ),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () async {
-              await bottomSheet(
-                maxHeight: 0.5,
-                context,
-                buildBody: BlocProvider.value(
-                  value: BlocProvider.of<CardScreenCubit>(context),
-                  child: const BottomSheetContent(),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(40)),
+                      color: AppColors.secondary),
+                  child: Icon(
+                    Icons.calendar_month_outlined,
+                    color: AppColors.primary,
+                  ),
                 ),
-              );
-              setState(() {
-                dateTime = context.read<CardScreenCubit>().dateTime.toString();
-                context.read<CardScreenCubit>().addDeliveryTime();
-              });
-            },
+                title: Text(
+                  'Date & time',
+                  style: TextStyles.font14BlackSemi(context),
+                ),
+                subtitle: Text(
+                    dateTime != null
+                        ? '${dateTime!}'
+                            ' ${context.read<CardScreenCubit>().dateTime!.year.toString()}'
+                        : 'Choose date and time',
+                    style: TextStyles.font14BlackSemi(context)),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () async {
+                  await bottomSheet(
+                    maxHeight: 0.5,
+                    context,
+                    buildBody: BlocProvider.value(
+                      value: BlocProvider.of<CardScreenCubit>(context),
+                      child: const BottomSheetContent(),
+                    ),
+                  );
+                  setState(() {
+                    dateTime =
+                        context.read<CardScreenCubit>().dateTime.toString();
+                    context
+                        .read<CardScreenCubit>()
+                        .addDeliveryTimeAndLocation();
+                  });
+                },
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 

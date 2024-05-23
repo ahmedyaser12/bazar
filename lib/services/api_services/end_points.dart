@@ -2,7 +2,7 @@ class EndPoints {
   static const paymentApiKey =
       'ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2T1RZMk5qTXlMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkuWlhXWDF3d2x1TUk5WjNqQ2NFNlJXU0FnSWNYU3NCS0dsVmhTR3A5RDZjbFJ2OWhneC1DSWRwZm92TEVQdWs0SlV4RjVmOVhVS1BEQThpNF9wUzZlY2c=';
   static const String apiKey =
-      '88a130a440mshb300cd909b824c5p1858f7jsnfd87ec5950ce';
+      'c8d7ad50b6msh8cccde41a0e9a95p1d1255jsnf5392f75d64c';
 
   //baseUrls
   static const baseUrl = "https://hapi-books.p.rapidapi.com";
@@ -24,7 +24,7 @@ class EndPoints {
   static const get_user = "/get-user";
   static const update = "/update";
 }
-//1054eb5b5cmshf028862fcc97c78p1bcfcbjsn6fbc8d72beca
+//88a130a440mshb300cd909b824c5p1858f7jsnfd87ec5950ce
 
 class ApiKey {
   static String status = "status";

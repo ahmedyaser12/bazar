@@ -21,6 +21,8 @@ class CardScreenCubit extends Cubit<CardScreenState> {
   List cartList = [];
   Position? position;
   List<geo.Placemark>? addresses;
+  bool isLocated = true;
+  bool isTimeTaken = true;
 
   void getCartDetails() async {
     emit(CartLoading());
@@ -56,11 +58,12 @@ class CardScreenCubit extends Cubit<CardScreenState> {
     emit(UpdateNumberOfItems(totalPrice));
   }
 
-  addDeliveryTime() {
+  addDeliveryTimeAndLocation() {
     firebaseService.updateCartItem(CacheHelper().getData(key: ApiKey.id), {
       'deliveryTime': dateTime,
       'deliveryDate': dateTimeString,
-      'totalPrice': getTotalPrice(cartList)
+      'totalPrice': getTotalPrice(cartList),
+      'location': addresses
     });
   }
 
@@ -128,6 +131,7 @@ class CardScreenCubit extends Cubit<CardScreenState> {
   void confirmOrder(DateTime dateTime) {
     dateTimeString = formatDateTime(dateTime);
     this.dateTime = dateTime;
+    isTimeTaken = true;
     emit(ConfirmOrder(dateTime));
   }
 
@@ -143,9 +147,20 @@ class CardScreenCubit extends Cubit<CardScreenState> {
 
     if (addresses.isNotEmpty) {
       this.addresses = addresses;
+      isLocated = true;
       emit(GetLocation());
     } else {
       return 'No address available';
     }
+  }
+
+  void changeIsTimeTaken() {
+    isTimeTaken = false;
+    emit(ChangeIsTimeTaken());
+  }
+
+  void changeIsLocated() {
+    isLocated = false;
+    emit(ChangeIsLocated());
   }
 }

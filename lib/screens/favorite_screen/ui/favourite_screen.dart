@@ -56,7 +56,7 @@ class FavouriteScreen extends StatelessWidget {
                                   TextStyles.font16grey(context).copyWith(fontSize: 15),
                             ),
                             trailing: FavouriteButton(
-                                backgroundColor: AppColors.whiteColor,
+                                backgroundColor:Theme.of(context).brightness == Brightness.dark ? AppColors.darkBlue : AppColors.whiteColor,
                                 checkFavorite: context
                                     .read<FavoriteCubit>()
                                     .isFavorite(state.favoriteList[index]),
@@ -68,9 +68,9 @@ class FavouriteScreen extends StatelessWidget {
                         },
                       ),
                     )
-                  : const Expanded(
+                  : Expanded(
                     child: Center(
-                      child: Text('No Favourite Added '),
+                      child: Text('No Favourite Added ',style: TextStyles.font18BlackBold(context),),
                     ),
                   ),
             ],

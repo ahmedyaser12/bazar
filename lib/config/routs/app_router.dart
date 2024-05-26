@@ -84,7 +84,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: ((context) => BlocProvider.value(
               value: locator<StatusScreenCubit>()..getOrders(),
-              child: const StatusOrder())),
+              child: const StatusOrderScreen())),
         );
       default:
         return null;

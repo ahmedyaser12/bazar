@@ -20,7 +20,7 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  int currentNavIndex = 2;
+  int currentNavIndex = 0;
 
   // Method to get the current page based on the navigation index
   Widget _getCurrentPage() {

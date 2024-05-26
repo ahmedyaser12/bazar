@@ -3,7 +3,6 @@ import 'package:book_shop/config/routs/routs_names.dart';
 import 'package:book_shop/screens/favorite_screen/logic/favorite_cubit.dart';
 import 'package:book_shop/services/observer.dart';
 import 'package:book_shop/services/services_locator.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,12 +20,7 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   await setupLocator();
   CacheHelper().init();
-  runApp(DevicePreview(
-    enabled: true,
-    builder: (BuildContext context) {
-      return const MyApp();
-    },
-  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -46,8 +40,8 @@ class MyApp extends StatelessWidget {
         create: (context) => FavoriteCubit(),
         child: MaterialApp(
           useInheritedMediaQuery: true,
-          locale: DevicePreview.locale(context),
-          builder: DevicePreview.appBuilder,
+          // locale: DevicePreview.locale(context),
+          // builder: DevicePreview.appBuilder,
           debugShowCheckedModeBanner: false,
           theme: ThemeData(),
           initialRoute: CacheHelper().getData(key: 'login') == true

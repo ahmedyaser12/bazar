@@ -18,3 +18,4 @@ class PaymentError extends PaymentState {
 
   PaymentError(this.error);
 }
+class ChangeIsPayment extends PaymentState {}

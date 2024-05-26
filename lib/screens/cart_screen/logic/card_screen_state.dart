@@ -49,3 +49,4 @@ class GetLocation extends CardScreenState {
 class ChangeIsTimeTaken extends CardScreenState {}
 
 class ChangeIsLocated extends CardScreenState {}
+

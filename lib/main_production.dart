@@ -3,7 +3,6 @@ import 'package:book_shop/config/routs/routs_names.dart';
 import 'package:book_shop/screens/favorite_screen/logic/favorite_cubit.dart';
 import 'package:book_shop/services/observer.dart';
 import 'package:book_shop/services/services_locator.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +10,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/cubit_theme/theme_cubit.dart';
 import 'core/helper/cache_helper.dart';
-import 'core/utils/styles.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -22,12 +20,7 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   await setupLocator();
   await CacheHelper().init();
-  runApp(DevicePreview(
-    enabled: false,
-    builder: (BuildContext context) {
-      return const MyApp();
-    },
-  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -47,8 +40,8 @@ class MyApp extends StatelessWidget {
           builder: (context, state) {
             return MaterialApp(
               useInheritedMediaQuery: true,
-              locale: DevicePreview.locale(context),
-              builder: DevicePreview.appBuilder,
+              // locale: DevicePreview.locale(context),
+              // builder: DevicePreview.appBuilder,
               debugShowCheckedModeBanner: false,
               theme: state.themeData,
               initialRoute: CacheHelper().getData(key: 'login') == true

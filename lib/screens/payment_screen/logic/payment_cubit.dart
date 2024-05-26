@@ -1,3 +1,4 @@
+import 'package:book_shop/services/firebase_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,8 +10,12 @@ part 'payment_state.dart';
 
 class PaymentCubit extends Cubit<PaymentState> {
   final ApiService apiService;
+  final FirebaseService firebaseService;
 
-  PaymentCubit(this.apiService) : super(PaymentInitial());
+  PaymentCubit(this.apiService, this.firebaseService) : super(PaymentInitial());
+
+  bool isPayment = true;
+  String? paymentName;
 
   Future<String?> getPaymentKey(int amount, String currency) async {
     try {
@@ -82,5 +87,10 @@ class PaymentCubit extends Cubit<PaymentState> {
       emit(PaymentError(response.errorMessage.toString()));
     }
     return '';
+  }
+
+  void changeIsPayment(bool value) {
+    isPayment = value;
+    emit(ChangeIsPayment());
   }
 }

@@ -115,8 +115,10 @@ class FirebaseService {
     return [];
   }
 
-  void updateCartItem(String docId, Map<String, dynamic> data) {
-        _db.collection('carts').doc(docId).set(data, SetOptions(merge: true));
+  void updateCartItem(String docId, Map<String, dynamic> data,
+      {List array = const []}) {
+    array.isNotEmpty ? data['location'] = [array] : null;
+    _db.collection('carts').doc(docId).set(data, SetOptions(merge: true));
   }
 
   Future<void> updateCart(

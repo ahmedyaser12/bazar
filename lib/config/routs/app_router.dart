@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../screens/bottom_nav_bar/bottom_nav_bar.dart';
+import '../../screens/notification_screen/ui/notification_screen.dart';
 import '../../screens/onboarding_screen/Ui/on_boarding_screen.dart';
 import '../../screens/profile_screen/ui/acount_screen.dart';
 import '../../screens/sign_up_screen/logic/sign_up_cubit.dart';
@@ -85,6 +86,10 @@ class AppRouter {
           builder: ((context) => BlocProvider.value(
               value: locator<StatusScreenCubit>()..getOrders(),
               child: const StatusOrderScreen())),
+        );
+      case RouteName.Notification:
+        return MaterialPageRoute(
+          builder: ((context) => const NotificationItemWidget()),
         );
       default:
         return null;

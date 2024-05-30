@@ -63,7 +63,7 @@ class CardScreenCubit extends Cubit<CardScreenState> {
       'deliveryTime': dateTime,
       'deliveryDate': dateTimeString,
       'totalPrice': getTotalPrice(cartList),
-      'location': addresses![0].toJson(),
+      //'location': addresses![0].toJson(),
     });
   }
 

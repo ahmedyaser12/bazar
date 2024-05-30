@@ -308,17 +308,23 @@ class _StatusOrderState extends State<StatusOrder> {
           },
         ),
       );
-
       final directory = await getTemporaryDirectory();
       final file = File(path.join(directory.path, 'order_status.pdf'));
       await file.writeAsBytes(await pdf.save());
-
-      print('PDF saved at: ${file.path}');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('PDF saved at: ${file.path}')),
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          Future.delayed(const Duration(seconds: 2), () {
+            Navigator.of(context).pop();
+            OpenFilex.open(file.path);
+          });
+          return const Dialog(
+            backgroundColor: Colors.transparent,
+            child: DownloadAnimation(),
+          );
+        },
       );
-
-      OpenFilex.open(file.path);
     } else {
       print('StatusScreenCubit state is not loaded');
     }
@@ -356,5 +362,50 @@ class _StatusOrderState extends State<StatusOrder> {
   Future<Uint8List> _getImageFromAssets(String assetPath) async {
     final byteData = await DefaultAssetBundle.of(context).load(assetPath);
     return byteData.buffer.asUint8List();
+  }
+}
+
+class DownloadAnimation extends StatefulWidget {
+  const DownloadAnimation({super.key});
+
+  @override
+  DownloadAnimationState createState() => DownloadAnimationState();
+}
+
+class DownloadAnimationState extends State<DownloadAnimation>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )..forward();
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ScaleTransition(
+        scale: _animation,
+        child: Icon(
+          Icons.download_rounded,
+          color: AppColors.primary,
+          size: 100,
+        ),
+      ),
+    );
+  }
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }

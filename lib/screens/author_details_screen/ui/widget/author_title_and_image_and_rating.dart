@@ -1,3 +1,5 @@
+import 'package:book_shop/core/widget/rating_widget.dart';
+import 'package:book_shop/generated/l10n.dart';
 import 'package:book_shop/screens/author_details_screen/data/author_model.dart';
 import 'package:flutter/material.dart';
 
@@ -19,14 +21,14 @@ class AuthorTitleAndImageAndRating extends StatelessWidget {
         ),
         heightSpace(16),
         Text(
-          '${authorDetails.name}',
+          '${S.of(context).translateMessage(authorDetails.name!)} ${authorDetails.name}',
           style: TextStyles.font18BlackBold(context),
         ),
         heightSpace(24),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(children: List.generate(5, (index) => const Icon(Icons.star))),
+            RatingWidget(rating: authorDetails.rating!),
             widthSpace(6),
             Text(authorDetails.rating.toString()),
           ],

@@ -69,7 +69,7 @@ class ConfirmOrderScreen extends StatelessWidget {
             print(context.read<PaymentCubit>().paymentName);
 
             if (context.read<CardScreenCubit>().dateTimeString != null &&
-                context.read<CardScreenCubit>().addresses != null &&
+                //context.read<CardScreenCubit>().addresses != null &&
                 context.read<PaymentCubit>().paymentName != null) {
               context.navigateTo(RouteName.STATUSORDER);
               context.read<CardScreenCubit>().addDeliveryTimeAndLocation();
@@ -77,11 +77,10 @@ class ConfirmOrderScreen extends StatelessWidget {
               if (context.read<CardScreenCubit>().dateTimeString == null) {
                 context.read<CardScreenCubit>().changeIsTimeTaken();
               }
-              if (context.read<CardScreenCubit>().addresses == null) {
-                context.read<CardScreenCubit>().changeIsLocated();
-              }
+              // if (context.read<CardScreenCubit>().addresses == null) {
+              //   context.read<CardScreenCubit>().changeIsLocated();
+              // }
               if (context.read<PaymentCubit>().paymentName == null) {
-                print(context.read<PaymentCubit>().paymentName);
                 context.read<PaymentCubit>().changeIsPayment(false);
               }
             }

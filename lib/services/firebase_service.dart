@@ -1,4 +1,9 @@
+import 'dart:async';
+
+import 'package:book_shop/config/routs/routs_names.dart';
+import 'package:book_shop/main_production.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class FirebaseService {
 //   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -128,6 +133,46 @@ class FirebaseService {
   }
 }
 
+Future initNotification() async {
+  final messaging = FirebaseMessaging.instance;
+
+  final settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+  String? token = await messaging.getToken();
+
+  initPushNotification();
+}
+
+Future<void> handleBackGroundMessage(RemoteMessage message) async {
+  print('Message data: ${message.data}');
+  print('Message notification: ${message.notification?.title}');
+  print('Message notification: ${message.notification?.body}');
+}
+
+void handleMessage(RemoteMessage? message) {
+  if (message == null) return;
+  navKey.currentState!.pushNamed(RouteName.Notification);
+}
+
+Future initPushNotification() async {
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
+  FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
+
+  FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
+  FirebaseMessaging.onBackgroundMessage(handleBackGroundMessage);
+}
 // import 'package:google_sign_in/google_sign_in.dart';
 //
 // class GoogleAuthHelper {

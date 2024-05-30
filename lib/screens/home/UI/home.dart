@@ -1,4 +1,5 @@
 import 'package:book_shop/config/routs/routs_names.dart';
+import 'package:book_shop/core/cubits/local_cubit/localization.dart';
 import 'package:book_shop/core/utils/extintions.dart';
 import 'package:book_shop/screens/author_details_screen/ui/author_details_screen.dart';
 import 'package:book_shop/screens/home/UI/widget/auther_widget.dart';
@@ -12,12 +13,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 
-import '../../../core/cubit_theme/theme_cubit.dart';
+import '../../../core/cubits/cubit_theme/theme_cubit.dart';
 import '../../../core/utils/colors.dart';
 import '../../../core/utils/styles.dart';
 import '../../../core/widget/custom_appBar.dart';
+import '../../../generated/l10n.dart';
 import '../../onboarding_screen/Ui/widget/dots_indicator_widget.dart';
 import '../data/top_book_of_weak_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -82,15 +85,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBarr(
+        appBar: customAppBarr(
         context: context,
-        title: 'Home',
+        title: S.of(context).title,
         leading: const Icon(Icons.search).onTap(() {
           context.navigateTo(RouteName.SEARCH);
         }),
-        action: [
+        action: [ 
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              context.read<LocaleCubit>().toggleLocale();
+            },
             icon: SvgPicture.asset(
               'assets/svgs/Notification.svg',
               color: Theme.of(context).brightness == Brightness.dark

@@ -13,4 +13,6 @@ class RouteName {
   static const String CART = '/cart';
   static const String MAP = '/map';
   static const String STATUSORDER = '/statusOrder';
+  static const String Notification = '/notification';
+
 }

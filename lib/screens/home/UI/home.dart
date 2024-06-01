@@ -20,7 +20,6 @@ import '../../../core/widget/custom_appBar.dart';
 import '../../../generated/l10n.dart';
 import '../../onboarding_screen/Ui/widget/dots_indicator_widget.dart';
 import '../data/top_book_of_weak_model.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -85,13 +84,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: customAppBarr(
+      appBar: customAppBarr(
         context: context,
         title: S.of(context).title,
         leading: const Icon(Icons.search).onTap(() {
           context.navigateTo(RouteName.SEARCH);
         }),
-        action: [ 
+        action: [
           IconButton(
             onPressed: () {
               context.read<LocaleCubit>().toggleLocale();

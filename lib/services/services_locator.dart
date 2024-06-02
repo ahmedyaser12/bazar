@@ -29,7 +29,8 @@ Future setupLocator() async {
   //       DioConsumer(dio: locator(), header, null, baseUrl: baseUrl),
   // );
   locator.registerLazySingleton<LoginCubit>(() => LoginCubit(locator()));
-  locator.registerLazySingleton<PaymentCubit>(() => PaymentCubit(locator()));
+  locator.registerLazySingleton<PaymentCubit>(
+      () => PaymentCubit(locator<ApiService>(), locator<FirebaseService>()));
   locator.registerLazySingleton<SignUpCubit>(() => SignUpCubit(locator()));
   locator.registerLazySingleton<ProfileScreenCubit>(
       () => ProfileScreenCubit(locator()));

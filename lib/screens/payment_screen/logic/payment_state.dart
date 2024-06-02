@@ -8,7 +8,7 @@ class PaymentInitial extends PaymentState {}
 class PaymentLoading extends PaymentState {}
 
 class PaymentSuccess extends PaymentState {
-  String token;
+  final String token;
 
   PaymentSuccess(this.token);
 }
@@ -18,3 +18,7 @@ class PaymentError extends PaymentState {
 
   PaymentError(this.error);
 }
+
+class ChangeIsPayment extends PaymentState {}
+
+class CheckPaypalPayment extends PaymentState {}

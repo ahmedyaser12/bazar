@@ -14,7 +14,7 @@ class Header extends StatelessWidget {
       children: [
         Text(
           header,
-          style: TextStyles.font18BlackBold,
+          style: TextStyles.font18BlackBold(context),
         ),
         TextButton(
             onPressed: () {

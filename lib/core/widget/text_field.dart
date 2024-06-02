@@ -45,7 +45,7 @@ class FormTextFieldItem extends StatelessWidget {
           padding: const EdgeInsets.only(left: 5.0),
           child: Text(
             name!,
-            style: TextStyles.font15BlackMedium,
+            style: TextStyles.font15BlackMedium(context),
           ),
         ),
         if (title != null) heightSpace(8),
@@ -53,8 +53,7 @@ class FormTextFieldItem extends StatelessWidget {
           // padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppColors.lightGery),
-            color: AppColors.lightGery,
+            color:Theme.of(context).brightness==Brightness.dark?AppColors.darkBlue: AppColors.lightGery,
           ),
           width: double.infinity,
           child: Center(
@@ -65,19 +64,21 @@ class FormTextFieldItem extends StatelessWidget {
               initialValue: initialValue,
               controller: controller,
               keyboardType: keyboardType,
+             style: Theme.of(context).brightness==Brightness.dark?TextStyle(color:AppColors.whiteColor):TextStyle(color:AppColors.blackColor),
+         
               //style: TextStyles.font14PrimarySemi,
               decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
+                   focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: AppColors.primary,
-                    width: 1.3,
+                    width: 1,
                   ),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: AppColors.gery50,
-                    width: 1.3,
+                    width: 1,
                   ),
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -91,7 +92,7 @@ class FormTextFieldItem extends StatelessWidget {
                 focusedErrorBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: AppColors.redColor,
-                    width: 1.3,
+                    width: 1,
                   ),
                   borderRadius: BorderRadius.circular(12),
                 ),

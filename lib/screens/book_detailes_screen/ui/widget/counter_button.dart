@@ -41,7 +41,7 @@ class _CounterButtonState extends State<CounterButtons> {
         widthSpace(16),
         Text(
           counter.toString(),
-          style: TextStyles.font18BlackBold,
+          style: TextStyles.font18BlackBold(context),
         ),
         widthSpace(16),
         TextButton(

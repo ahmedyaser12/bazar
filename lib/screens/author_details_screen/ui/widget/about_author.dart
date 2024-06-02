@@ -1,4 +1,5 @@
 import 'package:book_shop/core/utils/common_functions.dart';
+import 'package:book_shop/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:read_more_text/read_more_text.dart';
 
@@ -15,14 +16,14 @@ class AboutAuthor extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('About', style: TextStyles.font15BlackMedium),
+        Text(S.of(context).about, style: TextStyles.font15BlackMedium(context)),
         heightSpace(8),
         ReadMoreText(
           authorDetails.info.toString(),
           numLines: 4,
-          readMoreText: 'Read more',
-          readLessText: 'Read less',
-          style: TextStyles.font16grey,
+          readMoreText: S.of(context).Read_more,
+          readLessText: S.of(context).Read_less,
+          style: TextStyles.font16grey(context),
         )
       ],
     );

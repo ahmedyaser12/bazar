@@ -1,4 +1,5 @@
 import 'package:book_shop/core/utils/extintions.dart';
+import 'package:book_shop/core/utils/themes.dart';
 import 'package:book_shop/screens/categories/ui/tap_screens/action_book_screen.dart';
 import 'package:book_shop/screens/categories/ui/tap_screens/all_books_screen.dart';
 import 'package:book_shop/screens/categories/ui/tap_screens/horror_book_screen.dart';
@@ -53,11 +54,7 @@ class _TabScreenState extends State<CategoriesScreens>
       appBar: AppBar(
         centerTitle: true,
         leading: const Icon(Icons.search),
-        iconTheme: IconThemeData(
-          color: AppColors.blackColor,
-        ),
         title: const Text('Category'),
-        backgroundColor: AppColors.whiteColor,
         actions: [
           IconButton(
               onPressed: () {
@@ -68,7 +65,7 @@ class _TabScreenState extends State<CategoriesScreens>
         ],
         bottom: TabBar(
           controller: controller,
-
+unselectedLabelColor: Theme.of(context).brightness==Brightness.dark?AppColors.whiteColor:AppColors.blackColor,
           padding: EdgeInsets.zero,
           isScrollable: true,
           tabs: const [

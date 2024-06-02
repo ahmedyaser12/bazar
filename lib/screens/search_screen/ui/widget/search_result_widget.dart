@@ -18,7 +18,6 @@ class SearchResultWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.whiteColor,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -43,7 +42,7 @@ class SearchResultWidget extends StatelessWidget {
                 children: [
                   Text(
                     searchModel.name!,
-                    style: TextStyles.font15BlackMedium,
+                    style: TextStyles.font15BlackMedium(context),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),

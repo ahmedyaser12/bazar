@@ -1,0 +1,10 @@
+{
+    "title": "Book Shop",
+    "author": "Author",
+    "product": "Product",
+    "about": "About",
+    "Read_more": "Read more",
+    "Read_less": "Read less",
+    "translateMessage": "Message: {message}"
+
+}

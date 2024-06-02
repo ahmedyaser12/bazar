@@ -32,12 +32,6 @@ class AddNum extends CardScreenState {
   AddNum(this.num);
 }
 
-class RemoveNum extends CardScreenState {
-  final int num;
-
-  RemoveNum(this.num);
-}
-
 class GetCart extends CardScreenState {
   final List cartList;
 
@@ -51,3 +45,8 @@ class LocationLoading extends CardScreenState {
 class GetLocation extends CardScreenState {
   GetLocation();
 }
+
+class ChangeIsTimeTaken extends CardScreenState {}
+
+class ChangeIsLocated extends CardScreenState {}
+

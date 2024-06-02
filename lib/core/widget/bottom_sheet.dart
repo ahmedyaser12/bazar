@@ -6,6 +6,7 @@ Future bottomSheet(
   required Widget buildBody,
 }) {
   return showModalBottomSheet(
+  
     isScrollControlled: true,
     context: context,
     builder: (context) => DraggableScrollableSheet(
@@ -20,10 +21,13 @@ Future bottomSheet(
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           decoration: BoxDecoration(
-            color: AppColors.whiteColor,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(50),
-              topRight: Radius.circular(50),
+            color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                          ?AppColors.darkBlue
+                                          : AppColors.whiteColor,
+            borderRadius:const BorderRadius.only(
+              topLeft: Radius.circular(25),
+              topRight: Radius.circular(25),
             ),
           ),
           child: SingleChildScrollView(

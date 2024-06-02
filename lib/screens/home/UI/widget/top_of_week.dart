@@ -6,10 +6,12 @@ import '../../data/top_book_of_weak_model.dart';
 
 class TopOfWeekWidget extends StatelessWidget {
   final List<TopWeakModel> topWeakList;
+  final List<Animation<Offset>>? position;
 
   const TopOfWeekWidget({
     super.key,
     required this.topWeakList,
+    required this.position,
   });
 
   @override
@@ -23,9 +25,16 @@ class TopOfWeekWidget extends StatelessWidget {
               itemCount: topWeakList.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (_, index) {
-                return BuildBook(
-                  categoryList: topWeakList[index],
-                );
+                return position != null
+                    ? SlideTransition(
+                        position: position![index],
+                        child: BuildBook(
+                          categoryList: topWeakList[index],
+                        ),
+                      )
+                    : BuildBook(
+                        categoryList: topWeakList[index],
+                      );
               }),
         )
       ],

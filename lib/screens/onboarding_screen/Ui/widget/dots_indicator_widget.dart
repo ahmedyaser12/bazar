@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/utils/colors.dart';
 
 class DotsIndicatorWidget extends StatelessWidget {
-  final int currentIndex;
+  final int? currentIndex;
 
   const DotsIndicatorWidget({
     super.key,
@@ -16,7 +16,7 @@ class DotsIndicatorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return DotsIndicator(
       dotsCount: 3,
-      position: currentIndex,
+      position: currentIndex!,
       decorator: DotsDecorator(
         spacing: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
         size: Size(6.w, 6.h),

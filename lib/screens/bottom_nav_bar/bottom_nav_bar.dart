@@ -20,7 +20,7 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  int currentNavIndex = 0;
+  int currentNavIndex = 2;
 
   // Method to get the current page based on the navigation index
   Widget _getCurrentPage() {
@@ -54,70 +54,82 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: currentNavIndex == 0,
-      onPopInvoked: (_) {
-        if (currentNavIndex != 0) {
-          setState(() {
-            currentNavIndex = 0;
-          });
-          // Prevents the app from exiting
-        } // Exits the app
-      },
-      child: Scaffold(
-          backgroundColor: AppColors.whiteColor,
+        canPop: currentNavIndex == 0,
+        onPopInvoked: (_) {
+          if (currentNavIndex != 0) {
+            setState(() {
+              currentNavIndex = 0;
+            });
+            // Prevents the app from exiting
+          } // Exits the app
+        },
+        child: Scaffold(
           body: _getCurrentPage(), // Use the method to switch pages
-          bottomNavigationBar: BottomNavigationBar(
-            elevation: 5,
-            backgroundColor: AppColors.whiteColor,
-            type: BottomNavigationBarType.fixed,
-            currentIndex: currentNavIndex,
-            onTap: (index) {
-              setState(() {
-                currentNavIndex = index;
-                print('$currentNavIndex&$index');
-              });
-            },
-            selectedItemColor: AppColors.primary,
-            unselectedItemColor: AppColors.greyColor,
-            items: [
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  'assets/svgs/Home.svg',
-                  color: currentNavIndex == 0
-                      ? AppColors.primary
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.whiteColor
                       : AppColors.greyColor,
+                  spreadRadius: 2.5,
+                  blurRadius: 1,
+                  offset: const Offset(0, 3),
                 ),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  'assets/svgs/Document.svg',
-                  color: currentNavIndex == 1
-                      ? AppColors.primary
-                      : AppColors.greyColor,
+              ],
+            ),
+            child: BottomNavigationBar(
+              elevation: 5,
+              type: BottomNavigationBarType.fixed,
+              currentIndex: currentNavIndex,
+              onTap: (index) {
+                setState(() {
+                  currentNavIndex = index;
+                  print('$currentNavIndex&$index');
+                });
+              },
+              selectedItemColor: AppColors.primary,
+              unselectedItemColor: AppColors.greyColor,
+              items: [
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    'assets/svgs/Home.svg',
+                    color: currentNavIndex == 0
+                        ? AppColors.primary
+                        : AppColors.greyColor,
+                  ),
+                  label: 'Home',
                 ),
-                label: 'Category',
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  'assets/svgs/Buy.svg',
-                  color: currentNavIndex == 2
-                      ? AppColors.primary
-                      : AppColors.greyColor,
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    'assets/svgs/Document.svg',
+                    color: currentNavIndex == 1
+                        ? AppColors.primary
+                        : AppColors.greyColor,
+                  ),
+                  label: 'Category',
                 ),
-                label: 'Cart',
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  'assets/svgs/Profile.svg',
-                  color: currentNavIndex == 3
-                      ? AppColors.primary
-                      : AppColors.greyColor,
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    'assets/svgs/Buy.svg',
+                    color: currentNavIndex == 2
+                        ? AppColors.primary
+                        : AppColors.greyColor,
+                  ),
+                  label: 'Cart',
                 ),
-                label: 'Profile',
-              ),
-            ],
-          )),
-    );
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    'assets/svgs/Profile.svg',
+                    color: currentNavIndex == 3
+                        ? AppColors.primary
+                        : AppColors.greyColor,
+                  ),
+                  label: 'Profile',
+                ),
+              ],
+            ),
+          ),
+        ));
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/utils/styles.dart';
+import '../../../generated/l10n.dart';
 import '../../../services/services_locator.dart';
 import '../logic/author_details_cubit.dart';
 
@@ -63,8 +64,8 @@ class _AuthorDetailsState extends State<AuthorDetails> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Author',
-                      style: TextStyles.font24BlackBold,
+                      S.of(context).author,
+                      style: TextStyles.font24BlackBold(context),
                     ),
                   ],
                 ),
@@ -74,8 +75,8 @@ class _AuthorDetailsState extends State<AuthorDetails> {
                 AboutAuthor(authorDetails: authorDetails),
                 heightSpace(20),
                 Text(
-                  'Product',
-                  style: TextStyles.font15BlackMedium,
+                  S.of(context).product,
+                  style: TextStyles.font15BlackMedium(context),
                 ),
                 heightSpace(16),
                 SizedBox(
@@ -94,7 +95,7 @@ class _AuthorDetailsState extends State<AuthorDetails> {
                                 children: [
                                   Text(
                                     e.name.toString(),
-                                    style: TextStyles.font15BlackMedium,
+                                    style: TextStyles.font15BlackMedium(context),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                   ),

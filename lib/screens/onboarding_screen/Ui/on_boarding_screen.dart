@@ -42,13 +42,13 @@ class OnboardingScreen extends StatelessWidget {
                         ),
                         Text(
                           onboardingCubitObject.data[index].title.toString(),
-                          style: TextStyles.font24BlackBold,
+                          style: TextStyles.font24BlackBold(context),
                           textAlign: TextAlign.center,
                         ),
                         heightSpace(12),
                         Text(
                           onboardingCubitObject.data[index].subTitle.toString(),
-                          style: TextStyles.font16grey,
+                          style: TextStyles.font16grey(context),
                           textAlign: TextAlign.center,
                         ),
                       ]),

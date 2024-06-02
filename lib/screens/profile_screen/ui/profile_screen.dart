@@ -1,4 +1,5 @@
 import 'package:book_shop/config/routs/routs_names.dart';
+import 'package:book_shop/core/helper/cache_helper.dart';
 import 'package:book_shop/core/utils/colors.dart';
 import 'package:book_shop/core/utils/common_functions.dart';
 import 'package:book_shop/core/utils/extintions.dart';
@@ -32,10 +33,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomAppBar(
+         const CustomAppBar(
           title: 'Profile',
-          iconThemeData: IconThemeData(color: AppColors.blackColor),
-          color: AppColors.whiteColor,
         ),
         heightSpace(20),
         const DividerWidget(),
@@ -71,19 +70,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 title: Text(user.name.toString(),
-                    style: TextStyles.font18BlackBold),
+                    style: TextStyles.font18BlackBold(context)),
                 trailing: Padding(
                   padding: const EdgeInsets.only(top: 15, right: 15),
                   child: Text(
                     'Logout',
                     style: TextStyle(color: AppColors.redColor, fontSize: 15),
                   ).onTap(() {
-                    //context.navigateToAndReplacement(RouteName.LOGIN);
+                    context.navigateToAndReplacement(RouteName.LOGIN);
+                    CacheHelper().saveData(key: 'login', value: false);
                   }),
                 ),
                 subtitle: Text(
                   user.email.toString(),
-                  style: TextStyles.font16grey.copyWith(fontSize: 15),
+                  style: TextStyles.font16grey(context).copyWith(fontSize: 15),
                 ),
               );
             }
@@ -99,7 +99,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               context.read<ProfileScreenCubit>().getUser();
             }
           },
-          title: const Text('My Account'),
+          title:  Text('My Account',style: TextStyles.font15BlackMedium(context),),
           leading: Container(
             height: 50,
             width: 50,
@@ -117,7 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         ListTile(
-          title: const Text('Your Favourite'),
+          title:  Text('Your Favourite',style: TextStyles.font15BlackMedium(context),),
           leading: FavouriteButton(backgroundColor: AppColors.secondary),
           trailing: Icon(
             Icons.arrow_forward_ios_outlined,
@@ -128,7 +128,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           }),
         ),
         ListTile(
-          title: const Text('order history'),
+          title: Text('order history',style: TextStyles.font15BlackMedium(context),),
           leading: Container(
             height: 50,
             width: 50,
@@ -146,7 +146,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         ListTile(
-          title: const Text('Help Center'),
+          title: Text('Help Center',style: TextStyles.font15BlackMedium(context),),
           leading: Container(
             height: 50,
             width: 50,

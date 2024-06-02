@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/styles.dart';
+import '../../../../services/services_locator.dart';
 import '../../../payment_screen/logic/payment_cubit.dart';
 import '../../../payment_screen/ui/payment_screen.dart';
 
@@ -62,7 +63,9 @@ class PaymentWidget extends StatelessWidget {
                       bottomSheet(
                           maxHeight: .4,
                           context,
-                          buildBody: const PaymentScreen());
+                          buildBody: BlocProvider.value(
+                              value: locator<PaymentCubit>(),
+                              child: const PaymentScreen()));
                     },
                   ),
                 ],

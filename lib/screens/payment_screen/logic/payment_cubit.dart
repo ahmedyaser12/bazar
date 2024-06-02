@@ -15,9 +15,11 @@ class PaymentCubit extends Cubit<PaymentState> {
   PaymentCubit(this.apiService, this.firebaseService) : super(PaymentInitial());
 
   bool isPayment = true;
+  bool paypalLoading = false;
   String? paymentName;
 
   Future<String?> getPaymentKey(int amount, String currency) async {
+    emit(PaymentLoading());
     try {
       String authenticationToken = await _getAuthenticationToken();
 
@@ -92,5 +94,10 @@ class PaymentCubit extends Cubit<PaymentState> {
   void changeIsPayment(bool value) {
     isPayment = value;
     emit(ChangeIsPayment());
+  }
+
+  void paypalCheck(bool value) {
+    paypalLoading = value;
+    emit(CheckPaypalPayment());
   }
 }

@@ -150,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         },
         builder: (context, state) {
           if (state is LoadingList) {
-            return const HomeScreenWithAnimations();
+            return const Shammer();
           }
           if (state is ListTopWeakLoaded) {
             topWeakList = state.topWeakList;

@@ -31,7 +31,7 @@ class SummaryWidget extends StatelessWidget {
           ),
           const SizedBox(height: 16.0),
           BlocBuilder<CardScreenCubit, CardScreenState>(
-            buildWhen: (_,state) => state is GetCart,
+            buildWhen: (_, state) => state is GetCart,
             builder: (context, state) {
               if (state is CartLoading) {
                 return const Center(
@@ -46,23 +46,32 @@ class SummaryWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                       Row(
+                      Row(
                         children: [
                           Text(
                             'Price',
-                            style:  TextStyles.font14BlackSemi(context),
+                            style: TextStyles.font14BlackSemi(context),
                           ),
                         ],
                       ),
-                      Text('\$${totalPrice.toString()}',style:  TextStyles.font14BlackSemi(context),),
+                      Text(
+                        '\$${totalPrice.toString()}',
+                        style: TextStyles.font14BlackSemi(context),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 8.0),
-                   Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text('Shipping',style:  TextStyles.font14BlackSemi(context),),
-                      Text('\$2',style:  TextStyles.font14BlackSemi(context),),
+                      Text(
+                        'Shipping',
+                        style: TextStyles.font14BlackSemi(context),
+                      ),
+                      Text(
+                        '\$2',
+                        style: TextStyles.font14BlackSemi(context),
+                      ),
                     ],
                   ),
                   const Divider(),
@@ -70,13 +79,15 @@ class SummaryWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                       Text(
+                      Text(
                         'Total Payment',
-                        style:  TextStyles.font15BlackMedium(context).copyWith(fontWeight: FontWeight.bold),
+                        style: TextStyles.font15BlackMedium(context)
+                            .copyWith(fontWeight: FontWeight.bold),
                       ),
                       Text(
                         '\$${(totalPrice + 2).toString()}',
-                        style:  TextStyles.font15BlackMedium(context).copyWith(fontWeight: FontWeight.bold),
+                        style: TextStyles.font15BlackMedium(context)
+                            .copyWith(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -99,6 +110,7 @@ class SummaryWidget extends StatelessWidget {
                                 context
                                     .read<CardScreenCubit>()
                                     .removeItem(cartList[index]['id']);
+                                print(cartList);
                               },
                             ),
                           ),

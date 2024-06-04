@@ -50,19 +50,22 @@ class BookDetails extends StatefulWidget {
 }
 
 class _BookDetailsState extends State<BookDetails> {
+  int num = 1;
+  bool isAdded = false;
+
   @override
   void initState() {
-    context.read<BookDetailsCubit>().getBookDetailed(widget.bookId);
     super.initState();
+    context.read<BookDetailsCubit>().getBookDetailed(widget.bookId);
+    context.read<BookDetailsCubit>().getCartItems();
   }
-
-  int num = 1;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       controller: widget.scrollController,
       child: BlocBuilder<BookDetailsCubit, BookDetailsState>(
+        buildWhen: (previous, current) => current is DetailsLoaded,
         builder: (context, state) {
           if (state is DetailsLoaded) {
             var bookDetails = state.bookDetails;
@@ -71,10 +74,11 @@ class _BookDetailsState extends State<BookDetails> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Center(
-                    child: Image.network(
-                  bookDetails.image.toString(),
-                  scale: .3,
-                )),
+                  child: Image.network(
+                    bookDetails.image.toString(),
+                    scale: .3,
+                  ),
+                ),
                 heightSpace(10),
                 TitleAndFavourite(bookDetails: bookDetails),
                 heightSpace(24),
@@ -93,10 +97,11 @@ class _BookDetailsState extends State<BookDetails> {
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? const Color.fromARGB(255, 40, 40, 54)
-                              : AppColors.lightGery,
-                          borderRadius: BorderRadius.circular(8)),
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? const Color.fromARGB(255, 40, 40, 54)
+                            : AppColors.lightGery,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       child: CounterButtons(
                         num: (number) {
                           setState(() {
@@ -113,30 +118,53 @@ class _BookDetailsState extends State<BookDetails> {
                   ],
                 ),
                 heightSpace(10),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: primaryButton(
-                              title: 'Continue shopping', borderRadius: 50)
-                          .onTap(() {
-                        context.read<BookDetailsCubit>().addToCard(num);
-                      }),
-                    ),
-                    widthSpace(10),
-                    Expanded(
-                      flex: 1,
-                      child: secondaryButton(context, 'View Card').onTap(() {
-                        context.navigateTo(RouteName.CART);
-                      }),
-                    )
-                  ],
-                )
+                BlocConsumer<BookDetailsCubit, BookDetailsState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeInOut,
+                          width: state is AddedSuccess ? 360 : 0,
+                          height: 50,
+                          child: state is AddedSuccess
+                              ? secondaryButton(context, 'View Cart').onTap(
+                                  () {
+                                    context.navigateTo(RouteName.CART);
+                                  },
+                                )
+                              : const SizedBox.shrink(),
+                        ),
+                        const SizedBox(width: 10),
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeInOut,
+                          width: state is AddedSuccess ? 0 : 360,
+                          height: 50,
+                          child: state is AddToCard
+                              ? const Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : primaryButton(
+                                  title: 'Continue shopping',
+                                  borderRadius: 50,
+                                ).onTap(() {
+                                  context
+                                      .read<BookDetailsCubit>()
+                                      .addToCard(num);
+                                }),
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ],
             );
           } else {
             return const Center(
-              child: Expanded(child: CircularProgressIndicator()),
+              child: CircularProgressIndicator(),
             );
           }
         },

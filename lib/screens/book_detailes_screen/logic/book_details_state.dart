@@ -7,6 +7,15 @@ class BookDetailsInitial extends BookDetailsState {}
 
 class DetailsLoading extends BookDetailsState {}
 
+class AddToCard extends BookDetailsState {
+  final bool? isAdded;
+
+  AddToCard(this.isAdded);
+}
+
+class AddedSuccess extends BookDetailsState {
+}
+
 class DetailsLoaded extends BookDetailsState {
   final BookDetailsModel bookDetails;
 

@@ -186,7 +186,7 @@ class _CartDetailsState extends State<CartDetails> {
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      heightSpace(50.0),
+                      heightSpace(60.0),
                       Center(child: SvgPicture.asset('assets/svgs/Group.svg')),
                       heightSpace(20.0),
                       Text(

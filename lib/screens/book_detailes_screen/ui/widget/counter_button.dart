@@ -1,8 +1,10 @@
 import 'package:book_shop/core/utils/colors.dart';
 import 'package:book_shop/core/utils/common_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/styles.dart';
+import '../../logic/book_details_cubit.dart';
 
 class CounterButtons extends StatefulWidget {
   final Function(int) num;
@@ -14,7 +16,13 @@ class CounterButtons extends StatefulWidget {
 }
 
 class _CounterButtonState extends State<CounterButtons> {
-  int counter = 1;
+  late int counter;
+
+  @override
+  void initState() {
+    counter = context.read<BookDetailsCubit>().getProductNumber();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +34,7 @@ class _CounterButtonState extends State<CounterButtons> {
           ),
           onPressed: () {
             setState(() {
-              if (counter < 1) {
+              if (counter <= 1) {
                 return;
               }
               counter--;

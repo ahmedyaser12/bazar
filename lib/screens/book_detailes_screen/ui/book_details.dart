@@ -50,14 +50,12 @@ class BookDetails extends StatefulWidget {
 }
 
 class _BookDetailsState extends State<BookDetails> {
-  int num = 1;
-  bool isAdded = false;
-
   @override
   void initState() {
     super.initState();
-    context.read<BookDetailsCubit>().getBookDetailed(widget.bookId);
     context.read<BookDetailsCubit>().getCartItems();
+    context.read<BookDetailsCubit>().getBookDetailed(widget.bookId);
+    context.read<BookDetailsCubit>().getProductCounterNumber();
   }
 
   @override
@@ -92,69 +90,80 @@ class _BookDetailsState extends State<BookDetails> {
                 heightSpace(20),
                 ReviewWidget(bookDetails: bookDetails),
                 heightSpace(24),
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? const Color.fromARGB(255, 40, 40, 54)
-                            : AppColors.lightGery,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: CounterButtons(
-                        num: (number) {
-                          setState(() {
-                            num = number;
-                          });
-                        },
-                      ),
-                    ),
-                    widthSpace(16),
-                    Text(
-                      '\$${int.parse(bookDetails.id.toString().substring(0, 2))}',
-                      style: TextStyles.font16PrimarySemi,
-                    ),
-                  ],
-                ),
-                heightSpace(10),
                 BlocConsumer<BookDetailsCubit, BookDetailsState>(
                   listener: (context, state) {},
                   builder: (context, state) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    return Column(
                       children: [
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeInOut,
-                          width: state is AddedSuccess ? 360 : 0,
-                          height: 50,
-                          child: state is AddedSuccess
-                              ? secondaryButton(context, 'View Cart').onTap(
-                                  () {
-                                    context.navigateTo(RouteName.CART);
-                                  },
-                                )
-                              : const SizedBox.shrink(),
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? const Color.fromARGB(255, 40, 40, 54)
+                                    : AppColors.lightGery,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const CounterButtons(),
+                            ),
+                            widthSpace(16),
+                            Text(
+                              '\$${int.parse(bookDetails.id.toString().substring(0, 2))}',
+                              style: TextStyles.font16PrimarySemi,
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 10),
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeInOut,
-                          width: state is AddedSuccess ? 0 : 360,
-                          height: 50,
-                          child: state is AddToCard
-                              ? const Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : primaryButton(
-                                  title: 'Continue shopping',
-                                  borderRadius: 50,
-                                ).onTap(() {
-                                  context
-                                      .read<BookDetailsCubit>()
-                                      .addToCard(num);
-                                }),
+                        heightSpace(10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AnimatedContainer(
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeInOut,
+                              width: context.read<BookDetailsCubit>().isExist
+                                  ? 360
+                                  : 0,
+                              height: 50,
+                              child: context.read<BookDetailsCubit>().isExist
+                                  ? secondaryButton(context, 'View Cart').onTap(
+                                      () {
+                                        context
+                                            .navigateTo(RouteName.CART)
+                                            .then((value) async {
+                                          await context
+                                              .read<BookDetailsCubit>()
+                                              .checkBookIsExist();
+                                          context
+                                              .read<BookDetailsCubit>()
+                                              .getProductCounterNumber();
+                                        });
+                                      },
+                                    )
+                                  : const SizedBox.shrink(),
+                            ),
+                            AnimatedContainer(
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeInOut,
+                              width: context.read<BookDetailsCubit>().isExist
+                                  ? 0
+                                  : 360,
+                              height: 50,
+                              child: state is AddToCard
+                                  ? const Center(
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : primaryButton(
+                                      title: 'Continue shopping',
+                                      borderRadius: 50,
+                                    ).onTap(() {
+                                      context
+                                          .read<BookDetailsCubit>()
+                                          .addToCard();
+                                    }),
+                            ),
+                          ],
                         ),
                       ],
                     );

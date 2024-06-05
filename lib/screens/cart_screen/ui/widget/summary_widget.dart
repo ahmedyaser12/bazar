@@ -106,12 +106,6 @@ class SummaryWidget extends StatelessWidget {
                             child: CartDetails(
                               cartList: cartList,
                               totalPrice: totalPrice,
-                              onTab: (index) {
-                                context
-                                    .read<CardScreenCubit>()
-                                    .removeItem(cartList[index]['id']);
-                                print(cartList);
-                              },
                             ),
                           ),
                         );

@@ -17,8 +17,10 @@ class BookDetailsCubit extends Cubit<BookDetailsState> {
   BookDetailsCubit(this.apiService, this.firebaseService)
       : super(BookDetailsInitial());
   BookDetailsModel? bookDetails;
-
   int? bookId;
+  late int productCounter;
+  bool isExist = false;
+  int counter = 1;
 
   void getBookDetailed(int id) async {
     emit(DetailsLoading());
@@ -34,17 +36,33 @@ class BookDetailsCubit extends Cubit<BookDetailsState> {
     }
   }
 
-  void addToCard(int number) async {
-    emit(AddToCard(true));
+  counterPlus() {
+    counter++;
+    print(counter);
+    emit(GetCounterNumber());
+  }
+
+  counterMinus() {
+    if (counter <= 1) {
+      return;
+    }
+    counter--;
+    print(counter);
+    emit(GetCounterNumber());
+  }
+
+  void addToCard() async {
+    emit(AddToCard());
     try {
       await firebaseService.addToCart(CacheHelper().getData(key: ApiKey.id), {
         'id': bookDetails!.id,
-        'num': number,
+        'num': counter,
         'name': bookDetails!.name,
         'price': int.parse(bookDetails!.id.toString().substring(0, 2)),
         'cover': bookDetails!.image,
       });
       print('added');
+      isExist = true;
       emit(AddedSuccess());
     } catch (e) {
       print("Error adding document: $e");
@@ -56,18 +74,17 @@ class BookDetailsCubit extends Cubit<BookDetailsState> {
   Future<void> getCartItems() async {
     cartItems = await firebaseService
         .getCartItems(CacheHelper().getData(key: ApiKey.id));
-    print('cartitems');
   }
 
   Future<bool> checkBookIsExist() async {
     await getCartItems();
     bool isAdded = cartItems.any((element) => element['id'] == bookDetails!.id);
-    print(isAdded);
-    isAdded ? emit(AddedSuccess()) : null;
+    isExist = isAdded;
+    isAdded ? emit(AddedSuccess()) : emit(BookDetailsInitial());
     return isAdded;
   }
 
-  int getProductNumber() {
+  getProductCounterNumber() {
     // Filter the cartItems to find the one matching the book ID
     var matchingItems = cartItems
         .where((element) => element['id'] == bookDetails!.id)
@@ -76,12 +93,13 @@ class BookDetailsCubit extends Cubit<BookDetailsState> {
     // Check if there are any matching items
     if (matchingItems.isNotEmpty) {
       var matchingItem = matchingItems.first;
-      print('this is $matchingItem');
-      return matchingItem; // Return the first matching item's 'num' value
+      counter = matchingItem;
+      emit(GetCounterNumber());
+      return matchingItem;
     } else {
-      // Return a default value if no matching items are found
-      print('No matching items found');
-      return 1; // or any other default value
+      counter = 1;
+      emit(GetCounterNumber());
+      return 1;
     }
   }
 }

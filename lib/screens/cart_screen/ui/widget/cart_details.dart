@@ -11,13 +11,12 @@ import '../../logic/card_screen_cubit.dart';
 class CartDetails extends StatefulWidget {
   List cartList;
   int totalPrice;
-  final void Function(int index) onTab;
 
-  CartDetails(
-      {super.key,
-      required this.cartList,
-      required this.totalPrice,
-      required this.onTab});
+  CartDetails({
+    super.key,
+    required this.cartList,
+    required this.totalPrice,
+  });
 
   @override
   State<CartDetails> createState() => _CartDetailsState();
@@ -89,20 +88,23 @@ class _CartDetailsState extends State<CartDetails> {
                                         widget.cartList[index]['name'],
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 2,
-                                        style: TextStyles.font14BlackSemi(context)
-                                            .copyWith(fontSize: 12),
+                                        style:
+                                            TextStyles.font14BlackSemi(context)
+                                                .copyWith(fontSize: 12),
                                       ),
                                     ),
                                     Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: <Widget>[
-                                           Icon(
-                                                  Icons.remove_circle_outline,color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                          ? AppColors.whiteColor
-                                          :AppColors.darkBlue,)
-                                              .onTap(() {
+                                          Icon(
+                                            Icons.remove_circle_outline,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.darkBlue,
+                                          ).onTap(() {
                                             if (widget.cartList[index]['num'] >
                                                 1) {
                                               int newNum = widget
@@ -121,14 +123,21 @@ class _CartDetailsState extends State<CartDetails> {
                                             }
                                           }),
                                           widthSpace(3),
-                                          Text(widget.cartList[index]['num']
-                                              .toString(),style: TextStyles.font14BlackSemi(context),),
+                                          Text(
+                                            widget.cartList[index]['num']
+                                                .toString(),
+                                            style: TextStyles.font14BlackSemi(
+                                                context),
+                                          ),
                                           widthSpace(3),
-                                           Icon(Icons.add_circle_outline,color:Theme.of(context).brightness ==
-                                          Brightness.dark
-                                          ? AppColors.whiteColor
-                                          :AppColors.darkBlue,)
-                                              .onTap(() {
+                                          Icon(
+                                            Icons.add_circle_outline,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? AppColors.whiteColor
+                                                    : AppColors.darkBlue,
+                                          ).onTap(() {
                                             int newNum = widget.cartList[index]
                                                     ['num'] +
                                                 1; // Pre-increment
@@ -148,14 +157,18 @@ class _CartDetailsState extends State<CartDetails> {
                                       children: [
                                         Text(
                                           '\$${(widget.cartList[index]['price'] * widget.cartList[index]['num']).toString()}',
-                                          style: TextStyles.font14BlackSemi(context),
+                                          style: TextStyles.font14BlackSemi(
+                                              context),
                                         ),
                                         widthSpace(5),
                                         Icon(
                                           Icons.delete,
                                           color: AppColors.redColor,
                                         ).onTap(() {
-                                          widget.onTab(index);
+                                          context
+                                              .read<CardScreenCubit>()
+                                              .removeItem(
+                                                  widget.cartList[index]['id']);
                                         })
                                       ],
                                     ),
@@ -170,7 +183,7 @@ class _CartDetailsState extends State<CartDetails> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                           Text(
+                            Text(
                               'Total Price',
                               style: TextStyles.font18BlackBold(context),
                             ),

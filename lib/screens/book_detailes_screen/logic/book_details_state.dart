@@ -30,3 +30,5 @@ class Failure extends BookDetailsState {
 class GetCounterNumber extends BookDetailsState {}
 
 class CounterButton extends BookDetailsState {}
+
+class GetCartItems extends BookDetailsState {}

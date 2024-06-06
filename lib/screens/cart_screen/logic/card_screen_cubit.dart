@@ -23,6 +23,8 @@ class CardScreenCubit extends Cubit<CardScreenState> {
   List<geo.Placemark>? addresses;
   bool isLocated = true;
   bool isTimeTaken = true;
+  bool isListEmpty = false;
+  bool hasShownAnimation = false;
 
   void getCartDetails() async {
     emit(CartLoading());
@@ -162,5 +164,17 @@ class CardScreenCubit extends Cubit<CardScreenState> {
   void changeIsLocated() {
     isLocated = false;
     emit(ChangeIsLocated());
+  }
+
+  void listIsEmpty() {
+    if (cartList.isEmpty) {
+      isListEmpty = true;
+      print(isListEmpty);
+      emit(ChangeListIsEmpty());
+    }else{
+      isListEmpty = false;
+      print(isListEmpty);
+      emit(ChangeListIsEmpty());
+    }
   }
 }

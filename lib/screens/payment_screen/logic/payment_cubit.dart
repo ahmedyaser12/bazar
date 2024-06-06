@@ -15,6 +15,7 @@ class PaymentCubit extends Cubit<PaymentState> {
   PaymentCubit(this.apiService, this.firebaseService) : super(PaymentInitial());
 
   bool isPayment = true;
+
   bool paypalLoading = false;
   String? paymentName;
 

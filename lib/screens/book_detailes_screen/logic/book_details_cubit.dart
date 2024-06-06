@@ -26,10 +26,11 @@ class BookDetailsCubit extends Cubit<BookDetailsState> {
     emit(DetailsLoading());
     final response = await apiService.getBookDetails(id);
     if (response.status == Status.SUCCESS) {
-      print('idbookcubit$bookId');
       bookDetails = response.data;
       emit(DetailsLoaded(bookDetails!));
-      checkBookIsExist();
+      await getCartItems();
+      getProductCounterNumber();
+      await checkBookIsExist();
       print('success');
     } else if (response.status == Status.ERROR) {
       emit(Failure(response.errorMessage!));
@@ -74,6 +75,8 @@ class BookDetailsCubit extends Cubit<BookDetailsState> {
   Future<void> getCartItems() async {
     cartItems = await firebaseService
         .getCartItems(CacheHelper().getData(key: ApiKey.id));
+    emit(GetCartItems());
+    print('heigher');
   }
 
   Future<bool> checkBookIsExist() async {
@@ -89,15 +92,17 @@ class BookDetailsCubit extends Cubit<BookDetailsState> {
     var matchingItems = cartItems
         .where((element) => element['id'] == bookDetails!.id)
         .map((e) => e['num']);
-
+    print(matchingItems);
     // Check if there are any matching items
     if (matchingItems.isNotEmpty) {
       var matchingItem = matchingItems.first;
       counter = matchingItem;
+      print('1$counter');
       emit(GetCounterNumber());
       return matchingItem;
     } else {
       counter = 1;
+      print(counter);
       emit(GetCounterNumber());
       return 1;
     }

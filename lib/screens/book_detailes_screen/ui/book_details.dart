@@ -53,9 +53,7 @@ class _BookDetailsState extends State<BookDetails> {
   @override
   void initState() {
     super.initState();
-    context.read<BookDetailsCubit>().getCartItems();
     context.read<BookDetailsCubit>().getBookDetailed(widget.bookId);
-    context.read<BookDetailsCubit>().getProductCounterNumber();
   }
 
   @override
@@ -125,7 +123,7 @@ class _BookDetailsState extends State<BookDetails> {
                               width: context.read<BookDetailsCubit>().isExist
                                   ? 360
                                   : 0,
-                              height: 50,
+                              height: 60,
                               child: context.read<BookDetailsCubit>().isExist
                                   ? secondaryButton(context, 'View Cart').onTap(
                                       () {
@@ -149,13 +147,13 @@ class _BookDetailsState extends State<BookDetails> {
                               width: context.read<BookDetailsCubit>().isExist
                                   ? 0
                                   : 360,
-                              height: 50,
+                              height: 60,
                               child: state is AddToCard
                                   ? const Center(
                                       child: CircularProgressIndicator(),
                                     )
                                   : primaryButton(
-                                      title: 'Continue shopping',
+                                      title: 'Add to Cart',
                                       borderRadius: 50,
                                     ).onTap(() {
                                       context

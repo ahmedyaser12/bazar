@@ -42,7 +42,6 @@ class _NotificationItemWidgetState extends State<NotificationItemWidget> {
       ),
       body: CustomScrollView(
         slivers: [
-          const SliverToBoxAdapter(child: Card(child: Text("Header card"))),
           SliverList.builder(
             itemCount: items.length,
             itemBuilder: (context, index) {
@@ -59,7 +58,6 @@ class _NotificationItemWidgetState extends State<NotificationItemWidget> {
               );
             },
           ),
-          const SliverToBoxAdapter(child: Card(child: Text("Footer card"))),
         ],
       ),
     );

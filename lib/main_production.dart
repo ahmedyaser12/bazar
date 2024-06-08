@@ -1,7 +1,6 @@
 import 'package:book_shop/config/routs/app_router.dart';
 import 'package:book_shop/config/routs/routs_names.dart';
 import 'package:book_shop/generated/l10n.dart';
-import 'package:book_shop/route_observer.dart';
 import 'package:book_shop/screens/favorite_screen/logic/favorite_cubit.dart';
 import 'package:book_shop/services/observer.dart';
 import 'package:book_shop/services/services_locator.dart';
@@ -51,7 +50,6 @@ class MyApp extends StatelessWidget {
             return BlocBuilder<LocaleCubit, Locale>(
               builder: (context, locale) {
                 return MaterialApp(
-                  navigatorObservers: [routeObserver],
                   locale: locale,
                   localizationsDelegates: const [
                     S.delegate,

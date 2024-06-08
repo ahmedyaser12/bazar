@@ -84,19 +84,19 @@ class ConfirmOrderScreenState extends State<ConfirmOrderScreen>
           'Confirm Order',
           style: TextStyles.font18BlackBold(context),
         ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.notifications_none_rounded,
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? AppColors.whiteColor
-                  : AppColors.blackColor,
-            ),
-            onPressed: () {
-              // TODO: Implement edit action
-            },
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(
+        //       Icons.notifications_none_rounded,
+        //       color: Theme.of(context).brightness == Brightness.dark
+        //           ? AppColors.whiteColor
+        //           : AppColors.blackColor,
+        //     ),
+        //     onPressed: () {
+        //       // TODO: Implement edit action
+        //     },
+        //   ),
+        // ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

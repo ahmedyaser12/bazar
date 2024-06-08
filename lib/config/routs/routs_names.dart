@@ -1,6 +1,5 @@
 class RouteName {
   static const String LOGIN = '/phone_login';
-  static const String SPLASH = '/splash';
   static const String ONBOARDING = '/onboarding';
   static const String SIGNUP = '/sign_up';
   static const String VERIFICATION = '/verify';
@@ -14,5 +13,4 @@ class RouteName {
   static const String MAP = '/map';
   static const String STATUSORDER = '/statusOrder';
   static const String Notification = '/notification';
-
 }

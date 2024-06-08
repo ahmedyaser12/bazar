@@ -91,17 +91,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           context.navigateTo(RouteName.SEARCH);
         }),
         action: [
-          IconButton(
-            onPressed: () {
-              context.read<LocaleCubit>().toggleLocale();
-            },
-            icon: SvgPicture.asset(
-              'assets/svgs/Notification.svg',
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? AppColors.whiteColor
-                  : AppColors.darkBlue,
-            ),
-          ),
+          // IconButton(
+          //   onPressed: () {
+          //     context.read<LocaleCubit>().toggleLocale();
+          //   },
+          //   icon: SvgPicture.asset(
+          //     'assets/svgs/Notification.svg',
+          //     color: Theme.of(context).brightness == Brightness.dark
+          //         ? AppColors.whiteColor
+          //         : AppColors.darkBlue,
+          //   ),
+          // ),
           IconButton(
             icon: Icon(
               Icons.brightness_6,

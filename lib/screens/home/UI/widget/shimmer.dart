@@ -2,15 +2,15 @@ import 'package:book_shop/core/utils/extintions.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-class HomeScreenWithAnimations extends StatefulWidget {
-  const HomeScreenWithAnimations({super.key});
+class Shammer extends StatefulWidget {
+  const Shammer({super.key});
 
   @override
-  HomeScreenWithAnimationsState createState() =>
-      HomeScreenWithAnimationsState();
+  ShammerState createState() =>
+      ShammerState();
 }
 
-class HomeScreenWithAnimationsState extends State<HomeScreenWithAnimations> {
+class ShammerState extends State<Shammer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

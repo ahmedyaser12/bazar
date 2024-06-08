@@ -23,6 +23,8 @@ class AuthorTitleAndImageAndRating extends StatelessWidget {
         Text(
           '${S.of(context).translateMessage(authorDetails.name!)} ${authorDetails.name}',
           style: TextStyles.font18BlackBold(context),
+          textAlign: TextAlign.center,
+
         ),
         heightSpace(24),
         Row(

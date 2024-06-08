@@ -17,41 +17,94 @@ class BookDetailsCubit extends Cubit<BookDetailsState> {
   BookDetailsCubit(this.apiService, this.firebaseService)
       : super(BookDetailsInitial());
   BookDetailsModel? bookDetails;
-
   int? bookId;
+  late int productCounter;
+  bool isExist = false;
+  int counter = 1;
 
   void getBookDetailed(int id) async {
     emit(DetailsLoading());
     final response = await apiService.getBookDetails(id);
     if (response.status == Status.SUCCESS) {
-      print('idbookcubit$bookId');
       bookDetails = response.data;
       emit(DetailsLoaded(bookDetails!));
+      await getCartItems();
+      getProductCounterNumber();
+      await checkBookIsExist();
       print('success');
     } else if (response.status == Status.ERROR) {
       emit(Failure(response.errorMessage!));
     }
   }
 
-  void addToCard(int number) async {
+  counterPlus() {
+    counter++;
+    print(counter);
+    emit(GetCounterNumber());
+  }
+
+  counterMinus() {
+    if (counter <= 1) {
+      return;
+    }
+    counter--;
+    print(counter);
+    emit(GetCounterNumber());
+  }
+
+  void addToCard() async {
+    emit(AddToCard());
     try {
       await firebaseService.addToCart(CacheHelper().getData(key: ApiKey.id), {
         'id': bookDetails!.id,
-        'num': number,
+        'num': counter,
         'name': bookDetails!.name,
         'price': int.parse(bookDetails!.id.toString().substring(0, 2)),
         'cover': bookDetails!.image,
       });
-      //     .setDocument('Card', CacheHelper().getData(key: ApiKey.id), {
-      //   'id': bookDetails!.id,
-      //   'num': number,
-      //   'name': bookDetails!.name,
-      //   'price': int.parse(bookDetails!.id.toString().substring(0, 2)) * number,
-      //   'cover': bookDetails!.image,
-      // });
       print('added');
+      isExist = true;
+      emit(AddedSuccess());
     } catch (e) {
       print("Error adding document: $e");
+    }
+  }
+
+  List<Map<String, dynamic>> cartItems = [];
+
+  Future<void> getCartItems() async {
+    cartItems = await firebaseService
+        .getCartItems(CacheHelper().getData(key: ApiKey.id));
+    emit(GetCartItems());
+    print('heigher');
+  }
+
+  Future<bool> checkBookIsExist() async {
+    await getCartItems();
+    bool isAdded = cartItems.any((element) => element['id'] == bookDetails!.id);
+    isExist = isAdded;
+    isAdded ? emit(AddedSuccess()) : emit(BookDetailsInitial());
+    return isAdded;
+  }
+
+  getProductCounterNumber() {
+    // Filter the cartItems to find the one matching the book ID
+    var matchingItems = cartItems
+        .where((element) => element['id'] == bookDetails!.id)
+        .map((e) => e['num']);
+    print(matchingItems);
+    // Check if there are any matching items
+    if (matchingItems.isNotEmpty) {
+      var matchingItem = matchingItems.first;
+      counter = matchingItem;
+      print('1$counter');
+      emit(GetCounterNumber());
+      return matchingItem;
+    } else {
+      counter = 1;
+      print(counter);
+      emit(GetCounterNumber());
+      return 1;
     }
   }
 }

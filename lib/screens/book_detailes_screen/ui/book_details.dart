@@ -9,6 +9,7 @@ import 'package:book_shop/screens/book_detailes_screen/ui/widget/counter_button.
 import 'package:book_shop/screens/book_detailes_screen/ui/widget/review_widget.dart';
 import 'package:book_shop/screens/book_detailes_screen/ui/widget/title_and_favourit.dart';
 import 'package:book_shop/services/services_locator.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:read_more_text/read_more_text.dart';
@@ -52,17 +53,16 @@ class BookDetails extends StatefulWidget {
 class _BookDetailsState extends State<BookDetails> {
   @override
   void initState() {
-    context.read<BookDetailsCubit>().getBookDetailed(widget.bookId);
     super.initState();
+    context.read<BookDetailsCubit>().getBookDetailed(widget.bookId);
   }
-
-  int num = 1;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       controller: widget.scrollController,
       child: BlocBuilder<BookDetailsCubit, BookDetailsState>(
+        buildWhen: (previous, current) => current is DetailsLoaded,
         builder: (context, state) {
           if (state is DetailsLoaded) {
             var bookDetails = state.bookDetails;
@@ -71,10 +71,14 @@ class _BookDetailsState extends State<BookDetails> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Center(
-                    child: Image.network(
-                  bookDetails.image.toString(),
-                  scale: .3,
-                )),
+                  child: CachedNetworkImage(
+                    imageUrl: bookDetails.image.toString(),
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
+                ),
                 heightSpace(10),
                 TitleAndFavourite(bookDetails: bookDetails),
                 heightSpace(24),
@@ -88,55 +92,90 @@ class _BookDetailsState extends State<BookDetails> {
                 heightSpace(20),
                 ReviewWidget(bookDetails: bookDetails),
                 heightSpace(24),
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? const Color.fromARGB(255, 40, 40, 54)
-                              : AppColors.lightGery,
-                          borderRadius: BorderRadius.circular(8)),
-                      child: CounterButtons(
-                        num: (number) {
-                          setState(() {
-                            num = number;
-                          });
-                        },
-                      ),
-                    ),
-                    widthSpace(16),
-                    Text(
-                      '\$${int.parse(bookDetails.id.toString().substring(0, 2))}',
-                      style: TextStyles.font16PrimarySemi,
-                    ),
-                  ],
+                BlocConsumer<BookDetailsCubit, BookDetailsState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return Column(
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? AppColors.lightBlue
+                                    : AppColors.lightGery,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const CounterButtons(),
+                            ),
+                            widthSpace(16),
+                            Text(
+                              '\$${int.parse(bookDetails.id.toString().substring(0, 2))}',
+                              style: TextStyles.font16PrimarySemi,
+                            ),
+                          ],
+                        ),
+                        heightSpace(10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AnimatedContainer(
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeInOut,
+                              width: context.read<BookDetailsCubit>().isExist
+                                  ? context.screenWidth - 40
+                                  : 0,
+                              height: 55,
+                              child: context.read<BookDetailsCubit>().isExist
+                                  ? secondaryButton(context, 'View Cart').onTap(
+                                      () {
+                                        context
+                                            .navigateTo(RouteName.CART)
+                                            .then((value) async {
+                                          await context
+                                              .read<BookDetailsCubit>()
+                                              .checkBookIsExist();
+                                          context
+                                              .read<BookDetailsCubit>()
+                                              .getProductCounterNumber();
+                                        });
+                                      },
+                                    )
+                                  : const SizedBox.shrink(),
+                            ),
+                            AnimatedContainer(
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeInOut,
+                              width: context.read<BookDetailsCubit>().isExist
+                                  ? 0
+                                  : context.screenWidth - 40,
+                              height: 58,
+                              child: state is AddToCard
+                                  ? const Center(
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : primaryButton(
+                                      title: 'Add to Cart',
+                                      borderRadius: 50,
+                                    ).onTap(() {
+                                      context
+                                          .read<BookDetailsCubit>()
+                                          .addToCard();
+                                    }),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  },
                 ),
-                heightSpace(10),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: primaryButton(
-                              title: 'Continue shopping', borderRadius: 50)
-                          .onTap(() {
-                        context.read<BookDetailsCubit>().addToCard(num);
-                      }),
-                    ),
-                    widthSpace(10),
-                    Expanded(
-                      flex: 1,
-                      child: secondaryButton(context, 'View Card').onTap(() {
-                        context.navigateTo(RouteName.CART);
-                      }),
-                    )
-                  ],
-                )
               ],
             );
           } else {
             return const Center(
-              child: Expanded(child: CircularProgressIndicator()),
+              child: CircularProgressIndicator(),
             );
           }
         },

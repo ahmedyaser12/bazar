@@ -39,76 +39,78 @@ class AuthorWidget extends StatelessWidget {
                 return Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 8.0.h),
-                  child:position != null ? SlideTransition(
-                    position: position![index],
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(
-                            authorsList[(index * 2 + 5)].image.toString(),
-                          ),
-                          radius: avatarSize,
-                        ),
-                        heightSpace(15),
-                        Container(
-                          constraints:
-                              const BoxConstraints(maxWidth: 80, minWidth: 80),
-                          child: Text(
-                            '${authorsList[index * 2 + 5].name}',
-                            style: TextStyles.font18BlackBold(context)
-                                .copyWith(fontSize: 13),
-                            softWrap: true,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        heightSpace(5),
-                        Text(
-                          authorsList[index * 2 + 5]
-                              .numberPublishedBooks
-                              .toString(),
-                          style: TextStyles.font16grey(context)
-                              .copyWith(fontSize: 13),
+                  child: position != null
+                      ? SlideTransition(
+                          position: position![index],
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                  authorsList[(index * 2 + 5)].image.toString(),
+                                ),
+                                radius: avatarSize,
+                              ),
+                              heightSpace(15),
+                              Container(
+                                constraints: const BoxConstraints(
+                                    maxWidth: 80, minWidth: 80),
+                                child: Text(
+                                  '${authorsList[index * 2 + 5].name}',
+                                  style: TextStyles.font18BlackBold(context)
+                                      .copyWith(fontSize: 13),
+                                  softWrap: true,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              heightSpace(5),
+                              Text(
+                                authorsList[index * 2 + 5]
+                                    .numberPublishedBooks
+                                    .toString(),
+                                style: TextStyles.font16grey(context)
+                                    .copyWith(fontSize: 13),
+                              )
+                            ],
+                          ).onTap(() {
+                            onTab(authorsList[index * 2 + 5]);
+                          }),
                         )
-                      ],
-                    ).onTap(() {
-                      onTab(authorsList[index * 2 + 5]);
-                    }),
-                  ):Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          authorsList[(index * 2 + 5)].image.toString(),
-                        ),
-                        radius: avatarSize,
-                      ),
-                      heightSpace(15),
-                      Container(
-                        constraints:
-                        const BoxConstraints(maxWidth: 80, minWidth: 80),
-                        child: Text(
-                          '${authorsList[index * 2 + 5].name}',
-                          style: TextStyles.font18BlackBold(context)
-                              .copyWith(fontSize: 13),
-                          softWrap: true,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      heightSpace(5),
-                      Text(
-                        authorsList[index * 2 + 5]
-                            .numberPublishedBooks
-                            .toString(),
-                        style: TextStyles.font16grey(context)
-                            .copyWith(fontSize: 13),
-                      )
-                    ],
-                  ).onTap(() {
-                    onTab(authorsList[index * 2 + 5]);
-                  }),
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                authorsList[(index * 2 + 5)].image.toString(),
+                              ),
+                              radius: avatarSize,
+                            ),
+                            heightSpace(15),
+                            Container(
+                              constraints: const BoxConstraints(
+                                  maxWidth: 80, minWidth: 80),
+                              child: Text(
+                                '${authorsList[index * 2 + 5].name}',
+                                style: TextStyles.font18BlackBold(context)
+                                    .copyWith(fontSize: 13),
+                                softWrap: true,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            heightSpace(5),
+                            Text(
+                              authorsList[index * 2 + 5]
+                                  .numberPublishedBooks
+                                  .toString(),
+                              style: TextStyles.font16grey(context)
+                                  .copyWith(fontSize: 13),
+                            )
+                          ],
+                        ).onTap(() {
+                          onTab(authorsList[index * 2 + 5]);
+                        }),
                 );
               }),
         )

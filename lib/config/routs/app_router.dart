@@ -10,7 +10,6 @@ import 'package:book_shop/screens/profile_screen/logic/profile_screen_cubit.dart
 import 'package:book_shop/screens/search_screen/logic/search_screen_cubit.dart';
 import 'package:book_shop/screens/search_screen/ui/search_sceen.dart';
 import 'package:book_shop/screens/sign_up_screen/ui/sign_up_screen.dart';
-import 'package:book_shop/screens/splash_screen/ui/splash_screen.dart';
 import 'package:book_shop/screens/status_order_screen/logic/status_screen_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,10 +36,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: ((context) => const BottomNavBar()),
         );
-      case RouteName.SPLASH:
-        return MaterialPageRoute(
-          builder: ((context) => const SplashScreen()),
-        );
+
       case RouteName.ONBOARDING:
         return MaterialPageRoute(
           builder: ((context) => BlocProvider.value(

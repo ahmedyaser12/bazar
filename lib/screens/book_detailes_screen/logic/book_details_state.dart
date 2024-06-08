@@ -7,6 +7,10 @@ class BookDetailsInitial extends BookDetailsState {}
 
 class DetailsLoading extends BookDetailsState {}
 
+class AddToCard extends BookDetailsState {}
+
+class AddedSuccess extends BookDetailsState {}
+
 class DetailsLoaded extends BookDetailsState {
   final BookDetailsModel bookDetails;
 
@@ -22,3 +26,9 @@ class GetId extends BookDetailsState {
 class Failure extends BookDetailsState {
   Failure(String s);
 }
+
+class GetCounterNumber extends BookDetailsState {}
+
+class CounterButton extends BookDetailsState {}
+
+class GetCartItems extends BookDetailsState {}

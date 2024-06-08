@@ -30,7 +30,7 @@ Widget secondaryButton(BuildContext context, String title, {String? image}) {
     padding: const EdgeInsets.symmetric(vertical: 16),
     decoration: BoxDecoration(
       color: Theme.of(context).brightness == Brightness.dark
-          ? AppColors.darkBlue
+          ? AppColors.lightBlue
           : AppColors.secondary,
       borderRadius: BorderRadius.circular(30),
     ),

@@ -9,6 +9,7 @@ import 'package:book_shop/screens/book_detailes_screen/ui/widget/counter_button.
 import 'package:book_shop/screens/book_detailes_screen/ui/widget/review_widget.dart';
 import 'package:book_shop/screens/book_detailes_screen/ui/widget/title_and_favourit.dart';
 import 'package:book_shop/services/services_locator.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:read_more_text/read_more_text.dart';
@@ -70,9 +71,12 @@ class _BookDetailsState extends State<BookDetails> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Center(
-                  child: Image.network(
-                    bookDetails.image.toString(),
-                    scale: .3,
+                  child: CachedNetworkImage(
+                    imageUrl: bookDetails.image.toString(),
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                 ),
                 heightSpace(10),
@@ -100,7 +104,7 @@ class _BookDetailsState extends State<BookDetails> {
                               decoration: BoxDecoration(
                                 color: Theme.of(context).brightness ==
                                         Brightness.dark
-                                    ? const Color.fromARGB(255, 40, 40, 54)
+                                    ? AppColors.lightBlue
                                     : AppColors.lightGery,
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -121,9 +125,9 @@ class _BookDetailsState extends State<BookDetails> {
                               duration: const Duration(milliseconds: 500),
                               curve: Curves.easeInOut,
                               width: context.read<BookDetailsCubit>().isExist
-                                  ? 360
+                                  ? context.screenWidth - 40
                                   : 0,
-                              height: 60,
+                              height: 55,
                               child: context.read<BookDetailsCubit>().isExist
                                   ? secondaryButton(context, 'View Cart').onTap(
                                       () {
@@ -146,8 +150,8 @@ class _BookDetailsState extends State<BookDetails> {
                               curve: Curves.easeInOut,
                               width: context.read<BookDetailsCubit>().isExist
                                   ? 0
-                                  : 360,
-                              height: 60,
+                                  : context.screenWidth - 40,
+                              height: 58,
                               child: state is AddToCard
                                   ? const Center(
                                       child: CircularProgressIndicator(),

@@ -9,6 +9,11 @@
 6. Statemangment Bloc(Cubit)
 7. Error Handler
 8. CLean Code
+9. Flavors
+10- SOLID Principle
+11- OOP 
+12- Git & GitHub 
+13- Design Patterns
 
 ## Features:
 1. Splash Screen

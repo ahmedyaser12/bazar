@@ -126,7 +126,7 @@ class ApiService {
           headerValue: ApiKey.token,
           dio: locator<Dio>(),
           baseUrl: EndPoints.authBaseUrl);
-      var response = await authApi.get('${EndPoints.get_user}/$id');
+      var response = await authApi.get('${EndPoints.getUser}/$id');
       return Resource(Status.SUCCESS, data: UserModel.fromJson(response));
     } on ServerExceptions catch (exception) {
       return Resource(Status.ERROR,

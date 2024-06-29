@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../core/widget/add_image.dart';
 import '../../../core/widget/text_field.dart';
+import '../../../generated/l10n.dart';
 
 class MyAccountScreen extends StatelessWidget {
   final UserModel userModel;
@@ -22,7 +23,7 @@ class MyAccountScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('My Account',style: TextStyles.font18BlackBold(context),),
+        title: Text(S.of(context).my_account, style: TextStyles.font18BlackBold(context)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -72,28 +73,30 @@ class MyAccountScreen extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     ImagePicker().pickImage(source: ImageSource.gallery).then(
-                        (value) => context
-                            .read<ProfileScreenCubit>() 
+                            (value) => context
+                            .read<ProfileScreenCubit>()
                             .uploadProfilePic(value!));
                   },
-                  child: Text('Change Picture',
+                  child: Text(S.of(context).change_picture,
                       style: TextStyle(color: AppColors.primary)),
                 ),
                 heightSpace(24),
-                FormTextFieldItem(hint: 'entre your Name',
-                  name: 'Name',
+                FormTextFieldItem(
+                  hint: S.of(context).enter_your_name,
+                  name: S.of(context).name,
                   controller: context.read<ProfileScreenCubit>().nameController,
                 ),
                 heightSpace(16),
-                FormTextFieldItem(hint: 'entre your number',
+                FormTextFieldItem(
+                  hint: S.of(context).enter_your_number,
                   keyboardType: TextInputType.phone,
                   lines: 11,
-                  name: 'phone',
+                  name: S.of(context).phone,
                   controller:
-                      context.read<ProfileScreenCubit>().phoneController,
+                  context.read<ProfileScreenCubit>().phoneController,
                 ),
                 heightSpace(32),
-                primaryButton(title: 'Save Changes', borderRadius: 50)
+                primaryButton(title: S.of(context).save_changes, borderRadius: 50)
                     .onTap(() async {
                   await context.read<ProfileScreenCubit>().updateUser();
                   if (context.mounted) {

@@ -16,7 +16,7 @@ class _AllBooksScreenState extends State<AllBooksScreen> {
   void initState() {
     super.initState();
     if (context.read<CategoriesCubit>().allCategoryList.isEmpty) {
-      context.read<CategoriesCubit>().getCategory('all');
+      context.read<CategoriesCubit>().getCategory('action');
     }
   }
 
@@ -57,9 +57,9 @@ class _AllBooksScreenState extends State<AllBooksScreen> {
             return Center(
                 child: BuildBook(
                     categoryList:
-                        allCategoryList[0])); // Corrected to use index
+                        allCategoryList[index+2])); // Changed from index; // Corrected to use index
           },
-          itemCount: allCategoryList.length,
+          itemCount: 8,
         );
       },
     );

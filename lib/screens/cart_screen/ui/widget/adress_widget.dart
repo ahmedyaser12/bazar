@@ -1,11 +1,10 @@
-import 'package:book_shop/config/routs/routs_names.dart';
-import 'package:book_shop/core/utils/extintions.dart';
 import 'package:book_shop/screens/cart_screen/logic/card_screen_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/styles.dart';
+import '../../../../generated/l10n.dart';
 
 class AddressWidget extends StatelessWidget {
   const AddressWidget({
@@ -35,7 +34,7 @@ class AddressWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Address:',
+                      S.of(context).address,
                       style: TextStyles.font18BlackBold(context),
                     ),
                     const SizedBox(height: 8.0),
@@ -59,10 +58,10 @@ class AddressWidget extends StatelessWidget {
                                         .read<CardScreenCubit>()
                                         .addresses![0]
                                         .locality ??
-                                    'No address available',
+                                    S.of(context).no_address_available,
                                 style: TextStyles.font15BlackMedium(context),
                               )
-                            : Text('No address available',
+                            : Text(S.of(context).no_address_available,
                                 style: TextStyles.font15BlackMedium(context)),
                         subtitle: context.read<CardScreenCubit>().addresses !=
                                 null
@@ -84,7 +83,7 @@ class AddressWidget extends StatelessWidget {
             ),
             context.read<CardScreenCubit>().isLocated == false
                 ? Text(
-                    'Please choose Your Location',
+                    S.of(context).please_choose_location,
                     style: TextStyles.font13grey500weight
                         .copyWith(color: AppColors.redColor, fontSize: 11),
                   )

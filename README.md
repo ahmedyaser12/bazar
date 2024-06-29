@@ -56,8 +56,7 @@
 ### Home Page
 <img src="https://github.com/ahmedyaser12/bazar/assets/129339360/41497595-9fbd-4beb-9426-87b3cba024e8" alt="Screenshot 4" width="200">
 <img src="https://github.com/ahmedyaser12/bazar/assets/129339360/a381b2eb-34f0-42d5-afc9-69f1a4e6899a" alt="Screenshot 3" width="200">
-<img src="https://github.com/ahmedyaser12/bazar/assets/129339360/3191a3ff-298f-4d43-a0e8-fd2855d54fd6" alt="Screenshot 2" width="200">
-<img src="https://github.com/ahmedyaser12/bazar/assets/129339360/e59ce7fb-9eb9-4ce1-92eb-b71f6b001561" alt="Screenshot 1" width="200">
+<img src="https://github.com/ahmedyaser12/bazar/assets/129339360/db3858a4-613d-47cf-a3ff-09be5e3b7782" alt="Screenshot 2" width="200">
 
 ### Product Listing Page
 <img src="https://github.com/ahmedyaser12/bazar/assets/129339360/c13f00ae-4374-4f95-b6a1-dc459165f50f" alt="Screenshot 1" width="200">
@@ -117,7 +116,7 @@
 <img src="https://github.com/ahmedyaser12/bazar/assets/129339360/ad01919b-33ef-4dd3-a0c8-65dff869e6ff" alt="Screenshot 12" width="200">
 <img src="https://github.com/ahmedyaser12/bazar/assets/129339360/9714b718-b196-4d6e-989a-f52fccc6d67f" alt="Screenshot 11" width="200">
 <img src="https://github.com/ahmedyaser12/bazar/assets/129339360/40e06838-3d07-47ae-ad01-0410477f2db1" alt="Screenshot 10" width="200">
-<img src="https://github.com/ahmedyaser12/bazar/assets/129339360/a896da9f-57f9-437f-985d-b91453920456" alt="Screenshot 9" width="200">
+<img src="https://github.com/ahmedyaser12/bazar/assets/129339360/59b1a23f-985e-4b18-99a6-5322e33e557c" alt="Screenshot 9" width="200">
 <img src="https://github.com/ahmedyaser12/bazar/assets/129339360/884ca6d1-6459-4b94-87bb-68e3962b875f" alt="Screenshot 8" width="200">
 <img src="https://github.com/ahmedyaser12/bazar/assets/129339360/80a2771c-5d89-43ad-bd30-3da223c83deb" alt="Screenshot 7" width="200">
 <img src="https://github.com/ahmedyaser12/bazar/assets/129339360/72612c7c-a079-4200-986a-c7c00a9dbbc9" alt="Screenshot 6" width="200">
